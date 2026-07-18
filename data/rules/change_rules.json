@@ -1,0 +1,18 @@
+{
+  "version": "2.5",
+  "distance_threshold_km": 100,
+  "short_distance_classification": "100km_or_less",
+  "long_distance_classification": "101km_or_more",
+  "before_use_method": "whole_journey_difference",
+  "after_use_short_method": "origin_recalculation",
+  "after_use_long_method": "cutoff_recalculation",
+  "overtravel_short_method": "origin_recalculation",
+  "overtravel_long_method": "cutoff_recalculation",
+  "allow_before_use_change": true,
+  "allow_after_use_change": true,
+  "allow_direction_change_before_use": false,
+  "notes": [
+    "営業規則値をChangeEngineへ直接固定しないためのVersion 2.5設定",
+    "将来は変更種別・券種・割引制度ごとの正式ルールマスタへ拡張する"
+  ]
+}
