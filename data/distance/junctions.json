@@ -1,0 +1,166 @@
+[
+  {
+    "station_id": "ABASHIRI",
+    "station_name": "網走",
+    "connected_line_ids": [
+      "JRH_SEKIHOKU",
+      "JRH_SENMOU_MAIN"
+    ],
+    "line_count": 2
+  },
+  {
+    "station_id": "ASAHIKAWA",
+    "station_name": "旭川",
+    "connected_line_ids": [
+      "JRH_FURANO",
+      "JRH_HAKODATE_MAIN",
+      "JRH_SOYA_MAIN"
+    ],
+    "line_count": 3
+  },
+  {
+    "station_id": "FURANO",
+    "station_name": "富良野",
+    "connected_line_ids": [
+      "JRH_FURANO",
+      "JRH_NEMURO_MAIN_WEST"
+    ],
+    "line_count": 2
+  },
+  {
+    "station_id": "HIGASHI_KUSHIRO",
+    "station_name": "東釧路",
+    "connected_line_ids": [
+      "JRH_NEMURO_MAIN_EAST",
+      "JRH_SENMOU_MAIN"
+    ],
+    "line_count": 2
+  },
+  {
+    "station_id": "HIGASHI_MURORAN",
+    "station_name": "東室蘭",
+    "connected_line_ids": [
+      "JRH_MURORAN_BRANCH",
+      "JRH_MURORAN_MAIN"
+    ],
+    "line_count": 2
+  },
+  {
+    "station_id": "IWAMIZAWA",
+    "station_name": "岩見沢",
+    "connected_line_ids": [
+      "JRH_HAKODATE_MAIN",
+      "JRH_MURORAN_MAIN"
+    ],
+    "line_count": 2
+  },
+  {
+    "station_id": "MINAMI_CHITOSE",
+    "station_name": "南千歳",
+    "connected_line_ids": [
+      "JRH_CHITOSE",
+      "JRH_CHITOSE_AIRPORT",
+      "JRH_SEKISHO"
+    ],
+    "line_count": 3
+  },
+  {
+    "station_id": "MORI",
+    "station_name": "森",
+    "connected_line_ids": [
+      "JRH_HAKODATE_MAIN",
+      "JRH_HAKODATE_MAIN_SAWARA"
+    ],
+    "line_count": 2
+  },
+  {
+    "station_id": "NUMANOHATA",
+    "station_name": "沼ノ端",
+    "connected_line_ids": [
+      "JRH_CHITOSE",
+      "JRH_MURORAN_MAIN"
+    ],
+    "line_count": 2
+  },
+  {
+    "station_id": "OIWAKE",
+    "station_name": "追分",
+    "connected_line_ids": [
+      "JRH_MURORAN_MAIN",
+      "JRH_SEKISHO"
+    ],
+    "line_count": 2
+  },
+  {
+    "station_id": "ONUMA",
+    "station_name": "大沼",
+    "connected_line_ids": [
+      "JRH_HAKODATE_MAIN",
+      "JRH_HAKODATE_MAIN_SAWARA"
+    ],
+    "line_count": 2
+  },
+  {
+    "station_id": "OSHAMAMBE",
+    "station_name": "長万部",
+    "connected_line_ids": [
+      "JRH_HAKODATE_MAIN",
+      "JRH_MURORAN_MAIN"
+    ],
+    "line_count": 2
+  },
+  {
+    "station_id": "SHINTOKU",
+    "station_name": "新得",
+    "connected_line_ids": [
+      "JRH_NEMURO_MAIN_EAST",
+      "JRH_SEKISHO"
+    ],
+    "line_count": 2
+  },
+  {
+    "station_id": "SHIN_ASAHIKAWA",
+    "station_name": "新旭川",
+    "connected_line_ids": [
+      "JRH_SEKIHOKU",
+      "JRH_SOYA_MAIN"
+    ],
+    "line_count": 2
+  },
+  {
+    "station_id": "SHIROISHI",
+    "station_name": "白石",
+    "connected_line_ids": [
+      "JRH_CHITOSE",
+      "JRH_HAKODATE_MAIN"
+    ],
+    "line_count": 2
+  },
+  {
+    "station_id": "SOEN",
+    "station_name": "桑園",
+    "connected_line_ids": [
+      "JRH_HAKODATE_MAIN",
+      "JRH_SASSHO"
+    ],
+    "line_count": 2
+  },
+  {
+    "station_id": "TAKIKAWA",
+    "station_name": "滝川",
+    "connected_line_ids": [
+      "JRH_HAKODATE_MAIN",
+      "JRH_NEMURO_MAIN_WEST"
+    ],
+    "line_count": 2
+  },
+  {
+    "station_id": "TOMAKOMAI",
+    "station_name": "苫小牧",
+    "connected_line_ids": [
+      "JRH_HIDAKA_MAIN",
+      "JRH_MURORAN_MAIN"
+    ],
+    "line_count": 2
+  }
+]

@@ -1,0 +1,42 @@
+{
+  "ruleset_id": "JRH_ORDINARY_FARE_RULES_2026",
+  "ordinary_ticket_type": "one_way",
+  "round_trip_ticket_sale": false,
+  "continuous_ticket_sale": false,
+  "round_trip_discount": false,
+  "ticket_sales_rule_effective_from": "2026-03-14",
+  "distance_fraction_rule": "1km未満を1kmに切り上げ",
+  "child_fare_rule": "大人運賃の半額。5円の端数を切り捨て",
+  "table_selection": [
+    {
+      "route": "trunk_only",
+      "table": "trunk",
+      "distance": "business_km"
+    },
+    {
+      "route": "local_only",
+      "table": "local",
+      "distance": "business_km"
+    },
+    {
+      "route": "mixed",
+      "condition": "total_business_km<=10",
+      "table": "local",
+      "distance": "business_km"
+    },
+    {
+      "route": "mixed",
+      "condition": "total_business_km>10",
+      "table": "trunk",
+      "distance": "fare_calculation_km"
+    }
+  ],
+  "pending_layers": [
+    "特定区間運賃",
+    "加算普通旅客運賃",
+    "他社線連絡運賃",
+    "割引",
+    "変更",
+    "払戻し"
+  ]
+}

@@ -1,0 +1,125 @@
+[
+  {
+    "discount_id": "CHILD",
+    "name": "小児",
+    "rate": 0.5,
+    "targets": [
+      "ordinary_fare",
+      "limited_express_reserved",
+      "limited_express_unreserved",
+      "ordinary_express",
+      "reserved_seat"
+    ],
+    "distance_condition": null,
+    "rounding": "half_5_yen_fraction_discard",
+    "conditions": "グリーン・グランクラス・寝台・乗車整理券は大人同額。",
+    "source_id": "JRH_RULE_06",
+    "verification_level": "A"
+  },
+  {
+    "discount_id": "STUDENT",
+    "name": "学生割引",
+    "rate": 0.2,
+    "targets": [
+      "ordinary_fare"
+    ],
+    "distance_condition": "business_km>100",
+    "rounding": "discounted_fare_down_to_10",
+    "conditions": "指定学校の学生・生徒、学割証必要。",
+    "source_id": "JRH_RULE_07",
+    "verification_level": "A"
+  },
+  {
+    "discount_id": "DISABILITY_TYPE1_SOLO",
+    "name": "第1種・本人単独",
+    "rate": 0.5,
+    "targets": [
+      "ordinary_fare"
+    ],
+    "distance_condition": "business_km>100",
+    "rounding": "half_5_yen_fraction_discard",
+    "conditions": "手帳等確認。",
+    "source_id": "JRH_RULE_24",
+    "verification_level": "A"
+  },
+  {
+    "discount_id": "DISABILITY_TYPE1_CAREGIVER",
+    "name": "第1種・本人と介護者",
+    "rate": 0.5,
+    "targets": [
+      "ordinary_fare",
+      "ordinary_express"
+    ],
+    "distance_condition": null,
+    "rounding": "half_5_yen_fraction_discard",
+    "conditions": "同一種類・同一区間・同時購入。介護者1名。",
+    "source_id": "JRH_RULE_24",
+    "verification_level": "A"
+  },
+  {
+    "discount_id": "DISABILITY_TYPE2_SOLO",
+    "name": "第2種・本人単独",
+    "rate": 0.5,
+    "targets": [
+      "ordinary_fare"
+    ],
+    "distance_condition": "business_km>100",
+    "rounding": "half_5_yen_fraction_discard",
+    "conditions": "手帳等確認。",
+    "source_id": "JRH_RULE_24",
+    "verification_level": "A"
+  },
+  {
+    "discount_id": "SHAREHOLDER",
+    "name": "株主優待",
+    "rate": null,
+    "targets": [
+      "ordinary_fare",
+      "eligible_charge_components"
+    ],
+    "distance_condition": null,
+    "rounding": "product_defined",
+    "conditions": "優待券種・利用条件・割引率は株主優待制度マスタで適用。",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "B"
+  },
+  {
+    "discount_id": "ADULT_HOLIDAY_CLUB",
+    "name": "大人の休日倶楽部",
+    "rate": null,
+    "targets": [
+      "product_defined"
+    ],
+    "distance_condition": "product_defined",
+    "rounding": "product_defined",
+    "conditions": "会員資格・期間・対象列車を商品マスタから判定。",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  },
+  {
+    "discount_id": "ZIPANG_CLUB",
+    "name": "ジパング倶楽部",
+    "rate": null,
+    "targets": [
+      "product_defined"
+    ],
+    "distance_condition": "product_defined",
+    "rounding": "product_defined",
+    "conditions": "会員資格・利用回数・除外期間を商品マスタから判定。",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  },
+  {
+    "discount_id": "EMPLOYEE_PURCHASE_TICKET",
+    "name": "社員・家族購入券",
+    "rate": null,
+    "targets": [
+      "confidential_config"
+    ],
+    "distance_condition": "confidential_config",
+    "rounding": "confidential_config",
+    "conditions": "年度40枚。割引率・対象範囲・本人家族別条件は社内資料から設定し、公開マスタに推測値を置かない。",
+    "source_id": "INTERNAL_TRAINING",
+    "verification_level": "B"
+  }
+]

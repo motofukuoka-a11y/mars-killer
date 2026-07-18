@@ -1,0 +1,60 @@
+[
+  {
+    "rule_id": "REFUND_BASIC",
+    "ticket_types": [
+      "ordinary_ticket",
+      "ordinary_express",
+      "unreserved_limited_express",
+      "specific_limited_express",
+      "unreserved_green"
+    ],
+    "timing": "before_use_within_validity",
+    "mode": "fixed",
+    "value": 220,
+    "minimum": null,
+    "source_id": "JRH_RULE_19",
+    "verification_level": "A"
+  },
+  {
+    "rule_id": "REFUND_RESERVED_EARLY",
+    "ticket_types": [
+      "reserved_limited_express",
+      "reserved_green",
+      "sleeper",
+      "reserved_seat"
+    ],
+    "timing": "until_2_days_before_departure",
+    "mode": "fixed",
+    "value": 340,
+    "minimum": null,
+    "source_id": "JRH_RULE_19",
+    "verification_level": "A"
+  },
+  {
+    "rule_id": "REFUND_RESERVED_LATE",
+    "ticket_types": [
+      "reserved_limited_express",
+      "reserved_green",
+      "sleeper",
+      "reserved_seat"
+    ],
+    "timing": "day_before_to_departure",
+    "mode": "rate",
+    "value": 0.3,
+    "minimum": 340,
+    "source_id": "JRH_RULE_19",
+    "verification_level": "A"
+  },
+  {
+    "rule_id": "REFUND_UNASSIGNED",
+    "ticket_types": [
+      "unassigned_seat_limited_express"
+    ],
+    "timing": "before_use_until_travel_date",
+    "mode": "fixed",
+    "value": 340,
+    "minimum": null,
+    "source_id": "JRH_RULE_19",
+    "verification_level": "A"
+  }
+]

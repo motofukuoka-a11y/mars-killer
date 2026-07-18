@@ -1,0 +1,8 @@
+[
+  {"case":"札幌→新千歳空港 大人普通","expected_yen":1230,"actual_yen":1230,"result":"PASS"},
+  {"case":"札幌→新千歳空港 小児普通","expected_yen":610,"actual_yen":610,"result":"PASS"},
+  {"case":"札幌→新千歳空港 大人uシート","expected_yen":2230,"actual_yen":2230,"result":"PASS"},
+  {"case":"札幌→新千歳空港 小児uシート","expected_yen":1110,"actual_yen":1110,"result":"PASS"},
+  {"case":"Service Workerキャッシュ対象","expected":"26 files","actual":"26 files","result":"PASS"},
+  {"case":"PWA表示モード","expected":"standalone","actual":"standalone","result":"PASS"}
+]

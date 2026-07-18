@@ -1,0 +1,30 @@
+{
+  "summary": {
+    "schema_version": "1.0.0",
+    "dataset_version": "1.0.0",
+    "as_of": "2026-07",
+    "generated_on": "2026-07-18",
+    "counts": {
+      "lines": 15,
+      "sections": 20,
+      "stations": 309,
+      "segments": 314,
+      "junctions": 18,
+      "station_distance_rows": 334
+    },
+    "verification": {
+      "level_A_segments": 314,
+      "level_B_segments": 0,
+      "formal_release_ready": true,
+      "reason": "全314区間の一次資料区間照合が完了"
+    },
+    "validation": {
+      "passed": true,
+      "error_count": 0,
+      "warning_count": 0,
+      "connected_component_count": 1
+    },
+    "verification_progress": 100.0
+  },
+  "issues": []
+}

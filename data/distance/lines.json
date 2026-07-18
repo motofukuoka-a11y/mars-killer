@@ -1,0 +1,232 @@
+[
+  {
+    "line_id": "JRH_CHITOSE",
+    "line_name": "千歳線",
+    "operator_id": "JRH",
+    "operator_name": "北海道旅客鉄道",
+    "line_category": "幹線",
+    "section_ids": [
+      "CHITOSE_MAIN_NUMANOHATA_SHIROISHI"
+    ],
+    "status": "active",
+    "as_of": "2026-07",
+    "source_packages": [
+      "jr_hokkaido_chitose_line_complete_v1_0"
+    ]
+  },
+  {
+    "line_id": "JRH_CHITOSE_AIRPORT",
+    "line_name": "千歳線",
+    "operator_id": "JRH",
+    "operator_name": "北海道旅客鉄道",
+    "line_category": "幹線",
+    "section_ids": [
+      "CHITOSE_AIRPORT_MINAMI_CHITOSE_NEW_CHITOSE"
+    ],
+    "status": "active",
+    "as_of": "2026-07",
+    "source_packages": [
+      "jr_hokkaido_chitose_line_complete_v1_0"
+    ]
+  },
+  {
+    "line_id": "JRH_FURANO",
+    "line_name": "富良野線",
+    "operator_id": "JRH",
+    "operator_name": "北海道旅客鉄道",
+    "line_category": "地方交通線",
+    "section_ids": [
+      "FURANO_ASAHIKAWA_FURANO"
+    ],
+    "status": "active",
+    "as_of": "2026-07",
+    "source_packages": [
+      "jr_hokkaido_furano_line_verified_candidate_v0_1"
+    ]
+  },
+  {
+    "line_id": "JRH_HAKODATE_MAIN",
+    "line_name": "函館本線",
+    "operator_id": "JRH",
+    "operator_name": "北海道旅客鉄道",
+    "line_category": "幹線",
+    "section_ids": [
+      "HAKODATE_MAIN_HAKODATE_OSHAMAMBE",
+      "HAKODATE_MAIN_OSHAMAMBE_OTARU",
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "status": "active",
+    "as_of": "2026-07",
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ]
+  },
+  {
+    "line_id": "JRH_HAKODATE_MAIN_SAWARA",
+    "line_name": "函館本線",
+    "operator_id": "JRH",
+    "operator_name": "北海道旅客鉄道",
+    "line_category": "幹線",
+    "section_ids": [
+      "HAKODATE_MAIN_SAWARA_ONUMA_MORI"
+    ],
+    "status": "active",
+    "as_of": "2026-07",
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ]
+  },
+  {
+    "line_id": "JRH_HIDAKA_MAIN",
+    "line_name": "日高本線",
+    "operator_id": "JRH",
+    "operator_name": "北海道旅客鉄道",
+    "line_category": "地方交通線",
+    "section_ids": [
+      "HIDAKA_TOMAKOMAI_MUKAWA"
+    ],
+    "status": "active",
+    "as_of": "2026-07",
+    "source_packages": [
+      "jr_hokkaido_hidaka_main_verified_candidate_v0_1"
+    ]
+  },
+  {
+    "line_id": "JRH_MURORAN_BRANCH",
+    "line_name": "室蘭本線",
+    "operator_id": "JRH",
+    "operator_name": "北海道旅客鉄道",
+    "line_category": "幹線",
+    "section_ids": [
+      "MURORAN_BRANCH_HIGASHI_MURORAN_MURORAN"
+    ],
+    "status": "active",
+    "as_of": "2026-07",
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ]
+  },
+  {
+    "line_id": "JRH_MURORAN_MAIN",
+    "line_name": "室蘭本線",
+    "operator_id": "JRH",
+    "operator_name": "北海道旅客鉄道",
+    "line_category": "幹線",
+    "section_ids": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "status": "active",
+    "as_of": "2026-07",
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ]
+  },
+  {
+    "line_id": "JRH_NEMURO_MAIN_EAST",
+    "line_name": "根室本線",
+    "operator_id": "JRH",
+    "operator_name": "北海道旅客鉄道",
+    "line_category": "幹線",
+    "section_ids": [
+      "NEMURO_MAIN_HANASAKI_KUSHIRO_NEMURO",
+      "NEMURO_MAIN_IKEDA_KUSHIRO",
+      "NEMURO_MAIN_OBIHIRO_IKEDA",
+      "NEMURO_MAIN_SHINTOKU_OBIHIRO"
+    ],
+    "status": "active",
+    "as_of": "2026-07",
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ]
+  },
+  {
+    "line_id": "JRH_NEMURO_MAIN_WEST",
+    "line_name": "根室本線",
+    "operator_id": "JRH",
+    "operator_name": "北海道旅客鉄道",
+    "line_category": "幹線",
+    "section_ids": [
+      "NEMURO_MAIN_TAKIKAWA_FURANO"
+    ],
+    "status": "active",
+    "as_of": "2026-07",
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ]
+  },
+  {
+    "line_id": "JRH_SASSHO",
+    "line_name": "札沼線",
+    "operator_id": "JRH",
+    "operator_name": "北海道旅客鉄道",
+    "line_category": "地方交通線",
+    "section_ids": [
+      "SOEN_HOKKAIDO_IRYO_DAIGAKU"
+    ],
+    "status": "active",
+    "as_of": "2026-07",
+    "source_packages": [
+      "jr_hokkaido_sassho_line_verified_candidate_v0_1"
+    ]
+  },
+  {
+    "line_id": "JRH_SEKIHOKU",
+    "line_name": "石北本線",
+    "operator_id": "JRH",
+    "operator_name": "北海道旅客鉄道",
+    "line_category": "地方交通線",
+    "section_ids": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "status": "active",
+    "as_of": "2026-07",
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ]
+  },
+  {
+    "line_id": "JRH_SEKISHO",
+    "line_name": "石勝線",
+    "operator_id": "JRH",
+    "operator_name": "北海道旅客鉄道",
+    "line_category": "幹線",
+    "section_ids": [
+      "SEKISHO_MAIN_MINAMI_CHITOSE_SHINTOKU"
+    ],
+    "status": "active",
+    "as_of": "2026-07",
+    "source_packages": [
+      "jr_hokkaido_sekisho_line_complete_v1_0"
+    ]
+  },
+  {
+    "line_id": "JRH_SENMOU_MAIN",
+    "line_name": "釧網本線",
+    "operator_id": "JRH",
+    "operator_name": "北海道旅客鉄道",
+    "line_category": "地方交通線",
+    "section_ids": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "status": "active",
+    "as_of": "2026-07",
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ]
+  },
+  {
+    "line_id": "JRH_SOYA_MAIN",
+    "line_name": "宗谷本線",
+    "operator_id": "JRH",
+    "operator_name": "北海道旅客鉄道",
+    "line_category": "地方交通線",
+    "section_ids": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "status": "active",
+    "as_of": "2026-07",
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ]
+  }
+]

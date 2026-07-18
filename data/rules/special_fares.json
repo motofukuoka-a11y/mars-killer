@@ -1,0 +1,16 @@
+[
+  {
+    "special_rule_id": "JRH_AIRPORT_ADDITIONAL_FARE",
+    "name": "南千歳・新千歳空港間 加算普通旅客運賃",
+    "trigger_segment": {
+      "station_a": "MINAMI_CHITOSE",
+      "station_b": "NEW_CHITOSE_AIRPORT"
+    },
+    "adult_yen": 20,
+    "child_yen": 10,
+    "effective_from": "2019-10-01",
+    "effective_to": null,
+    "source_url": "https://www.jrhokkaido.co.jp/network/guide/pdf/yakkan_02_03.pdf",
+    "verification_level": "A"
+  }
+]

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#075b91">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="MARS KILLER">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+  <title>MARS KILLER｜運賃・料金・払戻計算支援</title>
+</head>
+<body>
+<main class="shell">
+  <header class="app-header">
+    <div class="brand-row">
+      <div class="brand">
+        <div class="logo">MK</div>
+        <div>
+          <h1>MARS KILLER</h1>
+          <p class="subtitle">運賃・料金・払戻計算支援</p>
+        </div>
+      </div>
+      <label class="theme-control" aria-label="表示設定">
+        <span>表示</span>
+        <select id="theme">
+          <option value="system">端末</option>
+          <option value="light">ライト</option>
+          <option value="dark">ダーク</option>
+        </select>
+      </label>
+    </div>
+    <p id="status" class="status">起動中…</p>
+  </header>
+
+  <section class="card input-card">
+    <label>計算内容
+      <select id="operation">
+        <option value="sale">発売額</option>
+        <option value="refund">払戻額</option>
+      </select>
+    </label>
+
+    <div class="grid">
+      <div class="station-field">
+        <label>発駅
+          <input id="start" value="札幌" autocomplete="off" inputmode="search" aria-autocomplete="list">
+        </label>
+        <div id="startCandidates" class="candidates" hidden></div>
+      </div>
+      <button id="swap" class="swap" aria-label="発着入替">⇄</button>
+      <div class="station-field">
+        <label>着駅
+          <input id="goal" value="新千歳空港" autocomplete="off" inputmode="search" aria-autocomplete="list">
+        </label>
+        <div id="goalCandidates" class="candidates" hidden></div>
+      </div>
+    </div>
+    <p class="input-help">ひらがな1文字から候補表示</p>
+
+    <label>経由駅（任意）
+      <input id="via" placeholder="複数はカンマ区切り">
+    </label>
+
+    <div class="two">
+      <label>旅客
+        <select id="passenger"><option value="adult">大人</option><option value="child">小児</option></select>
+      </label>
+      <label>乗車日
+        <input id="date" type="date" value="2026-07-18">
+      </label>
+    </div>
+
+    <label>料金券
+      <select id="charge">
+        <option value="">なし</option>
+        <option value="JRH_HOKKAIDO_SPECIAL_RESERVED">在来線特急指定席（道内特例）</option>
+        <option value="JRH_A_EXPRESS_RESERVED">A特急指定席</option>
+        <option value="JRH_A_EXPRESS_UNRESERVED">A特急自由席</option>
+        <option value="JRH_ORDINARY_EXPRESS">急行料金</option>
+        <option value="JRH_GREEN_EXPRESS">グリーン料金</option>
+      </select>
+    </label>
+
+    <label>列車別料金
+      <select id="product">
+        <option value="">なし</option>
+        <option value="AIRPORT_U_SEAT_PAPER">快速エアポート uシート</option>
+        <option value="AIRPORT_U_SEAT_TICKETLESS">快速エアポート uシート チケットレス</option>
+        <option value="AIRPORT_U_SEAT_300">uシート300円限定商品</option>
+        <option value="SL_FUYU_SHITSUGEN">SL冬の湿原号</option>
+        <option value="HOME_LINER_PAPER">ホームライナー</option>
+      </select>
+    </label>
+
+    <label>割引（1名分）
+      <select id="discount">
+        <option value="">なし</option>
+        <option value="STUDENT">学生割引</option>
+        <option value="DISABILITY_TYPE1_SOLO">第1種・本人単独</option>
+        <option value="DISABILITY_TYPE1_CAREGIVER">第1種・本人または介護者1名分</option>
+        <option value="DISABILITY_TYPE2_SOLO">第2種・本人単独</option>
+      </select>
+    </label>
+
+    <div id="refundOptions" hidden>
+      <label>払戻条件
+        <select id="refundRule">
+          <option value="REFUND_BASIC">普通乗車券・自由席特急券等（220円）</option>
+          <option value="REFUND_RESERVED_EARLY">指定券：出発日の2日前まで（340円）</option>
+          <option value="REFUND_RESERVED_LATE">指定券：前日から出発時刻まで（30％・最低340円）</option>
+          <option value="REFUND_UNASSIGNED">座席未指定券：旅行日まで（340円）</option>
+        </select>
+      </label>
+    </div>
+
+    <button id="calc" class="primary" disabled>計算する</button>
+  </section>
+
+  <section id="result" class="card" hidden></section>
+  <p class="foot">非公式の計算支援ツールです。最終取扱いは規程・端末で確認してください。</p>
+</main>
+<script type="module" src="./app.js"></script>
+</body>
+</html>

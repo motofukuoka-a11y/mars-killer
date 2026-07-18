@@ -1,0 +1,5757 @@
+[
+  {
+    "station_id": "AINOSATO_KOEN",
+    "station_name": "あいの里公園",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOEN_HOKKAIDO_IRYO_DAIGAKU"
+    ],
+    "source_station_ids": [
+      "AINOSATO_KOEN"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sassho_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "あいのさとこえん"
+  },
+  {
+    "station_id": "AINOSATO_KYOIKUDAI",
+    "station_name": "あいの里教育大",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOEN_HOKKAIDO_IRYO_DAIGAKU"
+    ],
+    "source_station_ids": [
+      "AINOSATO_KYOIKUDAI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sassho_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "あいのさときょいくだい"
+  },
+  {
+    "station_id": "HOSHIMI",
+    "station_name": "ほしみ",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "HOSHIMI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ほしみ"
+  },
+  {
+    "station_id": "SAPPORO_BEER_TEIEN",
+    "station_name": "サッポロビール庭園",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "CHITOSE_MAIN_NUMANOHATA_SHIROISHI"
+    ],
+    "source_station_ids": [
+      "SAPPORO_BEER_TEIEN"
+    ],
+    "source_packages": [
+      "jr_hokkaido_chitose_line_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "さっぽろべえていえん"
+  },
+  {
+    "station_id": "TOMAMU",
+    "station_name": "トマム",
+    "station_codes": [
+      "K22"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKISHO_MAIN_MINAMI_CHITOSE_SHINTOKU"
+    ],
+    "source_station_ids": [
+      "TOMAMU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekisho_line_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "とまむ"
+  },
+  {
+    "station_id": "NISEKO",
+    "station_name": "ニセコ",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OSHAMAMBE_OTARU"
+    ],
+    "source_station_ids": [
+      "NISEKO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "にせこ"
+  },
+  {
+    "station_id": "ROYS_TOWN",
+    "station_name": "ロイズタウン",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOEN_HOKKAIDO_IRYO_DAIGAKU"
+    ],
+    "source_station_ids": [
+      "ROYS_TOWN"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sassho_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ろいずたうん"
+  },
+  {
+    "station_id": "NANAE",
+    "station_name": "七飯",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_HAKODATE_OSHAMAMBE"
+    ],
+    "source_station_ids": [
+      "NANAE"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ななえ"
+  },
+  {
+    "station_id": "MIKAWA",
+    "station_name": "三川",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "MIKAWA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "みかわ"
+  },
+  {
+    "station_id": "KAMIFURANO",
+    "station_name": "上富良野",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "FURANO_ASAHIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "KAMIFURANO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_furano_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "かみふらの"
+  },
+  {
+    "station_id": "KAMI_OBORO",
+    "station_name": "上尾幌",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_HANASAKI_KUSHIRO_NEMURO"
+    ],
+    "source_station_ids": [
+      "KAMI_OBORO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "かみおぼろ"
+  },
+  {
+    "station_id": "KAMIKAWA",
+    "station_name": "上川",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "KAMIKAWA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "かみかわ"
+  },
+  {
+    "station_id": "KAMI_HOROMUI",
+    "station_name": "上幌向",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "KAMI_HOROMUI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "かみほろむい"
+  },
+  {
+    "station_id": "KAMI_ASHIBETSU",
+    "station_name": "上芦別",
+    "station_codes": [
+      "T27"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_TAKIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "KAMI_ASHIBETSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "かみあしべつ"
+  },
+  {
+    "station_id": "KAMINOPPORO",
+    "station_name": "上野幌",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "CHITOSE_MAIN_NUMANOHATA_SHIROISHI"
+    ],
+    "source_station_ids": [
+      "KAMINOPPORO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_chitose_line_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "かみのっぽろ"
+  },
+  {
+    "station_id": "W73",
+    "station_name": "下沼",
+    "station_codes": [
+      "W73"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W73"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しもぬま"
+  },
+  {
+    "station_id": "NAKAFURANO",
+    "station_name": "中富良野",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "FURANO_ASAHIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "NAKAFURANO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_furano_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "なかふらの"
+  },
+  {
+    "station_id": "NAKA_AIBETSU",
+    "station_name": "中愛別",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "NAKA_AIBETSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "なかあいべつ"
+  },
+  {
+    "station_id": "NAKA_SHARI",
+    "station_name": "中斜里",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "NAKA_SHARI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "なかしゃり"
+  },
+  {
+    "station_id": "MARUSEPPU",
+    "station_name": "丸瀬布",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "MARUSEPPU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "まるせっぷ"
+  },
+  {
+    "station_id": "GORYOKAKU",
+    "station_name": "五稜郭",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_HAKODATE_OSHAMAMBE"
+    ],
+    "source_station_ids": [
+      "GORYOKAKU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ごりょかく"
+  },
+  {
+    "station_id": "NIKI",
+    "station_name": "仁木",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OSHAMAMBE_OTARU"
+    ],
+    "source_station_ids": [
+      "NIKI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "にき"
+  },
+  {
+    "station_id": "DATE_MOMBETSU",
+    "station_name": "伊達紋別",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "DATE_MOMBETSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "だてもべつ"
+  },
+  {
+    "station_id": "IKAUSHI",
+    "station_name": "伊香牛",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "IKAUSHI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "いかうし"
+  },
+  {
+    "station_id": "W63",
+    "station_name": "佐久",
+    "station_codes": [
+      "W63"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W63"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "さく"
+  },
+  {
+    "station_id": "YOICHI",
+    "station_name": "余市",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OSHAMAMBE_OTARU"
+    ],
+    "source_station_ids": [
+      "YOICHI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "よいち"
+  },
+  {
+    "station_id": "KUTCHAN",
+    "station_name": "倶知安",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OSHAMAMBE_OTARU"
+    ],
+    "source_station_ids": [
+      "KUTCHAN"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "くちゃん"
+  },
+  {
+    "station_id": "KOSYUNAI",
+    "station_name": "光珠内",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "KOSYUNAI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "こゆない"
+  },
+  {
+    "station_id": "W76",
+    "station_name": "兜沼",
+    "station_codes": [
+      "W76"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W76"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "かぶとぬま"
+  },
+  {
+    "station_id": "HACHIKEN",
+    "station_name": "八軒",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOEN_HOKKAIDO_IRYO_DAIGAKU"
+    ],
+    "source_station_ids": [
+      "HACHIKEN"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sassho_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "はちけん"
+  },
+  {
+    "station_id": "YAKUMO",
+    "station_name": "八雲",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_HAKODATE_OSHAMAMBE"
+    ],
+    "source_station_ids": [
+      "YAKUMO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "やくも"
+  },
+  {
+    "station_id": "HAKODATE",
+    "station_name": "函館",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_HAKODATE_OSHAMAMBE"
+    ],
+    "source_station_ids": [
+      "HAKODATE"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "はこだて"
+  },
+  {
+    "station_id": "BEPPO",
+    "station_name": "別保",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_HANASAKI_KUSHIRO_NEMURO"
+    ],
+    "source_station_ids": [
+      "BEPPO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "べっぽ"
+  },
+  {
+    "station_id": "BETTOGA",
+    "station_name": "別当賀",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_HANASAKI_KUSHIRO_NEMURO"
+    ],
+    "source_station_ids": [
+      "BETTOGA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "べっとが"
+  },
+  {
+    "station_id": "TOSHIBETSU",
+    "station_name": "利別",
+    "station_codes": [
+      "K35"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_OBIHIRO_IKEDA"
+    ],
+    "source_station_ids": [
+      "TOSHIBETSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "としべつ"
+  },
+  {
+    "station_id": "W40",
+    "station_name": "剣淵",
+    "station_codes": [
+      "W40"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W40"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "けんぶち"
+  },
+  {
+    "station_id": "YUFUTSU",
+    "station_name": "勇払",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HIDAKA_TOMAKOMAI_MUKAWA"
+    ],
+    "source_station_ids": [
+      "YUFUTSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hidaka_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ゆふつ"
+  },
+  {
+    "station_id": "W77",
+    "station_name": "勇知",
+    "station_codes": [
+      "W77"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W77"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ゆうち"
+  },
+  {
+    "station_id": "KITA_YOSHIHARA",
+    "station_name": "北吉原",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "KITA_YOSHIHARA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "きたよしはら"
+  },
+  {
+    "station_id": "KITAHIROSHIMA",
+    "station_name": "北広島",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "CHITOSE_MAIN_NUMANOHATA_SHIROISHI"
+    ],
+    "source_station_ids": [
+      "KITAHIROSHIMA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_chitose_line_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "きたひろしま"
+  },
+  {
+    "station_id": "W32",
+    "station_name": "北永山",
+    "station_codes": [
+      "W32"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W32"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "きたながやま"
+  },
+  {
+    "station_id": "KITAHAMA",
+    "station_name": "北浜",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "KITAHAMA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "きたはま"
+  },
+  {
+    "station_id": "HOKKAIDO_IRYO_DAIGAKU",
+    "station_name": "北海道医療大学",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOEN_HOKKAIDO_IRYO_DAIGAKU"
+    ],
+    "source_station_ids": [
+      "HOKKAIDO_IRYO_DAIGAKU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sassho_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ほっかいどいりょだいがく"
+  },
+  {
+    "station_id": "KITABIEI",
+    "station_name": "北美瑛",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "FURANO_ASAHIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "KITABIEI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_furano_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "きたびえい"
+  },
+  {
+    "station_id": "KITA_FUNAKO",
+    "station_name": "北舟岡",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "KITA_FUNAKO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "きたふなこ"
+  },
+  {
+    "station_id": "KITAMI",
+    "station_name": "北見",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "KITAMI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "きたみ"
+  },
+  {
+    "station_id": "TOKACHI_SHIMIZU",
+    "station_name": "十勝清水",
+    "station_codes": [
+      "K24"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_SHINTOKU_OBIHIRO"
+    ],
+    "source_station_ids": [
+      "TOKACHI_SHIMIZU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "とかちしみず"
+  },
+  {
+    "station_id": "TOFUTSU",
+    "station_name": "十弗",
+    "station_codes": [
+      "K37"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_IKEDA_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "TOFUTSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "とふつ"
+  },
+  {
+    "station_id": "CHIYOGAOKA",
+    "station_name": "千代ヶ岡",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "FURANO_ASAHIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "CHIYOGAOKA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_furano_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ちよがおか"
+  },
+  {
+    "station_id": "CHITOSE",
+    "station_name": "千歳",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "CHITOSE_MAIN_NUMANOHATA_SHIROISHI"
+    ],
+    "source_station_ids": [
+      "CHITOSE"
+    ],
+    "source_packages": [
+      "jr_hokkaido_chitose_line_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ちとせ"
+  },
+  {
+    "station_id": "MINAMI_CHITOSE",
+    "station_name": "南千歳",
+    "station_codes": [
+      "H14"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "CHITOSE_AIRPORT_MINAMI_CHITOSE_NEW_CHITOSE",
+      "CHITOSE_MAIN_NUMANOHATA_SHIROISHI",
+      "SEKISHO_MAIN_MINAMI_CHITOSE_SHINTOKU"
+    ],
+    "source_station_ids": [
+      "MINAMI_CHITOSE"
+    ],
+    "source_packages": [
+      "jr_hokkaido_chitose_line_complete_v1_0",
+      "jr_hokkaido_sekisho_line_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "みなみちとせ"
+  },
+  {
+    "station_id": "MINAMI_OTARU",
+    "station_name": "南小樽",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "MINAMI_OTARU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "みなみおたる"
+  },
+  {
+    "station_id": "MINAMI_NAGAYAMA",
+    "station_name": "南永山",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "MINAMI_NAGAYAMA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "みなみながやま"
+  },
+  {
+    "station_id": "W79",
+    "station_name": "南稚内",
+    "station_codes": [
+      "W79"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W79"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "みなみわっかない"
+  },
+  {
+    "station_id": "SHIMUKAPPU",
+    "station_name": "占冠",
+    "station_codes": [
+      "K21"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKISHO_MAIN_MINAMI_CHITOSE_SHINTOKU"
+    ],
+    "source_station_ids": [
+      "SHIMUKAPPU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekisho_line_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しむかっぷ"
+  },
+  {
+    "station_id": "ATSUNAI",
+    "station_name": "厚内",
+    "station_codes": [
+      "K42"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_IKEDA_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "ATSUNAI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "あつない"
+  },
+  {
+    "station_id": "ATSUBETSU",
+    "station_name": "厚別",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "ATSUBETSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "あつべつ"
+  },
+  {
+    "station_id": "AKKESHI",
+    "station_name": "厚岸",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_HANASAKI_KUSHIRO_NEMURO"
+    ],
+    "source_station_ids": [
+      "AKKESHI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "あっけし"
+  },
+  {
+    "station_id": "ATTOKO",
+    "station_name": "厚床",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_HANASAKI_KUSHIRO_NEMURO"
+    ],
+    "source_station_ids": [
+      "ATTOKO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "あっとこ"
+  },
+  {
+    "station_id": "GENSEN_KAEN",
+    "station_name": "原生花園",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "seasonal",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "GENSEN_KAEN"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "げんせんかえん"
+  },
+  {
+    "station_id": "FURUSAN",
+    "station_name": "古山",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "FURUSAN"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ふるさん"
+  },
+  {
+    "station_id": "W48",
+    "station_name": "名寄",
+    "station_codes": [
+      "W48"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W48"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "なよろ"
+  },
+  {
+    "station_id": "W47",
+    "station_name": "名寄高校",
+    "station_codes": [
+      "W47"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W47"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "なよろこうこう"
+  },
+  {
+    "station_id": "YOBITO",
+    "station_name": "呼人",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "YOBITO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "よびと"
+  },
+  {
+    "station_id": "W38",
+    "station_name": "和寒",
+    "station_codes": [
+      "W38"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W38"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "わっさむ"
+  },
+  {
+    "station_id": "W60",
+    "station_name": "咲来",
+    "station_codes": [
+      "W60"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W60"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "さっくる"
+  },
+  {
+    "station_id": "W66",
+    "station_name": "問寒別",
+    "station_codes": [
+      "W66"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W66"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "といかんべつ"
+  },
+  {
+    "station_id": "KUNNUI",
+    "station_name": "国縫",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_HAKODATE_OSHAMAMBE"
+    ],
+    "source_station_ids": [
+      "KUNNUI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "くんぬい"
+  },
+  {
+    "station_id": "TORO",
+    "station_name": "塘路",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "TORO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "とろ"
+  },
+  {
+    "station_id": "W37",
+    "station_name": "塩狩",
+    "station_codes": [
+      "W37"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W37"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しおかり"
+  },
+  {
+    "station_id": "SHIOYA",
+    "station_name": "塩谷",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OSHAMAMBE_OTARU"
+    ],
+    "source_station_ids": [
+      "SHIOYA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しおや"
+  },
+  {
+    "station_id": "W42",
+    "station_name": "士別",
+    "station_codes": [
+      "W42"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W42"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しべつ"
+  },
+  {
+    "station_id": "W44",
+    "station_name": "多寄",
+    "station_codes": [
+      "W44"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W44"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "たよろ"
+  },
+  {
+    "station_id": "ONAKAYAMA",
+    "station_name": "大中山",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_HAKODATE_OSHAMAMBE"
+    ],
+    "source_station_ids": [
+      "ONAKAYAMA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おなかやま"
+  },
+  {
+    "station_id": "OKISHI",
+    "station_name": "大岸",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "OKISHI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おきし"
+  },
+  {
+    "station_id": "TAISEI",
+    "station_name": "大成",
+    "station_codes": [
+      "K28"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_SHINTOKU_OBIHIRO"
+    ],
+    "source_station_ids": [
+      "TAISEI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "たいせい"
+  },
+  {
+    "station_id": "OTANOSHIKE",
+    "station_name": "大楽毛",
+    "station_codes": [
+      "K50"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_IKEDA_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "OTANOSHIKE"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おたのしけ"
+  },
+  {
+    "station_id": "ONUMA",
+    "station_name": "大沼",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_HAKODATE_OSHAMAMBE",
+      "HAKODATE_MAIN_SAWARA_ONUMA_MORI"
+    ],
+    "source_station_ids": [
+      "ONUMA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おぬま"
+  },
+  {
+    "station_id": "ONUMA_KOEN",
+    "station_name": "大沼公園",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_HAKODATE_OSHAMAMBE"
+    ],
+    "source_station_ids": [
+      "ONUMA_KOEN"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おぬまこえん"
+  },
+  {
+    "station_id": "OASA",
+    "station_name": "大麻",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "OASA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おあさ"
+  },
+  {
+    "station_id": "W64",
+    "station_name": "天塩中川",
+    "station_codes": [
+      "W64"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W64"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "てしおなかがわ"
+  },
+  {
+    "station_id": "W59",
+    "station_name": "天塩川温泉",
+    "station_codes": [
+      "W59"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W59"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "てしおがわおんせん"
+  },
+  {
+    "station_id": "TAIHEI",
+    "station_name": "太平",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOEN_HOKKAIDO_IRYO_DAIGAKU"
+    ],
+    "source_station_ids": [
+      "TAIHEI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sassho_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "たいへい"
+  },
+  {
+    "station_id": "FUTOMI",
+    "station_name": "太美",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOEN_HOKKAIDO_IRYO_DAIGAKU"
+    ],
+    "source_station_ids": [
+      "FUTOMI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sassho_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ふとみ"
+  },
+  {
+    "station_id": "NAIE",
+    "station_name": "奈井江",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "NAIE"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ないえ"
+  },
+  {
+    "station_id": "MEMAMBETSU",
+    "station_name": "女満別",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "MEMAMBETSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "めまべつ"
+  },
+  {
+    "station_id": "MOSEUSHI",
+    "station_name": "妹背牛",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "MOSEUSHI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "もせうし"
+  },
+  {
+    "station_id": "ANEBETSU",
+    "station_name": "姉別",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_HANASAKI_KUSHIRO_NEMURO"
+    ],
+    "source_station_ids": [
+      "ANEBETSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "あねべつ"
+  },
+  {
+    "station_id": "GAKUDEN",
+    "station_name": "学田",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "FURANO_ASAHIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "GAKUDEN"
+    ],
+    "source_packages": [
+      "jr_hokkaido_furano_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "がくでん"
+  },
+  {
+    "station_id": "YASUKUNI",
+    "station_name": "安国",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "YASUKUNI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "やすくに"
+  },
+  {
+    "station_id": "ABIRA",
+    "station_name": "安平",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "ABIRA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "あびら"
+  },
+  {
+    "station_id": "ANTAROMA",
+    "station_name": "安足間",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "ANTAROMA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "あんたろま"
+  },
+  {
+    "station_id": "MURORAN",
+    "station_name": "室蘭",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_BRANCH_HIGASHI_MURORAN_MURORAN"
+    ],
+    "source_station_ids": [
+      "MURORAN"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "むろらん"
+  },
+  {
+    "station_id": "TOMIURA",
+    "station_name": "富浦",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "TOMIURA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "とみうら"
+  },
+  {
+    "station_id": "FURANO",
+    "station_name": "富良野",
+    "station_codes": [
+      "T30"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "FURANO_ASAHIKAWA_FURANO",
+      "NEMURO_MAIN_TAKIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "FURANO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_furano_line_verified_candidate_v0_1",
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ふらの"
+  },
+  {
+    "station_id": "KOBORO",
+    "station_name": "小幌",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "KOBORO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "こぼろ"
+  },
+  {
+    "station_id": "OTARU",
+    "station_name": "小樽",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OSHAMAMBE_OTARU",
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "OTARU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おたる"
+  },
+  {
+    "station_id": "OTARU_CHIKKO",
+    "station_name": "小樽築港",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "OTARU_CHIKKO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おたるちっこ"
+  },
+  {
+    "station_id": "KOZAWA",
+    "station_name": "小沢",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OSHAMAMBE_OTARU"
+    ],
+    "source_station_ids": [
+      "KOZAWA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "こざわ"
+  },
+  {
+    "station_id": "OBORO",
+    "station_name": "尾幌",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_HANASAKI_KUSHIRO_NEMURO"
+    ],
+    "source_station_ids": [
+      "OBORO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おぼろ"
+  },
+  {
+    "station_id": "OSHIRONAI",
+    "station_name": "尾白内",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_SAWARA_ONUMA_MORI"
+    ],
+    "source_station_ids": [
+      "OSHIRONAI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おしろない"
+  },
+  {
+    "station_id": "YAMAZAKI",
+    "station_name": "山崎",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_HAKODATE_OSHAMAMBE"
+    ],
+    "source_station_ids": [
+      "YAMAZAKI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "やまざき"
+  },
+  {
+    "station_id": "YAMAKOSHI",
+    "station_name": "山越",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_HAKODATE_OSHAMAMBE"
+    ],
+    "source_station_ids": [
+      "YAMAKOSHI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "やまこし"
+  },
+  {
+    "station_id": "IWAMIZAWA",
+    "station_name": "岩見沢",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA",
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "IWAMIZAWA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0",
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "いわみざわ"
+  },
+  {
+    "station_id": "MINENOBU",
+    "station_name": "峰延",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "MINENOBU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "みねのぶ"
+  },
+  {
+    "station_id": "SHIMAMATSU",
+    "station_name": "島松",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "CHITOSE_MAIN_NUMANOHATA_SHIROISHI"
+    ],
+    "source_station_ids": [
+      "SHIMAMATSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_chitose_line_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しままつ"
+  },
+  {
+    "station_id": "SAKIMORI",
+    "station_name": "崎守",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "SAKIMORI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "さきもり"
+  },
+  {
+    "station_id": "KAWAYU_ONSEN",
+    "station_name": "川湯温泉",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "KAWAYU_ONSEN"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "かわゆおんせん"
+  },
+  {
+    "station_id": "KAWABATA",
+    "station_name": "川端",
+    "station_codes": [
+      "K17"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKISHO_MAIN_MINAMI_CHITOSE_SHINTOKU"
+    ],
+    "source_station_ids": [
+      "KAWABATA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekisho_line_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "かわばた"
+  },
+  {
+    "station_id": "OBIHIRO",
+    "station_name": "帯広",
+    "station_codes": [
+      "K31"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_OBIHIRO_IKEDA",
+      "NEMURO_MAIN_SHINTOKU_OBIHIRO"
+    ],
+    "source_station_ids": [
+      "OBIHIRO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おびひろ"
+  },
+  {
+    "station_id": "HOROBETSU",
+    "station_name": "幌別",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "HOROBETSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ほろべつ"
+  },
+  {
+    "station_id": "HOROMUI",
+    "station_name": "幌向",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "HOROMUI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ほろむい"
+  },
+  {
+    "station_id": "W72",
+    "station_name": "幌延",
+    "station_codes": [
+      "W72"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W72"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ほろのべ"
+  },
+  {
+    "station_id": "MAKUBETSU",
+    "station_name": "幕別",
+    "station_codes": [
+      "K34"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_OBIHIRO_IKEDA"
+    ],
+    "source_station_ids": [
+      "MAKUBETSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "まくべつ"
+  },
+  {
+    "station_id": "HEIWA",
+    "station_name": "平和",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "CHITOSE_MAIN_NUMANOHATA_SHIROISHI"
+    ],
+    "source_station_ids": [
+      "HEIWA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_chitose_line_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "へいわ"
+  },
+  {
+    "station_id": "HIRAGISHI",
+    "station_name": "平岸",
+    "station_codes": [
+      "T25"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_TAKIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "HIRAGISHI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ひらぎし"
+  },
+  {
+    "station_id": "SHORO",
+    "station_name": "庶路",
+    "station_codes": [
+      "K49"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_IKEDA_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "SHORO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しょろ"
+  },
+  {
+    "station_id": "TOBETSU",
+    "station_name": "当別",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOEN_HOKKAIDO_IRYO_DAIGAKU"
+    ],
+    "source_station_ids": [
+      "TOBETSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sassho_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "とべつ"
+  },
+  {
+    "station_id": "TOMA",
+    "station_name": "当麻",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "TOMA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "とま"
+  },
+  {
+    "station_id": "MISAKI",
+    "station_name": "御崎",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_BRANCH_HIGASHI_MURORAN_MURORAN"
+    ],
+    "source_station_ids": [
+      "MISAKI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "みさき"
+  },
+  {
+    "station_id": "MIKAGE",
+    "station_name": "御影",
+    "station_codes": [
+      "K26"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_SHINTOKU_OBIHIRO"
+    ],
+    "source_station_ids": [
+      "MIKAGE"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "みかげ"
+  },
+  {
+    "station_id": "SHIBUN",
+    "station_name": "志文",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "SHIBUN"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しぶん"
+  },
+  {
+    "station_id": "MEGUMINO",
+    "station_name": "恵み野",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "CHITOSE_MAIN_NUMANOHATA_SHIROISHI"
+    ],
+    "source_station_ids": [
+      "MEGUMINO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_chitose_line_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "めぐみの"
+  },
+  {
+    "station_id": "ENIWA",
+    "station_name": "恵庭",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "CHITOSE_MAIN_NUMANOHATA_SHIROISHI"
+    ],
+    "source_station_ids": [
+      "ENIWA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_chitose_line_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "えにわ"
+  },
+  {
+    "station_id": "ITOSHINO",
+    "station_name": "愛し野",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "ITOSHINO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "いとしの"
+  },
+  {
+    "station_id": "AIBETSU",
+    "station_name": "愛別",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "AIBETSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "あいべつ"
+  },
+  {
+    "station_id": "TEINE",
+    "station_name": "手稲",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "TEINE"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ていね"
+  },
+  {
+    "station_id": "TAKUHOKU",
+    "station_name": "拓北",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOEN_HOKKAIDO_IRYO_DAIGAKU"
+    ],
+    "source_station_ids": [
+      "TAKUHOKU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sassho_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "たくほく"
+  },
+  {
+    "station_id": "KAKARIMA",
+    "station_name": "掛澗",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_SAWARA_ONUMA_MORI"
+    ],
+    "source_station_ids": [
+      "KAKARIMA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "かかりま"
+  },
+  {
+    "station_id": "MASHU",
+    "station_name": "摩周",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "MASHU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ましゅ"
+  },
+  {
+    "station_id": "SHIN_HAKODATE_HOKUTO",
+    "station_name": "新函館北斗",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_HAKODATE_OSHAMAMBE"
+    ],
+    "source_station_ids": [
+      "SHIN_HAKODATE_HOKUTO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しんはこだてほくと"
+  },
+  {
+    "station_id": "NEW_CHITOSE_AIRPORT",
+    "station_name": "新千歳空港",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "CHITOSE_AIRPORT_MINAMI_CHITOSE_NEW_CHITOSE"
+    ],
+    "source_station_ids": [
+      "NEW_CHITOSE_AIRPORT"
+    ],
+    "source_packages": [
+      "jr_hokkaido_chitose_line_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ねちとせあいぽ"
+  },
+  {
+    "station_id": "SHIN_YOSHINO",
+    "station_name": "新吉野",
+    "station_codes": [
+      "K39"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_IKEDA_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "SHIN_YOSHINO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しにょしの"
+  },
+  {
+    "station_id": "SHIN_YUBARI",
+    "station_name": "新夕張",
+    "station_codes": [
+      "K20"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKISHO_MAIN_MINAMI_CHITOSE_SHINTOKU"
+    ],
+    "source_station_ids": [
+      "SHIN_YUBARI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekisho_line_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しにゅばり"
+  },
+  {
+    "station_id": "SHIN_OTANOSHIKE",
+    "station_name": "新大楽毛",
+    "station_codes": [
+      "K51"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_IKEDA_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "SHIN_OTANOSHIKE"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しのたのしけ"
+  },
+  {
+    "station_id": "SHIN_FUJI",
+    "station_name": "新富士",
+    "station_codes": [
+      "K52"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_IKEDA_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "SHIN_FUJI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しんふじ"
+  },
+  {
+    "station_id": "SHINKAWA",
+    "station_name": "新川",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOEN_HOKKAIDO_IRYO_DAIGAKU"
+    ],
+    "source_station_ids": [
+      "SHINKAWA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sassho_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しんかわ"
+  },
+  {
+    "station_id": "SHINTOKU",
+    "station_name": "新得",
+    "station_codes": [
+      "K23"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_SHINTOKU_OBIHIRO",
+      "SEKISHO_MAIN_MINAMI_CHITOSE_SHINTOKU"
+    ],
+    "source_station_ids": [
+      "SHINTOKU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0",
+      "jr_hokkaido_sekisho_line_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しんとく"
+  },
+  {
+    "station_id": "SHIN_ASAHIKAWA",
+    "station_name": "新旭川",
+    "station_codes": [
+      "A30"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI",
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "A30",
+      "SHIN_ASAHIKAWA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1",
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しなさひかわ"
+  },
+  {
+    "station_id": "SHIN_SAPPORO",
+    "station_name": "新札幌",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "CHITOSE_MAIN_NUMANOHATA_SHIROISHI"
+    ],
+    "source_station_ids": [
+      "SHIN_SAPPORO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_chitose_line_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しんさっぽろ"
+  },
+  {
+    "station_id": "SHINKOTONI",
+    "station_name": "新琴似",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOEN_HOKKAIDO_IRYO_DAIGAKU"
+    ],
+    "source_station_ids": [
+      "SHINKOTONI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sassho_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しんことに"
+  },
+  {
+    "station_id": "W49",
+    "station_name": "日進",
+    "station_codes": [
+      "W49"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W49"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "にっしん"
+  },
+  {
+    "station_id": "HAYAKITA",
+    "station_name": "早来",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "HAYAKITA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "はやきた"
+  },
+  {
+    "station_id": "ASAHIKAWA",
+    "station_name": "旭川",
+    "station_codes": [
+      "A28"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "FURANO_ASAHIKAWA_FURANO",
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA",
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "A28",
+      "ASAHIKAWA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_furano_line_verified_candidate_v0_1",
+      "jr_hokkaido_hakodate_main_complete_v1_0",
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "あさひかわ"
+  },
+  {
+    "station_id": "A29",
+    "station_name": "旭川四条",
+    "station_codes": [
+      "A29"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "A29"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "あさひかわよじょう"
+  },
+  {
+    "station_id": "KOMBU",
+    "station_name": "昆布",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OSHAMAMBE_OTARU"
+    ],
+    "source_station_ids": [
+      "KOMBU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "こぶ"
+  },
+  {
+    "station_id": "KONBUMORI",
+    "station_name": "昆布盛",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_HANASAKI_KUSHIRO_NEMURO"
+    ],
+    "source_station_ids": [
+      "KONBUMORI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "こんぶもり"
+  },
+  {
+    "station_id": "HOSHIOKI",
+    "station_name": "星置",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "HOSHIOKI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ほしおき"
+  },
+  {
+    "station_id": "W52",
+    "station_name": "智北",
+    "station_codes": [
+      "W52"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W52"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ちほく"
+  },
+  {
+    "station_id": "W51",
+    "station_name": "智恵文",
+    "station_codes": [
+      "W51"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W51"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ちえぶん"
+  },
+  {
+    "station_id": "USU",
+    "station_name": "有珠",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "USU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "うす"
+  },
+  {
+    "station_id": "ASARI",
+    "station_name": "朝里",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "ASARI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "あさり"
+  },
+  {
+    "station_id": "MOTO_WANISHI",
+    "station_name": "本輪西",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "MOTO_WANISHI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "もとわにし"
+  },
+  {
+    "station_id": "SATSUNAI",
+    "station_name": "札内",
+    "station_codes": [
+      "K32"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_OBIHIRO_IKEDA"
+    ],
+    "source_station_ids": [
+      "SATSUNAI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "さつない"
+  },
+  {
+    "station_id": "SAPPORO",
+    "station_name": "札幌",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "SAPPORO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "さっぽろ"
+  },
+  {
+    "station_id": "SATSUTSURU",
+    "station_name": "札弦",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "SATSUTSURU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "さつつる"
+  },
+  {
+    "station_id": "HIGASHI_MURORAN",
+    "station_name": "東室蘭",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_BRANCH_HIGASHI_MURORAN_MURORAN",
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "HIGASHI_MURORAN"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ひがしむろらん"
+  },
+  {
+    "station_id": "HIGASHI_ASAHIKAWA",
+    "station_name": "東旭川",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "HIGASHI_ASAHIKAWA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ひがしあさひかわ"
+  },
+  {
+    "station_id": "HIGASHI_MORI",
+    "station_name": "東森",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_SAWARA_ONUMA_MORI"
+    ],
+    "source_station_ids": [
+      "HIGASHI_MORI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ひがしもり"
+  },
+  {
+    "station_id": "HIGASHI_AINONAI",
+    "station_name": "東相内",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "HIGASHI_AINONAI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ひがしあいのない"
+  },
+  {
+    "station_id": "HIGASHI_KUSHIRO",
+    "station_name": "東釧路",
+    "station_codes": [
+      "B54"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_HANASAKI_KUSHIRO_NEMURO",
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "HIGASHI_KUSHIRO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0",
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ひがしくしろ"
+  },
+  {
+    "station_id": "HAKURINDAI",
+    "station_name": "柏林台",
+    "station_codes": [
+      "K30"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_SHINTOKU_OBIHIRO"
+    ],
+    "source_station_ids": [
+      "HAKURINDAI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "はくりんだい"
+  },
+  {
+    "station_id": "HAKUYO",
+    "station_name": "柏陽",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "HAKUYO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "はくよ"
+  },
+  {
+    "station_id": "KURIOKA",
+    "station_name": "栗丘",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "KURIOKA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "くりおか"
+  },
+  {
+    "station_id": "KURIYAMA",
+    "station_name": "栗山",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "KURIYAMA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "くりやま"
+  },
+  {
+    "station_id": "KURISAWA",
+    "station_name": "栗沢",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "KURISAWA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "くりさわ"
+  },
+  {
+    "station_id": "NEMURO",
+    "station_name": "根室",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_HANASAKI_KUSHIRO_NEMURO"
+    ],
+    "source_station_ids": [
+      "NEMURO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ねむろ"
+  },
+  {
+    "station_id": "KATSURADAI",
+    "station_name": "桂台",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "KATSURADAI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "かつらだい"
+  },
+  {
+    "station_id": "SOEN",
+    "station_name": "桑園",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA",
+      "SOEN_HOKKAIDO_IRYO_DAIGAKU"
+    ],
+    "source_station_ids": [
+      "SOEN"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0",
+      "jr_hokkaido_sassho_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "そえん"
+  },
+  {
+    "station_id": "KIKYO",
+    "station_name": "桔梗",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_HAKODATE_OSHAMAMBE"
+    ],
+    "source_station_ids": [
+      "KIKYO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ききょ"
+  },
+  {
+    "station_id": "SAKURAOKA",
+    "station_name": "桜岡",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "SAKURAOKA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "さくらおか"
+  },
+  {
+    "station_id": "MORI",
+    "station_name": "森",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_HAKODATE_OSHAMAMBE",
+      "HAKODATE_MAIN_SAWARA_ONUMA_MORI"
+    ],
+    "source_station_ids": [
+      "MORI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "もり"
+  },
+  {
+    "station_id": "SHINRIN_KOEN",
+    "station_name": "森林公園",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "SHINRIN_KOEN"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しんりんこえん"
+  },
+  {
+    "station_id": "UENAE",
+    "station_name": "植苗",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "CHITOSE_MAIN_NUMANOHATA_SHIROISHI"
+    ],
+    "source_station_ids": [
+      "UENAE"
+    ],
+    "source_packages": [
+      "jr_hokkaido_chitose_line_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "うえなえ"
+  },
+  {
+    "station_id": "SHIBECHA",
+    "station_name": "標茶",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "SHIBECHA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しべちゃ"
+  },
+  {
+    "station_id": "YAMUBE",
+    "station_name": "止別",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "YAMUBE"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "やむべ"
+  },
+  {
+    "station_id": "MUSA",
+    "station_name": "武佐",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_HANASAKI_KUSHIRO_NEMURO"
+    ],
+    "source_station_ids": [
+      "MUSA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "むさ"
+  },
+  {
+    "station_id": "BOKOI",
+    "station_name": "母恋",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_BRANCH_HIGASHI_MURORAN_MURORAN"
+    ],
+    "source_station_ids": [
+      "BOKOI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ぼこい"
+  },
+  {
+    "station_id": "W34",
+    "station_name": "比布",
+    "station_codes": [
+      "W34"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W34"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ぴっぷ"
+  },
+  {
+    "station_id": "HIRAFU",
+    "station_name": "比羅夫",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OSHAMAMBE_OTARU"
+    ],
+    "source_station_ids": [
+      "HIRAFU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ひらふ"
+  },
+  {
+    "station_id": "W31",
+    "station_name": "永山",
+    "station_codes": [
+      "W31"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W31"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ながやま"
+  },
+  {
+    "station_id": "EBETSU",
+    "station_name": "江別",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "EBETSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "えべつ"
+  },
+  {
+    "station_id": "EBEOTSU",
+    "station_name": "江部乙",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "EBEOTSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "えべおつ"
+  },
+  {
+    "station_id": "IKEDA",
+    "station_name": "池田",
+    "station_codes": [
+      "K36"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_IKEDA_KUSHIRO",
+      "NEMURO_MAIN_OBIHIRO_IKEDA"
+    ],
+    "source_station_ids": [
+      "IKEDA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "いけだ"
+  },
+  {
+    "station_id": "NUMANOHATA",
+    "station_name": "沼ノ端",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "CHITOSE_MAIN_NUMANOHATA_SHIROISHI",
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "NUMANOHATA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_chitose_line_complete_v1_0",
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ぬまのはた"
+  },
+  {
+    "station_id": "TOYA",
+    "station_name": "洞爺",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "TOYA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "とや"
+  },
+  {
+    "station_id": "HAMANAKA",
+    "station_name": "浜中",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_HANASAKI_KUSHIRO_NEMURO"
+    ],
+    "source_station_ids": [
+      "HAMANAKA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "はまなか"
+  },
+  {
+    "station_id": "HAMAATSUMA",
+    "station_name": "浜厚真",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HIDAKA_TOMAKOMAI_MUKAWA"
+    ],
+    "source_station_ids": [
+      "HAMAATSUMA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hidaka_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "はまあつま"
+  },
+  {
+    "station_id": "HAMA_KOSHIMIZU",
+    "station_name": "浜小清水",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "HAMA_KOSHIMIZU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "はまこしみず"
+  },
+  {
+    "station_id": "URAHORO",
+    "station_name": "浦幌",
+    "station_codes": [
+      "K40"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_IKEDA_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "URAHORO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "うらほろ"
+  },
+  {
+    "station_id": "FUKAGAWA",
+    "station_name": "深川",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "FUKAGAWA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ふかがわ"
+  },
+  {
+    "station_id": "KIYOSATOCHO",
+    "station_name": "清里町",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "KIYOSATOCHO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "きよさとちょ"
+  },
+  {
+    "station_id": "OSHIMA_NUMAJIRI",
+    "station_name": "渡島沼尻",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_SAWARA_ONUMA_MORI"
+    ],
+    "source_station_ids": [
+      "OSHIMA_NUMAJIRI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おしまぬまじり"
+  },
+  {
+    "station_id": "OSHIMA_SAWARA",
+    "station_name": "渡島砂原",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_SAWARA_ONUMA_MORI"
+    ],
+    "source_station_ids": [
+      "OSHIMA_SAWARA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おしまさわら"
+  },
+  {
+    "station_id": "TAKIKAWA",
+    "station_name": "滝川",
+    "station_codes": [
+      "A21"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA",
+      "NEMURO_MAIN_TAKIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "TAKIKAWA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0",
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "たきかわ"
+  },
+  {
+    "station_id": "SETOSE",
+    "station_name": "瀬戸瀬",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "SETOSE"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "せとせ"
+  },
+  {
+    "station_id": "SHIKARIBETSU",
+    "station_name": "然別",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OSHAMAMBE_OTARU"
+    ],
+    "source_station_ids": [
+      "SHIKARIBETSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しかりべつ"
+  },
+  {
+    "station_id": "NEPPU",
+    "station_name": "熱郛",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OSHAMAMBE_OTARU"
+    ],
+    "source_station_ids": [
+      "NEPPU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ねっぷ"
+  },
+  {
+    "station_id": "KOTONI",
+    "station_name": "琴似",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "KOTONI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ことに"
+  },
+  {
+    "station_id": "W45",
+    "station_name": "瑞穂",
+    "station_codes": [
+      "W45"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W45"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "みずほ"
+  },
+  {
+    "station_id": "IKUTAHARA",
+    "station_name": "生田原",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "IKUTAHARA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "いくたはら"
+  },
+  {
+    "station_id": "YUNI",
+    "station_name": "由仁",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "YUNI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ゆに"
+  },
+  {
+    "station_id": "RUBESHIBE",
+    "station_name": "留辺蘂",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "RUBESHIBE"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "るべしべ"
+  },
+  {
+    "station_id": "HASSAMU",
+    "station_name": "発寒",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "HASSAMU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "はっさむ"
+  },
+  {
+    "station_id": "HASSAMU_CHUO",
+    "station_name": "発寒中央",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "HASSAMU_CHUO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "はっさむちゅお"
+  },
+  {
+    "station_id": "NOBORIBETSU",
+    "station_name": "登別",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "NOBORIBETSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "のぼりべつ"
+  },
+  {
+    "station_id": "SHIRATAKI",
+    "station_name": "白滝",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "SHIRATAKI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しらたき"
+  },
+  {
+    "station_id": "SHIROISHI",
+    "station_name": "白石",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "CHITOSE_MAIN_NUMANOHATA_SHIROISHI",
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "SHIROISHI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_chitose_line_complete_v1_0",
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しろいし"
+  },
+  {
+    "station_id": "SHIRANUKA",
+    "station_name": "白糠",
+    "station_codes": [
+      "K47"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_IKEDA_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "SHIRANUKA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しらぬか"
+  },
+  {
+    "station_id": "SHIRAOI",
+    "station_name": "白老",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "SHIRAOI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しらおい"
+  },
+  {
+    "station_id": "YURIGAHARA",
+    "station_name": "百合が原",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOEN_HOKKAIDO_IRYO_DAIGAKU"
+    ],
+    "source_station_ids": [
+      "YURIGAHARA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sassho_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ゆりがはら"
+  },
+  {
+    "station_id": "MENA",
+    "station_name": "目名",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OSHAMAMBE_OTARU"
+    ],
+    "source_station_ids": [
+      "MENA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "めな"
+  },
+  {
+    "station_id": "AINONAI",
+    "station_name": "相内",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "AINONAI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "あいのない"
+  },
+  {
+    "station_id": "SHIRETOKO_SHARI",
+    "station_name": "知床斜里",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "SHIRETOKO_SHARI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しれとこしゃり"
+  },
+  {
+    "station_id": "ISHIKURA",
+    "station_name": "石倉",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_HAKODATE_OSHAMAMBE"
+    ],
+    "source_station_ids": [
+      "ISHIKURA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "いしくら"
+  },
+  {
+    "station_id": "SUNAGAWA",
+    "station_name": "砂川",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "SUNAGAWA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "すながわ"
+  },
+  {
+    "station_id": "ISOBUNNAI",
+    "station_name": "磯分内",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "ISOBUNNAI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "いそぶんない"
+  },
+  {
+    "station_id": "REBUN",
+    "station_name": "礼文",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "REBUN"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "れぶん"
+  },
+  {
+    "station_id": "SHADAI",
+    "station_name": "社台",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "SHADAI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しゃだい"
+  },
+  {
+    "station_id": "KAGURAOKA",
+    "station_name": "神楽岡",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "FURANO_ASAHIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "KAGURAOKA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_furano_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "かぐらおか"
+  },
+  {
+    "station_id": "MAREPPU",
+    "station_name": "稀府",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "MAREPPU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "まれっぷ"
+  },
+  {
+    "station_id": "W80",
+    "station_name": "稚内",
+    "station_codes": [
+      "W80"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W80"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "わっかない"
+  },
+  {
+    "station_id": "INAHO",
+    "station_name": "稲穂",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "INAHO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "いなほ"
+  },
+  {
+    "station_id": "INAZUMI_KOEN",
+    "station_name": "稲積公園",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "INAZUMI_KOEN"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "いなずみこえん"
+  },
+  {
+    "station_id": "TANNO",
+    "station_name": "端野",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "TANNO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "たんの"
+  },
+  {
+    "station_id": "TAKEURA",
+    "station_name": "竹浦",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "TAKEURA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "たけうら"
+  },
+  {
+    "station_id": "W62",
+    "station_name": "筬島",
+    "station_codes": [
+      "W62"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W62"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おさしま"
+  },
+  {
+    "station_id": "SHINORO",
+    "station_name": "篠路",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOEN_HOKKAIDO_IRYO_DAIGAKU"
+    ],
+    "source_station_ids": [
+      "SHINORO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sassho_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しのろ"
+  },
+  {
+    "station_id": "W67",
+    "station_name": "糠南",
+    "station_codes": [
+      "W67"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W67"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ぬかなん"
+  },
+  {
+    "station_id": "ITOI",
+    "station_name": "糸井",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "ITOI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "いとい"
+  },
+  {
+    "station_id": "OSAMUNAI",
+    "station_name": "納内",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "OSAMUNAI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おさむない"
+  },
+  {
+    "station_id": "HOSOOKA",
+    "station_name": "細岡",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "HOSOOKA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ほそおか"
+  },
+  {
+    "station_id": "ABASHIRI",
+    "station_name": "網走",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI",
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "ABASHIRI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1",
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "あばしり"
+  },
+  {
+    "station_id": "HIUSHINAI",
+    "station_name": "緋牛内",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "HIUSHINAI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ひうしない"
+  },
+  {
+    "station_id": "MIDORI",
+    "station_name": "緑",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "MIDORI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "みどり"
+  },
+  {
+    "station_id": "MIDORIGAOKA",
+    "station_name": "緑が丘",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "FURANO_ASAHIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "MIDORIGAOKA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_furano_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "みどりがおか"
+  },
+  {
+    "station_id": "BIBAI",
+    "station_name": "美唄",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "BIBAI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "びばい"
+  },
+  {
+    "station_id": "BIHORO",
+    "station_name": "美幌",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "BIHORO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "びほろ"
+  },
+  {
+    "station_id": "W54",
+    "station_name": "美深",
+    "station_codes": [
+      "W54"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W54"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "びふか"
+  },
+  {
+    "station_id": "BIEI",
+    "station_name": "美瑛",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "FURANO_ASAHIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "BIEI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_furano_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "びえい"
+  },
+  {
+    "station_id": "BIRUWA",
+    "station_name": "美留和",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "BIRUWA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "びるわ"
+  },
+  {
+    "station_id": "BIBAUSHI",
+    "station_name": "美馬牛",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "FURANO_ASAHIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "BIBAUSHI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_furano_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "びばうし"
+  },
+  {
+    "station_id": "ASHIBETSU",
+    "station_name": "芦別",
+    "station_codes": [
+      "T26"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_TAKIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "ASHIBETSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "あしべつ"
+  },
+  {
+    "station_id": "MEMURO",
+    "station_name": "芽室",
+    "station_codes": [
+      "K27"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_SHINTOKU_OBIHIRO"
+    ],
+    "source_station_ids": [
+      "MEMURO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "めむろ"
+  },
+  {
+    "station_id": "NAEBO",
+    "station_name": "苗穂",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "NAEBO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "なえぼ"
+  },
+  {
+    "station_id": "TOMAKOMAI",
+    "station_name": "苫小牧",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HIDAKA_TOMAKOMAI_MUKAWA",
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "TOMAKOMAI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hidaka_main_verified_candidate_v0_1",
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "とまこまい"
+  },
+  {
+    "station_id": "MOSHIRI",
+    "station_name": "茂尻",
+    "station_codes": [
+      "T24"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_TAKIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "MOSHIRI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "もしり"
+  },
+  {
+    "station_id": "KAYANUMA",
+    "station_name": "茅沼",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "KAYANUMA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "かやぬま"
+  },
+  {
+    "station_id": "CHANAI",
+    "station_name": "茶内",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_HANASAKI_KUSHIRO_NEMURO"
+    ],
+    "source_station_ids": [
+      "CHANAI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ちゃない"
+  },
+  {
+    "station_id": "CHASHINAI",
+    "station_name": "茶志内",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "CHASHINAI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ちゃしない"
+  },
+  {
+    "station_id": "HAGINO",
+    "station_name": "萩野",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "HAGINO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "はぎの"
+  },
+  {
+    "station_id": "OCHIISHI",
+    "station_name": "落石",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_HANASAKI_KUSHIRO_NEMURO"
+    ],
+    "source_station_ids": [
+      "OCHIISHI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おちいし"
+  },
+  {
+    "station_id": "OTOSHIBE",
+    "station_name": "落部",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_HAKODATE_OSHAMAMBE"
+    ],
+    "source_station_ids": [
+      "OTOSHIBE"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おとしべ"
+  },
+  {
+    "station_id": "MOKOTO",
+    "station_name": "藻琴",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "MOKOTO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "もこと"
+  },
+  {
+    "station_id": "RANSHIMA",
+    "station_name": "蘭島",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OSHAMAMBE_OTARU"
+    ],
+    "source_station_ids": [
+      "RANSHIMA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "らんしま"
+  },
+  {
+    "station_id": "W36",
+    "station_name": "蘭留",
+    "station_codes": [
+      "W36"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W36"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "らんる"
+  },
+  {
+    "station_id": "RANKOSHI",
+    "station_name": "蘭越",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OSHAMAMBE_OTARU"
+    ],
+    "source_station_ids": [
+      "RANKOSHI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "らんこし"
+  },
+  {
+    "station_id": "KOJOHAMA",
+    "station_name": "虎杖浜",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "KOJOHAMA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "こじょはま"
+  },
+  {
+    "station_id": "NISHINAKA",
+    "station_name": "西中",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "FURANO_ASAHIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "NISHINAKA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_furano_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "にしなか"
+  },
+  {
+    "station_id": "NISHI_KITAMI",
+    "station_name": "西北見",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "NISHI_KITAMI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "にしきたみ"
+  },
+  {
+    "station_id": "NISHI_WADA",
+    "station_name": "西和田",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_HANASAKI_KUSHIRO_NEMURO"
+    ],
+    "source_station_ids": [
+      "NISHI_WADA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "にしわだ"
+  },
+  {
+    "station_id": "NISHI_MEMAMBETSU",
+    "station_name": "西女満別",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "NISHI_MEMAMBETSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "にしめまべつ"
+  },
+  {
+    "station_id": "NISHI_OBIHIRO",
+    "station_name": "西帯広",
+    "station_codes": [
+      "K29"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_SHINTOKU_OBIHIRO"
+    ],
+    "source_station_ids": [
+      "NISHI_OBIHIRO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "にしおびひろ"
+  },
+  {
+    "station_id": "NISHI_SHORO",
+    "station_name": "西庶路",
+    "station_codes": [
+      "K48"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_IKEDA_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "NISHI_SHORO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "にししょろ"
+  },
+  {
+    "station_id": "NISHIGORYO",
+    "station_name": "西御料",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "FURANO_ASAHIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "NISHIGORYO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_furano_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "にしごりょ"
+  },
+  {
+    "station_id": "NISHIMIZUHO",
+    "station_name": "西瑞穂",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "FURANO_ASAHIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "NISHIMIZUHO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_furano_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "にしみずほ"
+  },
+  {
+    "station_id": "NISHI_RUBESHIBE",
+    "station_name": "西留辺蘂",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "NISHI_RUBESHIBE"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "にしるべしべ"
+  },
+  {
+    "station_id": "NISHIKAGURA",
+    "station_name": "西神楽",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "FURANO_ASAHIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "NISHIKAGURA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_furano_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "にしかぐら"
+  },
+  {
+    "station_id": "NISHISEIWA",
+    "station_name": "西聖和",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "FURANO_ASAHIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "NISHISEIWA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_furano_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "にしせいわ"
+  },
+  {
+    "station_id": "W74",
+    "station_name": "豊富",
+    "station_codes": [
+      "W74"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W74"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "とよとみ"
+  },
+  {
+    "station_id": "TOYOHORO",
+    "station_name": "豊幌",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "TOYOHORO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "とよほろ"
+  },
+  {
+    "station_id": "TOYONUMA",
+    "station_name": "豊沼",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "TOYONUMA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "とよぬま"
+  },
+  {
+    "station_id": "TOYOURA",
+    "station_name": "豊浦",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "TOYOURA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "とようら"
+  },
+  {
+    "station_id": "TOYOKORO",
+    "station_name": "豊頃",
+    "station_codes": [
+      "K38"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_IKEDA_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "TOYOKORO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "とよころ"
+  },
+  {
+    "station_id": "AKAIGAWA",
+    "station_name": "赤井川",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_HAKODATE_OSHAMAMBE"
+    ],
+    "source_station_ids": [
+      "AKAIGAWA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "あかいがわ"
+  },
+  {
+    "station_id": "AKABIRA",
+    "station_name": "赤平",
+    "station_codes": [
+      "T23"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_TAKIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "AKABIRA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "あかびら"
+  },
+  {
+    "station_id": "WANISHI",
+    "station_name": "輪西",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_BRANCH_HIGASHI_MURORAN_MURORAN"
+    ],
+    "source_station_ids": [
+      "WANISHI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "わにし"
+  },
+  {
+    "station_id": "CHIKABUMI",
+    "station_name": "近文",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "CHIKABUMI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ちかぶみ"
+  },
+  {
+    "station_id": "OIWAKE",
+    "station_name": "追分",
+    "station_codes": [
+      "K15"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA",
+      "SEKISHO_MAIN_MINAMI_CHITOSE_SHINTOKU"
+    ],
+    "source_station_ids": [
+      "OIWAKE"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0",
+      "jr_hokkaido_sekisho_line_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おいわけ"
+  },
+  {
+    "station_id": "TOASA",
+    "station_name": "遠浅",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "TOASA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "とあさ"
+  },
+  {
+    "station_id": "TOYA_SENMOU",
+    "station_name": "遠矢",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "TOYA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "とやせんもう"
+  },
+  {
+    "station_id": "ENGARU",
+    "station_name": "遠軽",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SEKIHOKU_MAIN_SHIN_ASAHIKAWA_ABASHIRI"
+    ],
+    "source_station_ids": [
+      "ENGARU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_sekihoku_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "えんがる"
+  },
+  {
+    "station_id": "NOPPORO",
+    "station_name": "野幌",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "NOPPORO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "のっぽろ"
+  },
+  {
+    "station_id": "NODAOI",
+    "station_name": "野田生",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_HAKODATE_OSHAMAMBE"
+    ],
+    "source_station_ids": [
+      "NODAOI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "のだおい"
+  },
+  {
+    "station_id": "NOKANAN",
+    "station_name": "野花南",
+    "station_codes": [
+      "T28"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_TAKIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "NOKANAN"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "のかなん"
+  },
+  {
+    "station_id": "KUSHIRO",
+    "station_name": "釧路",
+    "station_codes": [
+      "K53"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_HANASAKI_KUSHIRO_NEMURO",
+      "NEMURO_MAIN_IKEDA_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "KUSHIRO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "くしろ"
+  },
+  {
+    "station_id": "KUSHIRO_SHITSUGEN",
+    "station_name": "釧路湿原",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "seasonal",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "KUSHIRO_SHITSUGEN"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "くしろしつげん"
+  },
+  {
+    "station_id": "GINZAN",
+    "station_name": "銀山",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OSHAMAMBE_OTARU"
+    ],
+    "source_station_ids": [
+      "GINZAN"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ぎんざん"
+  },
+  {
+    "station_id": "ZENIBAKO",
+    "station_name": "銭函",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "ZENIBAKO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ぜにばこ"
+  },
+  {
+    "station_id": "NISHIKIOKA",
+    "station_name": "錦岡",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "NISHIKIOKA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "にしきおか"
+  },
+  {
+    "station_id": "OSHAMAMBE",
+    "station_name": "長万部",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_HAKODATE_OSHAMAMBE",
+      "HAKODATE_MAIN_OSHAMAMBE_OTARU",
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "OSHAMAMBE"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0",
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おしゃまべ"
+  },
+  {
+    "station_id": "NAGAWA",
+    "station_name": "長和",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "NAGAWA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ながわ"
+  },
+  {
+    "station_id": "OSATSU",
+    "station_name": "長都",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "CHITOSE_MAIN_NUMANOHATA_SHIROISHI"
+    ],
+    "source_station_ids": [
+      "OSATSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_chitose_line_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おさつ"
+  },
+  {
+    "station_id": "MONSHIZU",
+    "station_name": "門静",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_HANASAKI_KUSHIRO_NEMURO"
+    ],
+    "source_station_ids": [
+      "MONSHIZU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "もんしず"
+  },
+  {
+    "station_id": "AOBA",
+    "station_name": "青葉",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "AOBA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "あおば"
+  },
+  {
+    "station_id": "SHIZUKARI",
+    "station_name": "静狩",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "SHIZUKARI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しずかり"
+  },
+  {
+    "station_id": "ONBETSU",
+    "station_name": "音別",
+    "station_codes": [
+      "K45"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "NEMURO_MAIN_IKEDA_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "ONBETSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_nemuro_main_integrated_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おんべつ"
+  },
+  {
+    "station_id": "W61",
+    "station_name": "音威子府",
+    "station_codes": [
+      "W61"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W61"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "おといねっぷ"
+  },
+  {
+    "station_id": "W46",
+    "station_name": "風連",
+    "station_codes": [
+      "W46"
+    ],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SOYA_ASAHIKAWA_WAKKANAI"
+    ],
+    "source_station_ids": [
+      "W46"
+    ],
+    "source_packages": [
+      "jr_hokkaido_soya_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ふうれん"
+  },
+  {
+    "station_id": "KOMAGATAKE",
+    "station_name": "駒ヶ岳",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_HAKODATE_OSHAMAMBE"
+    ],
+    "source_station_ids": [
+      "KOMAGATAKE"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "こまがたけ"
+  },
+  {
+    "station_id": "TAKASAGO",
+    "station_name": "高砂",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OTARU_ASAHIKAWA"
+    ],
+    "source_station_ids": [
+      "TAKASAGO"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "たかさご"
+  },
+  {
+    "station_id": "MASUURA",
+    "station_name": "鱒浦",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "SENMOU_ABASHIRI_HIGASHI_KUSHIRO"
+    ],
+    "source_station_ids": [
+      "MASUURA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_senmou_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "ますうら"
+  },
+  {
+    "station_id": "MUKAWA",
+    "station_name": "鵡川",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HIDAKA_TOMAKOMAI_MUKAWA"
+    ],
+    "source_station_ids": [
+      "MUKAWA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hidaka_main_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "むかわ"
+  },
+  {
+    "station_id": "WASHIBETSU",
+    "station_name": "鷲別",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "WASHIBETSU"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "わしべつ"
+  },
+  {
+    "station_id": "SHIKAUCHI",
+    "station_name": "鹿討",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "FURANO_ASAHIKAWA_FURANO"
+    ],
+    "source_station_ids": [
+      "SHIKAUCHI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_furano_line_verified_candidate_v0_1"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しかうち"
+  },
+  {
+    "station_id": "SHIKABE",
+    "station_name": "鹿部",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_SAWARA_ONUMA_MORI"
+    ],
+    "source_station_ids": [
+      "SHIKABE"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "しかべ"
+  },
+  {
+    "station_id": "KOGANE",
+    "station_name": "黄金",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "MURORAN_MAIN_OSHAMAMBE_IWAMIZAWA"
+    ],
+    "source_station_ids": [
+      "KOGANE"
+    ],
+    "source_packages": [
+      "jr_hokkaido_muroran_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "こがね"
+  },
+  {
+    "station_id": "KUROIWA",
+    "station_name": "黒岩",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_HAKODATE_OSHAMAMBE"
+    ],
+    "source_station_ids": [
+      "KUROIWA"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "くろいわ"
+  },
+  {
+    "station_id": "KUROMATSUNAI",
+    "station_name": "黒松内",
+    "station_codes": [],
+    "station_status": "active",
+    "service_status": "regular",
+    "section_memberships": [
+      "HAKODATE_MAIN_OSHAMAMBE_OTARU"
+    ],
+    "source_station_ids": [
+      "KUROMATSUNAI"
+    ],
+    "source_packages": [
+      "jr_hokkaido_hakodate_main_complete_v1_0"
+    ],
+    "as_of": "2026-07",
+    "station_reading": "くろまつない"
+  }
+]

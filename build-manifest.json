@@ -1,0 +1,166 @@
+{
+  "package": "jr_hokkaido_sales_pwa_v1_1",
+  "version": "1.1.0",
+  "files": [
+    {
+      "path": "404.html",
+      "sha256": "9b85828c9a86881d1fd984d7fedc48b4671df62a1396c4c14bb663de3b667a04",
+      "size_bytes": 4067
+    },
+    {
+      "path": "README.md",
+      "sha256": "5a096f7e1973e0388755b40c26a7222aad249c7082ee04245743d73ac318aedd",
+      "size_bytes": 406
+    },
+    {
+      "path": "app.js",
+      "sha256": "fe7100ad42b95091eeadf6fcb46c4c8ae22d1c097e779b92f709c96a653a243e",
+      "size_bytes": 7350
+    },
+    {
+      "path": "data/distance/junctions.json",
+      "sha256": "5a4b160ab227046e9e20144e8703f3ff1fb5d4f8ff071f4db5cac7b736d7d038",
+      "size_bytes": 3227
+    },
+    {
+      "path": "data/distance/lines.json",
+      "sha256": "37e2db75fe7aeab3ac17a63d81d1034675a8771bd8150966be74ed570a3338a3",
+      "size_bytes": 5894
+    },
+    {
+      "path": "data/distance/sections.json",
+      "sha256": "b3d4cb97293915aa2143f4c4ff4a3492743c60113e51fc554a1e1687274f0131",
+      "size_bytes": 11500
+    },
+    {
+      "path": "data/distance/segments.json",
+      "sha256": "49162c5e28c6c2850bc3694ad651b6724dc2d637c92d9c52763bdce04486d8ac",
+      "size_bytes": 253953
+    },
+    {
+      "path": "data/distance/station_distances.json",
+      "sha256": "0e4655686a5bea2489234f029fe541e01b0d8f3e1b512a22adba281ca42692ed",
+      "size_bytes": 121039
+    },
+    {
+      "path": "data/distance/stations.json",
+      "sha256": "60633c5456d16d809f18e6d72988d95d702d561914e5df284141fd4c5a2b665e",
+      "size_bytes": 136909
+    },
+    {
+      "path": "data/distance/validation_report.json",
+      "sha256": "110630dbfe79449f41290c969cfa125a8f71197f9f4bb2ef1e26edbc7120bd95",
+      "size_bytes": 691
+    },
+    {
+      "path": "data/fare/fare_rules.json",
+      "sha256": "2531af40567ab26494471ca2a0ee584ce21e940cde0ebd7bcd864dcef474ad94",
+      "size_bytes": 1043
+    },
+    {
+      "path": "data/fare/ordinary_fares.json",
+      "sha256": "d98e034915489d3255306b19ed2a771386869b2b6b4aeff811e86df52c2a7b1c",
+      "size_bytes": 43607
+    },
+    {
+      "path": "data/rules/discount_rules.json",
+      "sha256": "7c294e010335077dd8923c106e70346e1efcf35929623dd8b1e1cbab026063f9",
+      "size_bytes": 3622
+    },
+    {
+      "path": "data/rules/distance_charge_tables.json",
+      "sha256": "723a68d7e9f0df9a762e81f1cc14bf0d8751a5d4d22a149a9e92f2fdaa326482",
+      "size_bytes": 13142
+    },
+    {
+      "path": "data/rules/fixed_components.json",
+      "sha256": "bab51bbcc0808d3f1eb118e3d16453c697968aa66db65e8ebf84c40891d25d5a",
+      "size_bytes": 531
+    },
+    {
+      "path": "data/rules/otoku_products.json",
+      "sha256": "c8bb3508e832e9b0ecc64ef1a297f82f79792565d8a298c6fcf8442c0f8e80e2",
+      "size_bytes": 6890
+    },
+    {
+      "path": "data/rules/refund_rules.json",
+      "sha256": "e3abe5586db973f3fb514f154e6507e7d138fdcffefc018325124edca523ad79",
+      "size_bytes": 1345
+    },
+    {
+      "path": "data/rules/sources.json",
+      "sha256": "c0435214e6da7c14702b553eac011d62624de8f0e6ac04fc7a5d2a5661b54886",
+      "size_bytes": 1741
+    },
+    {
+      "path": "data/rules/special_fares.json",
+      "sha256": "0adce3ae3376fc872b32aa54475d4d4ebc2b565e5586900aa41fe5a36a7b9108",
+      "size_bytes": 466
+    },
+    {
+      "path": "data/rules/train_product_charges.json",
+      "sha256": "2fd114554faa08bc5c2d757c5915826480ae9be55f5ca5edf3bd036bc1b01ba6",
+      "size_bytes": 3525
+    },
+    {
+      "path": "data/rules/transaction_rules.json",
+      "sha256": "4f359b07629361ae1322a16bfc6820fe4f3480a9da300438a2cffb671b189981",
+      "size_bytes": 2104
+    },
+    {
+      "path": "engine.js",
+      "sha256": "3ecdf5debeebd1c0b4b6c4cd19b6e5d0780e372599d37dccbcaf0a6e2b4d4130",
+      "size_bytes": 9112
+    },
+    {
+      "path": "icons/icon-192.png",
+      "sha256": "d31290ebe1d80f9b2a0555e76e032e8dd2f0ca7a54116e63e7f33756f88e8a29",
+      "size_bytes": 2021
+    },
+    {
+      "path": "icons/icon-512.png",
+      "sha256": "83a0f482467da8f830425f5f90cdf341227af4db7f3e584cb9af14b653644ad3",
+      "size_bytes": 5615
+    },
+    {
+      "path": "index.html",
+      "sha256": "9b85828c9a86881d1fd984d7fedc48b4671df62a1396c4c14bb663de3b667a04",
+      "size_bytes": 4067
+    },
+    {
+      "path": "manifest.webmanifest",
+      "sha256": "74c1b14621a16495f9793890453d4b3d0500f3ca269dd6e1619c5594a1c0f069",
+      "size_bytes": 605
+    },
+    {
+      "path": "netlify.toml",
+      "sha256": "2846c4fef2da4612c462c9cca639af58d9e72f27a07e814e86ad112f01d1e3a5",
+      "size_bytes": 115
+    },
+    {
+      "path": "service-worker.js",
+      "sha256": "3ba874c0565a2a757f9d814469252adc1f90c0ed553caaee511af49287839819",
+      "size_bytes": 1423
+    },
+    {
+      "path": "styles.css",
+      "sha256": "ecdbdea7a0c5d9302a04c3e56ae71d701a6862e4b30afecdce70615608ca107b",
+      "size_bytes": 4086
+    },
+    {
+      "path": "tests/pwa_test_results.json",
+      "sha256": "aafe39981d25a9f2990f889ad1bbfdefad3b0ad4b20cc495676d2a3d21e4ce10",
+      "size_bytes": 636
+    },
+    {
+      "path": "tests/pwa_v1_1_test_results.json",
+      "sha256": "60ddba33b298552e6de56c50092ce7f3d46144bf2b400cc6a5a1f880bdbdeda0",
+      "size_bytes": 1013
+    },
+    {
+      "path": "vercel.json",
+      "sha256": "32debc509822fd9cff3d3d9086bcba31f3ef64ee98b85848c7ff66b3a88446c1",
+      "size_bytes": 204
+    }
+  ]
+}

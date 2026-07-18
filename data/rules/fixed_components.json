@@ -1,0 +1,16 @@
+[
+  {
+    "charge_id": "SLEEPER_B_SINGLE",
+    "name": "B寝台・1人用標準寝台",
+    "component": "sleeper",
+    "adult_yen": null,
+    "child_yen": null,
+    "price_mode": "external_tariff_required",
+    "passenger_rule": "same_as_adult",
+    "effective_from": null,
+    "effective_to": null,
+    "conditions": "寝台料金は大人・小児同額。現行JR北海道定期列車に対象設備なし。全国共通の設備別原表を接続可能。",
+    "source_id": "JRH_RULE_06",
+    "verification_level": "A"
+  }
+]

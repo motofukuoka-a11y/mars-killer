@@ -1,0 +1,62 @@
+[
+  {
+    "rule_id": "CHANGE_BEFORE_DEPARTURE_FIRST",
+    "operation": "change",
+    "timing": "before_departure",
+    "calculation": "collect_or_refund_difference",
+    "fee_yen": 0,
+    "conditions": "同種類の指定券等。原則1回に限り無手数料変更。対象外商品は商品規定優先。",
+    "source_id": "JRH_RULE_19",
+    "verification_level": "A"
+  },
+  {
+    "rule_id": "CHANGE_BEFORE_DEPARTURE_SECOND",
+    "operation": "change",
+    "timing": "before_departure",
+    "calculation": "refund_then_new_purchase",
+    "fee_yen": null,
+    "conditions": "2回目以降は原券を払戻し、新規購入として処理。",
+    "source_id": "JRH_RULE_19",
+    "verification_level": "A"
+  },
+  {
+    "rule_id": "RIDE_OVER_100KM_OR_LESS",
+    "operation": "ride_over",
+    "timing": "after_start",
+    "calculation": "origin_based_difference",
+    "fee_yen": 0,
+    "conditions": "原乗車券の営業キロが100km以内等、発駅計算対象。実乗車区間運賃－原券運賃。",
+    "source_id": "INTERNAL_TRAINING",
+    "verification_level": "B"
+  },
+  {
+    "rule_id": "RIDE_OVER_OVER_100KM",
+    "operation": "ride_over",
+    "timing": "after_start",
+    "calculation": "separate_calculation_from_change_station",
+    "fee_yen": 0,
+    "conditions": "打切計算・別途計算等は券面・経路・変更内容により判定。",
+    "source_id": "INTERNAL_TRAINING",
+    "verification_level": "B"
+  },
+  {
+    "rule_id": "ROUTE_CHANGE",
+    "operation": "route_change",
+    "timing": "after_start",
+    "calculation": "compare_original_and_changed_route",
+    "fee_yen": 0,
+    "conditions": "発駅計算又は打切計算を条件エンジンで選択。",
+    "source_id": "INTERNAL_TRAINING",
+    "verification_level": "B"
+  },
+  {
+    "rule_id": "ABANDON_REMAINDER",
+    "operation": "abandon_remainder",
+    "timing": "after_start",
+    "calculation": "no_refund_as_default",
+    "fee_yen": 0,
+    "conditions": "前途放棄。別途払戻し条件に該当する場合を除く。",
+    "source_id": "JRH_RULE_19",
+    "verification_level": "A"
+  }
+]

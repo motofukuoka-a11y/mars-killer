@@ -1,0 +1,222 @@
+[
+  {
+    "product_id": "TOKUDANE1",
+    "name": "特急トクだ値1",
+    "ticket_type": "one_way",
+    "equipment": "reserved_limited_express",
+    "sales_condition": "network_only",
+    "valid_days": 1,
+    "price_mode": "product_page_or_date_specific",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  },
+  {
+    "product_id": "TICKETLESS_SEAT",
+    "name": "在来線チケットレス座席指定券",
+    "ticket_type": "one_way",
+    "equipment": "reserved_or_green",
+    "sales_condition": "network_only",
+    "valid_days": 1,
+    "price_mode": "product_page_or_date_specific",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  },
+  {
+    "product_id": "TICKETLESS_EXPRESS",
+    "name": "在来線チケットレス特急券（トク割）",
+    "ticket_type": "one_way",
+    "equipment": "reserved_limited_express",
+    "sales_condition": "network_only",
+    "valid_days": 1,
+    "price_mode": "product_page_or_date_specific",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  },
+  {
+    "product_id": "18_OPTION",
+    "name": "青春18きっぷ北海道新幹線オプション券",
+    "ticket_type": "option",
+    "equipment": "shinkansen",
+    "sales_condition": null,
+    "valid_days": 1,
+    "price_mode": "product_page_or_date_specific",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  },
+  {
+    "product_id": "OTARU_AQUARIUM",
+    "name": "おたる水族館きっぷ",
+    "ticket_type": "roundtrip_plus_free",
+    "equipment": "ordinary_unreserved",
+    "sales_condition": null,
+    "valid_days": 1,
+    "price_mode": "product_page_or_date_specific",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  },
+  {
+    "product_id": "18_TICKET",
+    "name": "青春18きっぷ",
+    "ticket_type": "free",
+    "equipment": "ordinary_only",
+    "sales_condition": null,
+    "valid_days": null,
+    "price_mode": "product_page_or_date_specific",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  },
+  {
+    "product_id": "HOKKAIDO_EAST_PASS",
+    "name": "北海道＆東日本パス",
+    "ticket_type": "free",
+    "equipment": "ordinary_only",
+    "sales_condition": null,
+    "valid_days": 7,
+    "price_mode": "product_page_or_date_specific",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  },
+  {
+    "product_id": "SENMO_HANASAKI",
+    "name": "釧網線フリーパス／地球探索鉄道花咲線フリーパス",
+    "ticket_type": "free",
+    "equipment": "ordinary_only",
+    "sales_condition": "network_only",
+    "valid_days": 3,
+    "price_mode": "product_page_or_date_specific",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  },
+  {
+    "product_id": "ONE_DAY_WALK",
+    "name": "一日散歩きっぷ",
+    "ticket_type": "free",
+    "equipment": "ordinary_only",
+    "sales_condition": "limited_sales",
+    "valid_days": 1,
+    "price_mode": "product_page_or_date_specific",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  },
+  {
+    "product_id": "CENTRAL_HOKKAIDO",
+    "name": "北海道まんなか のんびり列車パス",
+    "ticket_type": "free",
+    "equipment": "ordinary_only",
+    "sales_condition": "network_only",
+    "valid_days": null,
+    "price_mode": "product_page_or_date_specific",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  },
+  {
+    "product_id": "NORTH_AIR_PASS",
+    "name": "ANA／FDA／Peachきた北海道フリーパス",
+    "ticket_type": "free",
+    "equipment": "limited_express_reserved",
+    "sales_condition": "limited_sales",
+    "valid_days": 3,
+    "price_mode": "product_page_or_date_specific",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  },
+  {
+    "product_id": "EAST_AIR_PASS",
+    "name": "FDA／Peachひがし北海道フリーパス",
+    "ticket_type": "free",
+    "equipment": "limited_express_reserved",
+    "sales_condition": "limited_sales",
+    "valid_days": 4,
+    "price_mode": "product_page_or_date_specific",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  },
+  {
+    "product_id": "HOKKAIDO_FREE_PASS",
+    "name": "北海道フリーパス",
+    "ticket_type": "free",
+    "equipment": "limited_express_reserved",
+    "sales_condition": null,
+    "valid_days": 7,
+    "price_mode": "product_page_or_date_specific",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  },
+  {
+    "product_id": "ADULT_HOLIDAY_HOK_GREEN",
+    "name": "大人の休日倶楽部パス（北海道・グリーン車用）",
+    "ticket_type": "free",
+    "equipment": "green",
+    "sales_condition": "members_only",
+    "valid_days": 5,
+    "price_mode": "product_page_or_date_specific",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  },
+  {
+    "product_id": "ADULT_HOLIDAY_HOK",
+    "name": "大人の休日倶楽部パス（北海道）",
+    "ticket_type": "free",
+    "equipment": "limited_express_reserved",
+    "sales_condition": "members_only",
+    "valid_days": 5,
+    "price_mode": "product_page_or_date_specific",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  },
+  {
+    "product_id": "ADULT_HOLIDAY_EH_GREEN",
+    "name": "大人の休日倶楽部パス（東日本・北海道・グリーン車用）",
+    "ticket_type": "free",
+    "equipment": "green",
+    "sales_condition": "members_only",
+    "valid_days": 5,
+    "price_mode": "product_page_or_date_specific",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  },
+  {
+    "product_id": "ADULT_HOLIDAY_EH",
+    "name": "大人の休日倶楽部パス（東日本・北海道）",
+    "ticket_type": "free",
+    "equipment": "shinkansen_unreserved",
+    "sales_condition": "members_only",
+    "valid_days": 5,
+    "price_mode": "product_page_or_date_specific",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  },
+  {
+    "product_id": "HAKODATE_PASS",
+    "name": "はこだて旅するパスポート",
+    "ticket_type": "free",
+    "equipment": "ordinary_unreserved",
+    "sales_condition": "limited_sales",
+    "valid_days": null,
+    "price_mode": "product_page_or_date_specific",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  },
+  {
+    "product_id": "ADULT_HOLIDAY_INDIVIDUAL",
+    "name": "大人の休日倶楽部",
+    "ticket_type": "individual",
+    "equipment": "product_defined",
+    "sales_condition": "members_only",
+    "valid_days": null,
+    "price_mode": "product_page_or_date_specific",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  },
+  {
+    "product_id": "ZIPANG_INDIVIDUAL",
+    "name": "ジパング倶楽部",
+    "ticket_type": "individual",
+    "equipment": "product_defined",
+    "sales_condition": "members_only",
+    "valid_days": null,
+    "price_mode": "product_page_or_date_specific",
+    "source_id": "JRH_OTOKU_LIST",
+    "verification_level": "A"
+  }
+]
