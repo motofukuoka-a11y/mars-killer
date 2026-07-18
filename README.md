@@ -5,235 +5,196 @@
 ## 主な機能
 
 - 営業キロ・換算キロ・運賃計算キロ
-- 普通運賃・料金・割引・払戻計算
+- 普通運賃・料金・割引・変更・払戻計算
 - 特急自由席・指定席・グリーン料金
 - 指定席の通常期・繁忙期・閑散期
 - 大人・小児
 - オフラインPWA
 
-## Version 2.4の変更内容
+## Version 2.4
 
-- `ChargeEngine.limitedExpressCharge()`を追加
-- 普通運賃と特急料金を独立して計算
-- 自由席、指定席、グリーンに対応
-- 大人、小児に対応
-- JR北海道在来線の特急料金表を自動選択
-- JR北海道内在来線の指定席は150km以下で道内特例料金表を優先
-- 151km以上の指定席はA特急料金表を使用
-- 指定席の通常期、繁忙期、閑散期差額をJSONマスタで管理
-- グリーン料金は自由席相当の特急料金とグリーン料金を内訳として合算
-- `quote()`の`limitedExpress`オプションから特急料金を取得可能
-- 北海道新幹線用料金表が未登録の場合は`UNSUPPORTED_CHARGE_TABLE`を返す
-- Version 2.3の公開APIとの互換性を維持
+`ChargeEngine`による特急料金計算を追加しました。
 
-## Version 2.5の変更内容
+## Version 2.5
 
-- `engines/ChangeEngine.js`を追加
-- 変更計算を`RouteEngine`、`FareEngine`、`ChargeEngine`から分離
-- 使用開始前・使用開始後の乗車変更
-- 経路変更
-- 方向変更
-- 乗り越し精算
-- 100km以下と101km以上の制度区分
-- 発駅計算と打切計算
-- 変更可否、変更前後運賃、差額、不足額、払戻し対象額、計算根拠を返却
-- `SalesEngine.change()`を追加
-- `quote()`の`change`オプションから変更計算を利用可能
-- 営業キロ条件と計算方式を`data/rules/change_rules.json`へ分離
+`ChangeEngine`による乗車変更、経路変更、方向変更、乗り越し精算を追加しました。
 
-## Version 2.5の設計方針
+## Version 2.6変更内容
 
-各エンジンの責務を次のように分離します。
+- `engines/RefundEngine.js`を追加
+- 普通乗車券と特急券の払戻し計算を他エンジンから分離
+- 普通乗車券の未使用・使用開始前・使用開始後・前途放棄に対応
+- 特急券の未使用・使用開始前・使用開始後に対応
+- 払戻可否、払戻対象額、手数料、手数料控除後金額を返却
+- 普通乗車券の払戻手数料220円をJSONマスタで管理
+- 特急券の払戻手数料340円をJSONマスタで管理
+- `SalesEngine.refund()`を追加
+- `quote()`の通常見積レスポンスへ`refund`プロパティを追加
+- `refund`未指定時は`refund: null`
+- 旧`engine.js`の`refundFee()`を廃止し、払戻しロジックを`RefundEngine`へ集約
 
-- `RouteEngine`: 経路探索と営業キロ・換算キロ集計
-- `FareEngine`: 普通運賃の算出
-- `ChargeEngine`: 特急料金・設備料金の算出
-- `ChangeEngine`: 変更可否、再計算区間、差額精算、計算根拠の生成
+## RefundEngine概要
 
-`ChangeEngine`は経路や普通運賃を独自実装せず、`RouteEngine`と
-`FareEngine`を利用します。距離境界や計算方式はJSONマスタから受け取り、
-将来の規則改定や券種追加に備えます。
+`RefundEngine`は次の処理だけを担当します。
 
-## Version 2.5利用例
+- 払戻し対象券種の判定
+- 使用状態に対応する払戻規則の選択
+- 払戻可否の判定
+- 払戻対象額の決定
+- 手数料の計算
+- 手数料控除後金額の計算
+- 払戻し不可理由と計算根拠の生成
 
-### 使用開始前の経路変更
+経路探索、普通運賃、特急料金、変更計算はそれぞれ既存エンジンが担当します。
+
+## 利用例
+
+### 普通乗車券の未使用払戻し
+
+```javascript
+const result = engine.refund({
+  ticketType: 'ordinary',
+  status: 'before_trip',
+  amountYen: 4510
+});
+```
+
+### `quote()`から普通乗車券払戻しを取得
 
 ```javascript
 const result = engine.quote({
-  start: '新千歳空港',
-  goal: '岩見沢',
+  start: '札幌',
+  goal: '函館',
   passenger: 'adult',
-  change: {
-    type: 'route_change',
-    usageState: 'before_use',
-    original: {
-      start: '新千歳空港',
-      goal: '岩見沢'
-    },
-    changed: {
-      start: '新千歳空港',
-      goal: '岩見沢',
-      via: ['白石']
-    }
+  refund: {
+    ticketType: 'ordinary',
+    status: 'before_trip'
   }
 });
+
+console.log(result.total_yen);
+console.log(result.refund);
 ```
 
-### 使用開始後の経路変更
-
-```javascript
-const result = engine.change({
-  type: 'route_change',
-  usageState: 'after_use',
-  passenger: 'adult',
-  currentStation: '札幌',
-  original: {
-    start: '函館',
-    goal: '旭川'
-  },
-  changed: {
-    goal: '帯広',
-    via: ['南千歳']
-  }
-});
-```
-
-### 方向変更
-
-```javascript
-const result = engine.change({
-  type: 'direction_change',
-  usageState: 'after_use',
-  passenger: 'adult',
-  currentStation: '札幌',
-  original: {
-    start: '小樽',
-    goal: '岩見沢'
-  },
-  changed: {
-    goal: '手稲'
-  }
-});
-```
-
-### 乗り越し精算
-
-```javascript
-const result = engine.change({
-  type: 'overtravel',
-  passenger: 'adult',
-  original: {
-    start: '札幌',
-    goal: '小樽'
-  },
-  actualGoal: '余市'
-});
-```
-
-## Version 2.5返却値一覧
-
-|項目|内容|
-|---|---|
-|`change_type`|変更種別|
-|`usage_state`|使用開始前・使用開始後|
-|`change_allowed`|変更可否|
-|`rule_classification`|100km以下、101km以上等の制度区分|
-|`calculation_method`|発駅計算、打切計算等|
-|`original_fare_yen`|変更前運賃|
-|`changed_fare_yen`|変更後運賃または変更後総額|
-|`difference_yen`|変更後－変更前の差額|
-|`shortage_yen`|収受対象の不足額|
-|`refundable_amount_yen`|払戻し検討対象額。手数料控除前|
-|`passenger_section`|実際の乗車区間。乗り越し時に返却|
-|`held_ticket`|所持乗車券。乗り越し時に返却|
-|`original_route`|変更前経路と営業キロ|
-|`changed_route`|変更後または追加区間の経路|
-|`calculation_reason`|計算理由|
-|`calculation_basis`|計算に使用した区間、運賃、変更駅等|
-|`warnings`|対象外制度と確認事項|
-
-## `change_rules.json`の役割
-
-`data/rules/change_rules.json`は、変更計算で使用する次の設定を管理します。
-
-- 100km以下・101km以上を分ける営業キロ境界
-- 使用開始前の全区間差額計算
-- 使用開始後100km以下の発駅計算
-- 使用開始後101km以上の打切計算
-- 乗り越し時の発駅計算・打切計算
-- 使用状態ごとの変更可否
-
-Version 2.5では基本設定のみを保持します。将来は券種、割引、変更回数、
-有効期間、申出時刻等を含む正式な規則マスタへ拡張します。
-
-## Version 2.5 Known limitations
-
-- 払戻手数料の計算は行いません。`refundable_amount_yen`は手数料控除前の検討対象額です。
-- 学割、障害者割引、購入券は未対応です。
-- 特定都区市内、東京山手線内、大阪市内制度は未対応です。
-- 特定区間運賃、遠距離逓減制は未対応です。
-- 新幹線乗継割引、在来線特急乗継制度は未対応です。
-- 変更回数、有効期間、途中下車、券面表示、発売制限による変更可否は未判定です。
-- 101km以上の使用開始後変更では、変更駅を`currentStation`で明示する必要があります。
-- 方向変更は、変更後着駅が原経路の既乗車区間上にある場合だけ判定します。
-- 経由指定がない場合は`RouteEngine`の営業キロ最短経路を使用します。
-- Version 2.5は普通乗車券の基本計算基盤です。最終的な取扱いは最新の規程、通達、端末表示で確認してください。
-
-## Version 2.5 quoteレスポンス
-
-`quote()`へ`change`を指定しても、通常の見積計算は従来どおり実行されます。
-変更計算結果は、見積レスポンスの`change`プロパティへ格納されます。
+### 特急券の払戻し
 
 ```javascript
 const result = engine.quote({
-  start: '新千歳空港',
-  goal: '岩見沢',
+  start: '札幌',
+  goal: '函館',
   passenger: 'adult',
   limitedExpress: {
     seatType: 'reserved',
     season: 'normal',
     network: 'hokkaido_conventional'
   },
-  change: {
-    type: 'route_change',
-    usageState: 'before_use',
-    original: {
-      start: '新千歳空港',
-      goal: '岩見沢'
-    },
-    changed: {
-      start: '新千歳空港',
-      goal: '岩見沢',
-      via: ['白石']
-    }
+  refund: {
+    ticketType: 'limited_express',
+    status: 'before_train_departure'
   }
 });
-
-console.log(result.components);
-console.log(result.total_yen);
-console.log(result.change);
 ```
 
-返却構造の概略は次のとおりです。
+### 使用開始後の普通乗車券
+
+使用開始後は、未使用区間の払戻対象額と営業キロを明示します。
 
 ```javascript
-{
-  route: { ... },
-  components: [
-    { component: 'ordinary_fare', ... },
-    { component: 'limited_express_reserved', ... }
-  ],
-  total_yen: 0,
-  change: {
-    change_type: 'route_change',
-    change_allowed: true,
-    original_fare_yen: 0,
-    changed_fare_yen: 0,
-    difference_yen: 0,
-    ...
-  }
-}
+const result = engine.refund({
+  ticketType: 'ordinary',
+  status: 'after_trip_start',
+  amountYen: 6820,
+  unusedAmountYen: 2640,
+  remainingBusinessKm: 145.2
+});
 ```
 
-`change`を指定しない場合、`change`プロパティは`null`です。
+### 前途放棄
+
+```javascript
+const result = engine.refund({
+  ticketType: 'ordinary',
+  status: 'journey_abandoned',
+  amountYen: 4510,
+  unusedAmountYen: 2640
+});
+```
+
+## 返却値一覧
+
+|項目|内容|
+|---|---|
+|`refundable`|払戻可否|
+|`refund_target`|普通乗車券または特急券|
+|`ticket_type`|`ordinary`または`limited_express`|
+|`status`|旅行開始前、旅行開始後、前途放棄、列車発車前、列車発車後、使用開始後|
+|`refund_before_fee_yen`|手数料控除前の払戻対象額|
+|`fee_yen`|払戻手数料|
+|`refund_after_fee_yen`|手数料控除後の払戻金額|
+|`non_refundable_reason`|払戻し不可理由|
+|`reason`|適用した取扱い|
+|`calculation_basis`|規則ID、金額の取得元、計算式等|
+
+## `refund_rules.json`の役割
+
+`data/rules/refund_rules.json`は次の情報を管理します。
+
+- 対象券種
+- 普通乗車券の旅行開始前・旅行開始後・前途放棄
+- 特急券等の列車発車前・列車発車後・使用開始後
+- 払戻可否
+- 普通乗車券手数料220円
+- 特急券手数料340円
+- 払戻対象額の取得方法
+- 使用開始後に必要な未使用区間条件
+- 払戻し不可理由
+
+手数料や条件を`RefundEngine.js`へ直接記述しないため、将来の規則変更や券種追加に対応できます。
+
+## Known limitations
+
+- 定期券、回数券、特別企画乗車券は未対応です。
+- 学割、障害者割引、購入券は未対応です。
+- 団体券、ジパング倶楽部、株主優待は未対応です。
+- 指定席特急券の出発日・申出時刻による段階的な手数料は未対応です。
+- 列車運休、事故、遅延等による無手数料払戻しは未対応です。
+- 旅行開始後の普通乗車券は、未使用区間額を`unusedAmountYen`、未使用区間営業キロを`remainingBusinessKm`で指定する必要があります。
+- 営業キロ条件は未使用区間101km以上として判定します。
+- `quote()`は通常見積額から払戻対象額を取得しますが、使用開始後の未使用区間額は自動算出しません。
+- 前途放棄はVersion 2.6では払戻し不可として扱います。
+- 最終的な取扱いは最新の規程、通達、発売端末表示で確認してください。
+
+## 払戻し状態一覧
+
+払戻し判定は`used: true/false`ではなく、`status`の列挙値で指定します。
+
+### 普通乗車券
+
+|status|判定時点|
+|---|---|
+|`before_trip`|旅行開始前|
+|`after_trip_start`|旅行開始後|
+|`journey_abandoned`|前途放棄|
+
+### 特急券・指定席券・グリーン券等
+
+|status|判定時点|
+|---|---|
+|`before_train_departure`|列車発車前|
+|`after_train_departure`|列車発車後|
+|`after_use_start`|使用開始後|
+
+## 判定の考え方
+
+普通乗車券は「旅行を開始したか」を基準に判定します。
+
+特急券・指定席券・グリーン券等は、「列車が発車したか」と
+「券を使用開始したか」を別々の状態として判定します。
+
+`RefundEngine`は券種と`status`の組み合わせから
+`refund_rules.json`の規則を選択します。状態に対応する払戻可否、
+手数料、払戻対象額の取得方法、営業キロ条件はJSON側で管理します。
+
+旅行開始後の普通乗車券で営業キロ条件を扱う場合は、
+未使用区間が`101km以上`であることを判定します。
 

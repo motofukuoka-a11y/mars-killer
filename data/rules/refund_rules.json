@@ -1,60 +1,134 @@
 [
   {
-    "rule_id": "REFUND_BASIC",
-    "ticket_types": [
-      "ordinary_ticket",
-      "ordinary_express",
-      "unreserved_limited_express",
-      "specific_limited_express",
-      "unreserved_green"
-    ],
-    "timing": "before_use_within_validity",
-    "mode": "fixed",
-    "value": 220,
-    "minimum": null,
-    "source_id": "JRH_RULE_19",
-    "verification_level": "A"
+    "rule_id": "ORDINARY_BEFORE_TRIP",
+    "ticket_type": "ordinary",
+    "status": "before_trip",
+    "refundable": true,
+    "amount_source": "original_amount",
+    "requires_unused_amount": false,
+    "minimum_remaining_km": null,
+    "minimum_remaining_km_inclusive": false,
+    "require_positive_after_fee": true,
+    "fee": {
+      "mode": "fixed",
+      "value": 220
+    },
+    "reason": "旅行開始前の普通乗車券",
+    "non_refundable_reason": null,
+    "allowed_status": [
+      "before_trip",
+      "after_trip_start",
+      "journey_abandoned"
+    ]
   },
   {
-    "rule_id": "REFUND_RESERVED_EARLY",
-    "ticket_types": [
-      "reserved_limited_express",
-      "reserved_green",
-      "sleeper",
-      "reserved_seat"
-    ],
-    "timing": "until_2_days_before_departure",
-    "mode": "fixed",
-    "value": 340,
-    "minimum": null,
-    "source_id": "JRH_RULE_19",
-    "verification_level": "A"
+    "rule_id": "ORDINARY_AFTER_TRIP_START",
+    "ticket_type": "ordinary",
+    "status": "after_trip_start",
+    "refundable": true,
+    "amount_source": "unused_amount",
+    "requires_unused_amount": true,
+    "minimum_remaining_km": 101,
+    "minimum_remaining_km_inclusive": true,
+    "require_positive_after_fee": true,
+    "fee": {
+      "mode": "fixed",
+      "value": 220
+    },
+    "reason": "旅行開始後の普通乗車券の未使用区間",
+    "non_refundable_reason": null,
+    "allowed_status": [
+      "before_trip",
+      "after_trip_start",
+      "journey_abandoned"
+    ]
   },
   {
-    "rule_id": "REFUND_RESERVED_LATE",
-    "ticket_types": [
-      "reserved_limited_express",
-      "reserved_green",
-      "sleeper",
-      "reserved_seat"
-    ],
-    "timing": "day_before_to_departure",
-    "mode": "rate",
-    "value": 0.3,
-    "minimum": 340,
-    "source_id": "JRH_RULE_19",
-    "verification_level": "A"
+    "rule_id": "ORDINARY_JOURNEY_ABANDONED",
+    "ticket_type": "ordinary",
+    "status": "journey_abandoned",
+    "refundable": false,
+    "amount_source": "unused_amount",
+    "requires_unused_amount": false,
+    "minimum_remaining_km": null,
+    "minimum_remaining_km_inclusive": false,
+    "require_positive_after_fee": false,
+    "fee": {
+      "mode": "fixed",
+      "value": 0
+    },
+    "reason": "前途放棄",
+    "non_refundable_reason": "前途放棄のため払戻しできません。",
+    "allowed_status": [
+      "before_trip",
+      "after_trip_start",
+      "journey_abandoned"
+    ]
   },
   {
-    "rule_id": "REFUND_UNASSIGNED",
-    "ticket_types": [
-      "unassigned_seat_limited_express"
-    ],
-    "timing": "before_use_until_travel_date",
-    "mode": "fixed",
-    "value": 340,
-    "minimum": null,
-    "source_id": "JRH_RULE_19",
-    "verification_level": "A"
+    "rule_id": "LIMITED_EXPRESS_BEFORE_TRAIN_DEPARTURE",
+    "ticket_type": "limited_express",
+    "status": "before_train_departure",
+    "refundable": true,
+    "amount_source": "original_amount",
+    "requires_unused_amount": false,
+    "minimum_remaining_km": null,
+    "minimum_remaining_km_inclusive": false,
+    "require_positive_after_fee": true,
+    "fee": {
+      "mode": "fixed",
+      "value": 340
+    },
+    "reason": "列車発車前の特急券・指定席券・グリーン券等",
+    "non_refundable_reason": null,
+    "allowed_status": [
+      "before_train_departure",
+      "after_train_departure",
+      "after_use_start"
+    ]
+  },
+  {
+    "rule_id": "LIMITED_EXPRESS_AFTER_TRAIN_DEPARTURE",
+    "ticket_type": "limited_express",
+    "status": "after_train_departure",
+    "refundable": false,
+    "amount_source": "original_amount",
+    "requires_unused_amount": false,
+    "minimum_remaining_km": null,
+    "minimum_remaining_km_inclusive": false,
+    "require_positive_after_fee": false,
+    "fee": {
+      "mode": "fixed",
+      "value": 0
+    },
+    "reason": "列車発車後の特急券・指定席券・グリーン券等",
+    "non_refundable_reason": "列車発車後のため払戻しできません。",
+    "allowed_status": [
+      "before_train_departure",
+      "after_train_departure",
+      "after_use_start"
+    ]
+  },
+  {
+    "rule_id": "LIMITED_EXPRESS_AFTER_USE_START",
+    "ticket_type": "limited_express",
+    "status": "after_use_start",
+    "refundable": false,
+    "amount_source": "original_amount",
+    "requires_unused_amount": false,
+    "minimum_remaining_km": null,
+    "minimum_remaining_km_inclusive": false,
+    "require_positive_after_fee": false,
+    "fee": {
+      "mode": "fixed",
+      "value": 0
+    },
+    "reason": "使用開始後の特急券・指定席券・グリーン券等",
+    "non_refundable_reason": "使用開始後のため払戻しできません。",
+    "allowed_status": [
+      "before_train_departure",
+      "after_train_departure",
+      "after_use_start"
+    ]
   }
 ]

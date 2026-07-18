@@ -2,6 +2,7 @@ import RouteEngine from './engines/RouteEngine.js';
 import FareEngine from './engines/FareEngine.js';
 import ChargeEngine from './engines/ChargeEngine.js';
 import ChangeEngine from './engines/ChangeEngine.js';
+import RefundEngine from './engines/RefundEngine.js';
 
 export class SalesEngine {
 
@@ -28,6 +29,10 @@ export class SalesEngine {
       this.routeEngine,
       this.fareEngine,
       this.changeRules
+    );
+
+    this.refundEngine = new RefundEngine(
+      this.refundRules
     );
   }
 
@@ -140,11 +145,15 @@ export class SalesEngine {
     );
   }
 
-  /**
-   * 変更計算を実行する。
-   */
   change(options) {
     return this.changeEngine.calculate(options);
+  }
+
+  /**
+   * 払戻し計算を実行する。
+   */
+  refund(options) {
+    return this.refundEngine.calculate(options);
   }
 
   discounted(amount, rate, rounding) {
@@ -165,7 +174,8 @@ export class SalesEngine {
     chargeTableId = null,
     productId = null,
     discountId = null,
-    change = null
+    change = null,
+    refund = null
   }) {
 
     if (!['adult', 'child'].includes(passenger)) {
@@ -291,6 +301,18 @@ export class SalesEngine {
       0
     );
 
+    const refundDetail = refund
+      ? this.refund({
+          ...refund,
+          amountYen:
+            refund.amountYen ??
+            this.refundTargetAmount(
+              refund.ticketType,
+              components
+            )
+        })
+      : null;
+
     return {
       ticket_type: 'one_way',
       route,
@@ -302,6 +324,7 @@ export class SalesEngine {
       discount_detail: discountDetail,
       total_yen: total,
       change: changeDetail,
+      refund: refundDetail,
       warnings: [
         '自動経路は営業キロ最短です。経路特例・選択乗車等がある場合は経由駅を指定してください。',
         '列車の停車駅・運転日・空席は時刻表または発売画面で別途確認してください。'
@@ -309,22 +332,37 @@ export class SalesEngine {
     };
   }
 
-  refundFee(ruleId, price) {
-    const rule = this.refundRules.find(
-      item => item.rule_id === ruleId
-    );
-
-    if (!rule) {
-      throw new Error(ruleId);
+  /**
+   * quote()の構成要素から払戻対象額を取得する。
+   * 払戻可否・手数料計算はRefundEngineのみが担当する。
+   */
+  refundTargetAmount(ticketType, components) {
+    if (ticketType === 'ordinary') {
+      return components
+        .filter(component =>
+          component.component === 'ordinary_fare' ||
+          component.component === 'special_fare'
+        )
+        .reduce(
+          (total, component) =>
+            total + component.amount_yen,
+          0
+        );
     }
 
-    if (rule.mode === 'fixed') {
-      return Number(rule.value);
+    if (ticketType === 'limited_express') {
+      return components
+        .filter(component =>
+          String(component.component)
+            .startsWith('limited_express')
+        )
+        .reduce(
+          (total, component) =>
+            total + component.amount_yen,
+          0
+        );
     }
 
-    return Math.max(
-      Math.floor(price * Number(rule.value)),
-      Number(rule.minimum)
-    );
+    return 0;
   }
 }
