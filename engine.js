@@ -1,6 +1,7 @@
 import RouteEngine from './engines/RouteEngine.js';
 import FareEngine from './engines/FareEngine.js';
 import ChargeEngine from './engines/ChargeEngine.js';
+import ChangeEngine from './engines/ChangeEngine.js';
 
 export class SalesEngine {
 
@@ -21,6 +22,12 @@ export class SalesEngine {
       this.chargeTables,
       this.productCharges,
       this.seasonAdjustments
+    );
+
+    this.changeEngine = new ChangeEngine(
+      this.routeEngine,
+      this.fareEngine,
+      this.changeRules
     );
   }
 
@@ -43,6 +50,7 @@ export class SalesEngine {
       chargeTables,
       productCharges,
       seasonAdjustments,
+      changeRules,
       discountRules,
       refundRules,
       specialFares
@@ -53,6 +61,7 @@ export class SalesEngine {
       get('rules/distance_charge_tables.json'),
       get('rules/train_product_charges.json'),
       get('rules/charge_season_adjustments.json'),
+      get('rules/change_rules.json'),
       get('rules/discount_rules.json'),
       get('rules/refund_rules.json'),
       get('rules/special_fares.json')
@@ -65,6 +74,7 @@ export class SalesEngine {
       chargeTables,
       productCharges,
       seasonAdjustments,
+      changeRules,
       discountRules,
       refundRules,
       specialFares
@@ -130,6 +140,13 @@ export class SalesEngine {
     );
   }
 
+  /**
+   * 変更計算を実行する。
+   */
+  change(options) {
+    return this.changeEngine.calculate(options);
+  }
+
   discounted(amount, rate, rounding) {
     return this.fareEngine.discounted(
       amount,
@@ -147,12 +164,23 @@ export class SalesEngine {
     limitedExpress = null,
     chargeTableId = null,
     productId = null,
-    discountId = null
+    discountId = null,
+    change = null
   }) {
 
     if (!['adult', 'child'].includes(passenger)) {
       throw new Error('旅客区分が不正です');
     }
+
+    const changeDetail = change
+      ? this.change({
+          ...change,
+          passenger,
+          start,
+          goal,
+          via
+        })
+      : null;
 
     const route = this.route(start, goal, via);
 
@@ -273,6 +301,7 @@ export class SalesEngine {
       discount_yen: subtotal - total,
       discount_detail: discountDetail,
       total_yen: total,
+      change: changeDetail,
       warnings: [
         '自動経路は営業キロ最短です。経路特例・選択乗車等がある場合は経由駅を指定してください。',
         '列車の停車駅・運転日・空席は時刻表または発売画面で別途確認してください。'
