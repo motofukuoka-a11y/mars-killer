@@ -19,7 +19,8 @@ export class SalesEngine {
 
     this.chargeEngine = new ChargeEngine(
       this.chargeTables,
-      this.productCharges
+      this.productCharges,
+      this.seasonAdjustments
     );
   }
 
@@ -41,6 +42,7 @@ export class SalesEngine {
       ordinaryFares,
       chargeTables,
       productCharges,
+      seasonAdjustments,
       discountRules,
       refundRules,
       specialFares
@@ -50,6 +52,7 @@ export class SalesEngine {
       get('fare/ordinary_fares.json'),
       get('rules/distance_charge_tables.json'),
       get('rules/train_product_charges.json'),
+      get('rules/charge_season_adjustments.json'),
       get('rules/discount_rules.json'),
       get('rules/refund_rules.json'),
       get('rules/special_fares.json')
@@ -61,49 +64,25 @@ export class SalesEngine {
       ordinaryFares,
       chargeTables,
       productCharges,
+      seasonAdjustments,
       discountRules,
       refundRules,
       specialFares
     });
   }
 
-  /**
-   * 駅名または駅IDを駅IDへ変換する。
-   *
-   * 既存コードとの互換性を保つため、SalesEngine側にも
-   * 公開メソッドとして残している。
-   */
   resolveStation(value) {
     return this.routeEngine.resolveStation(value);
   }
 
-  /**
-   * 指定した2駅間の営業キロ最短経路を探索する。
-   *
-   * 既存コードとの互換性を保つため、SalesEngine側にも
-   * 公開メソッドとして残している。
-   */
   shortestLeg(start, goal) {
     return this.routeEngine.shortestLeg(start, goal);
   }
 
-  /**
-   * 発駅、着駅、経由駅から経路を作成する。
-   */
   route(start, goal, via = []) {
-    return this.routeEngine.route(
-      start,
-      goal,
-      via
-    );
+    return this.routeEngine.route(start, goal, via);
   }
 
-  /**
-   * 経路区間を集計する。
-   *
-   * 外部コードから直接呼ばれる可能性を考慮し、
-   * RouteEngineへの委譲メソッドとして残している。
-   */
   summarizeRoute(startId, goalId, legs, via = []) {
     return this.routeEngine.summarizeRoute(
       startId,
@@ -113,12 +92,6 @@ export class SalesEngine {
     );
   }
 
-  /**
-   * 普通運賃を計算する。
-   *
-   * 既存コードとの互換性を保つため、SalesEngine側にも
-   * 公開メソッドとして残している。
-   */
   ordinaryFare(route, passenger) {
     return this.fareEngine.ordinaryFare(
       route,
@@ -126,12 +99,6 @@ export class SalesEngine {
     );
   }
 
-  /**
-   * 特定区間を通過した際の加算運賃を作成する。
-   *
-   * 既存コードとの互換性を保つため、SalesEngine側にも
-   * 公開メソッドとして残している。
-   */
   specialComponents(route, passenger) {
     return this.fareEngine.specialComponents(
       route,
@@ -139,12 +106,10 @@ export class SalesEngine {
     );
   }
 
-  /**
-   * 営業キロに応じた料金を計算する。
-   *
-   * 既存コードとの互換性を保つため、SalesEngine側にも
-   * 公開メソッドとして残している。
-   */
+  limitedExpressCharge(options) {
+    return this.chargeEngine.limitedExpressCharge(options);
+  }
+
   distanceCharge(tableId, km, passenger) {
     return this.chargeEngine.distanceCharge(
       tableId,
@@ -153,22 +118,10 @@ export class SalesEngine {
     );
   }
 
-  /**
-   * 料金表IDから画面表示名を取得する。
-   *
-   * 既存コードとの互換性を保つため、SalesEngine側にも
-   * 公開メソッドとして残している。
-   */
   tableName(id) {
     return this.chargeEngine.tableName(id);
   }
 
-  /**
-   * 商品ごとの固定料金を取得する。
-   *
-   * 既存コードとの互換性を保つため、SalesEngine側にも
-   * 公開メソッドとして残している。
-   */
   productCharge(productId, travelDate, passenger) {
     return this.chargeEngine.productCharge(
       productId,
@@ -177,12 +130,6 @@ export class SalesEngine {
     );
   }
 
-  /**
-   * 割引後金額を計算する。
-   *
-   * 既存コードとの互換性を保つため、SalesEngine側にも
-   * 公開メソッドとして残している。
-   */
   discounted(amount, rate, rounding) {
     return this.fareEngine.discounted(
       amount,
@@ -191,15 +138,13 @@ export class SalesEngine {
     );
   }
 
-  /**
-   * 発売額を計算する。
-   */
   quote({
     start,
     goal,
     via = [],
     passenger = 'adult',
     travelDate = '2026-07-18',
+    limitedExpress = null,
     chargeTableId = null,
     productId = null,
     discountId = null
@@ -209,18 +154,24 @@ export class SalesEngine {
       throw new Error('旅客区分が不正です');
     }
 
-    const route = this.route(
-      start,
-      goal,
-      via
-    );
+    const route = this.route(start, goal, via);
 
     const components = [
       this.ordinaryFare(route, passenger),
       ...this.specialComponents(route, passenger)
     ];
 
-    if (chargeTableId) {
+    if (limitedExpress) {
+      components.push(
+        this.limitedExpressCharge({
+          ...limitedExpress,
+          km:
+            limitedExpress.km ??
+            route.business_km,
+          passenger
+        })
+      );
+    } else if (chargeTableId) {
       components.push(
         this.distanceCharge(
           chargeTableId,
@@ -249,7 +200,6 @@ export class SalesEngine {
     let discountDetail = null;
 
     if (discountId) {
-
       const rule = this.discountRules.find(
         item => item.discount_id === discountId
       );
@@ -278,7 +228,6 @@ export class SalesEngine {
       const applied = [];
 
       for (const component of components) {
-
         if (
           !rule.targets.includes(component.component) ||
           !component.discountable
@@ -287,7 +236,6 @@ export class SalesEngine {
         }
 
         const before = component.amount_yen;
-
         component.pre_discount_yen = before;
 
         component.amount_yen = this.discounted(
@@ -332,11 +280,7 @@ export class SalesEngine {
     };
   }
 
-  /**
-   * 払戻手数料を計算する。
-   */
   refundFee(ruleId, price) {
-
     const rule = this.refundRules.find(
       item => item.rule_id === ruleId
     );

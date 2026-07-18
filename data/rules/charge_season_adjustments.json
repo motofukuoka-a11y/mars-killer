@@ -1,0 +1,50 @@
+[
+  {
+    "network": "hokkaido_conventional",
+    "season": "normal",
+    "adult_yen": 0,
+    "child_yen": 0,
+    "applies_to": "reserved",
+    "note": "通常期の指定席特急料金を基準額として使用する"
+  },
+  {
+    "network": "hokkaido_conventional",
+    "season": "busy",
+    "adult_yen": 200,
+    "child_yen": 100,
+    "applies_to": "reserved",
+    "note": "繁忙期の指定席差額"
+  },
+  {
+    "network": "hokkaido_conventional",
+    "season": "off_peak",
+    "adult_yen": -200,
+    "child_yen": -100,
+    "applies_to": "reserved",
+    "note": "閑散期の指定席差額"
+  },
+  {
+    "network": "hokkaido_shinkansen",
+    "season": "normal",
+    "adult_yen": 0,
+    "child_yen": 0,
+    "applies_to": "reserved",
+    "note": "北海道新幹線料金表登録後に使用する"
+  },
+  {
+    "network": "hokkaido_shinkansen",
+    "season": "busy",
+    "adult_yen": 200,
+    "child_yen": 100,
+    "applies_to": "reserved",
+    "note": "制度改定時はマスタ値を更新する"
+  },
+  {
+    "network": "hokkaido_shinkansen",
+    "season": "off_peak",
+    "adult_yen": -200,
+    "child_yen": -100,
+    "applies_to": "reserved",
+    "note": "制度改定時はマスタ値を更新する"
+  }
+]
