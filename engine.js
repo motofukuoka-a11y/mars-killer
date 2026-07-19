@@ -127,7 +127,6 @@ export class SalesEngine {
 
     const [
       lines,
-      lines,
       stations,
       segments,
       ordinaryFares,
@@ -175,6 +174,7 @@ export class SalesEngine {
     ]);
 
     return new SalesEngine({
+      lines,
       stations,
       segments,
       ordinaryFares,
