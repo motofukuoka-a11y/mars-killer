@@ -6,6 +6,7 @@ import RefundEngine from './engines/RefundEngine.js';
 import DiscountEngine from './engines/DiscountEngine.js';
 import ValidationEngine from './engines/ValidationEngine.js';
 import BusinessEngine from './engines/BusinessEngine.js';
+import RuleResolver from './shared/RuleResolver.js';
 import {
   DiscountType
 } from './shared/Constants.js';
@@ -50,6 +51,20 @@ export class SalesEngine {
         this.validationEngine
       );
 
+    this.ruleResolver = new RuleResolver({
+      masters: {
+        business_regulation_master:
+          this.businessRegulationMaster,
+        station_group_master:
+          this.stationGroupMaster,
+        route_rule_master:
+          this.routeRuleMaster,
+        validity_rule_master:
+          this.validityRuleMaster
+      },
+      validationEngine: this.validationEngine
+    });
+
     this.businessEngine = new BusinessEngine({
       routeEngine: this.routeEngine,
       fareEngine: this.fareEngine,
@@ -59,8 +74,7 @@ export class SalesEngine {
       refundEngine: this.refundEngine,
       validationEngine: this.validationEngine,
       rules: this.businessRules,
-      regulations:
-        this.businessRegulations
+      ruleResolver: this.ruleResolver
     });
   }
 
@@ -87,7 +101,10 @@ export class SalesEngine {
       discountRules,
       refundRules,
       businessRules,
-      businessRegulations,
+      businessRegulationMaster,
+      stationGroupMaster,
+      routeRuleMaster,
+      validityRuleMaster,
       specialFares
     ] = await Promise.all([
       get('distance/stations.json'),
@@ -100,7 +117,10 @@ export class SalesEngine {
       get('rules/discount_rules.json'),
       get('rules/refund_rules.json'),
       get('rules/business_rules.json'),
-      get('rules/business_regulations.json'),
+      get('master/business_regulation_master.json'),
+      get('master/station_group_master.json'),
+      get('master/route_rule_master.json'),
+      get('master/validity_rule_master.json'),
       get('rules/special_fares.json')
     ]);
 
@@ -115,7 +135,10 @@ export class SalesEngine {
       discountRules,
       refundRules,
       businessRules,
-      businessRegulations,
+      businessRegulationMaster,
+      stationGroupMaster,
+      routeRuleMaster,
+      validityRuleMaster,
       specialFares
     });
   }

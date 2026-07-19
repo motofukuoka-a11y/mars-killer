@@ -1,0 +1,65 @@
+{
+  "id": "STATION_GROUP_MASTER",
+  "name": "駅グループマスター",
+  "enabled": true,
+  "description": "特定都区市内および大都市近郊区間等の駅グループ規則を管理する。",
+  "conditions": {},
+  "references": [],
+  "priority": 0,
+  "records": [
+    {
+      "id": "SPECIFIC_CITY_ZONE",
+      "name": "特定都区市内",
+      "enabled": true,
+      "description": "営業キロと対象駅グループ判定から特定都区市内を判定する。",
+      "conditions": {
+        "required_fields": [
+          "business_km",
+          "specific_city_zone_applicable"
+        ],
+        "all": [
+          {
+            "field": "business_km",
+            "operator": "greater_than_or_equal",
+            "value": 201
+          },
+          {
+            "field": "specific_city_zone_applicable",
+            "operator": "equals",
+            "value": true
+          }
+        ],
+        "result_key": "specific_city_zone",
+        "applicable_reason": "営業キロおよび特定都区市内の対象駅条件を満たしています。",
+        "not_applicable_reason": "営業キロまたは特定都区市内の対象駅条件を満たしていません。",
+        "missing_input_reason": "特定都区市内の判定には営業キロと対象駅グループ判定が必要です。"
+      },
+      "references": [],
+      "priority": 200
+    },
+    {
+      "id": "METROPOLITAN_SUBURBAN_AREA",
+      "name": "大都市近郊区間",
+      "enabled": true,
+      "description": "乗車区間が大都市近郊区間内で完結するかを判定する。",
+      "conditions": {
+        "required_fields": [
+          "metropolitan_suburban_area_only"
+        ],
+        "all": [
+          {
+            "field": "metropolitan_suburban_area_only",
+            "operator": "equals",
+            "value": true
+          }
+        ],
+        "result_key": "metropolitan_suburban_area",
+        "applicable_reason": "乗車区間が大都市近郊区間内で完結しています。",
+        "not_applicable_reason": "乗車区間は大都市近郊区間内だけで完結していません。",
+        "missing_input_reason": "大都市近郊区間の判定には駅グループ判定が必要です。"
+      },
+      "references": [],
+      "priority": 700
+    }
+  ]
+}

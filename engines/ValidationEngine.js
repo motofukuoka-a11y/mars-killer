@@ -27,6 +27,8 @@ export default class ValidationEngine {
         return this.validateBusiness(input);
       case 'business_regulations':
         return this.validateBusinessRegulations(input);
+      case 'master_database':
+        return this.validateMasterDatabase(input);
       default:
         return this.invalid(
           ErrorCodes.UNSUPPORTED_OPERATION,
@@ -210,6 +212,273 @@ export default class ValidationEngine {
     return this.valid({
       missing_by_regulation:
         missingByRegulation
+    });
+  }
+
+  validateMasterDatabase(input) {
+    const masters = input.masters;
+
+    if (
+      !masters ||
+      typeof masters !== 'object'
+    ) {
+      return this.invalid(
+        ErrorCodes.MASTER_MISSING,
+        '営業規則マスター群が不足しています。'
+      );
+    }
+
+    const requiredMasters = [
+      'business_regulation_master',
+      'station_group_master',
+      'route_rule_master',
+      'validity_rule_master'
+    ];
+
+    for (const name of requiredMasters) {
+      if (!masters[name]) {
+        return this.invalid(
+          ErrorCodes.MASTER_MISSING,
+          `必須マスターが不足しています: ${name}`,
+          { master: name }
+        );
+      }
+    }
+
+    const requiredFields = [
+      'id',
+      'name',
+      'enabled',
+      'description',
+      'conditions',
+      'references',
+      'priority'
+    ];
+
+    const masterIds = new Set();
+    const nodes = new Map();
+    const resolvedRules = [];
+
+    for (
+      const [masterName, master] of
+      Object.entries(masters)
+    ) {
+      if (masterIds.has(master.id)) {
+        return this.invalid(
+          ErrorCodes.MASTER_DUPLICATE,
+          `マスターIDが重複しています: ${
+            master.id
+          }`,
+          {
+            master: masterName,
+            id: master.id
+          }
+        );
+      }
+
+      masterIds.add(master.id);
+
+      for (const field of requiredFields) {
+        if (master[field] == null) {
+          return this.invalid(
+            ErrorCodes.REQUIRED_FIELD,
+            `${masterName}.${field}は必須です。`,
+            {
+              master: masterName,
+              field
+            }
+          );
+        }
+      }
+
+      const recordIds = new Set();
+
+      for (
+        const record of
+        master.records || []
+      ) {
+        for (
+          const field of requiredFields
+        ) {
+          if (record[field] == null) {
+            return this.invalid(
+              ErrorCodes.REQUIRED_FIELD,
+              `${masterName}/${
+                record.id || 'unknown'
+              }.${field}は必須です。`,
+              {
+                master: masterName,
+                id: record.id,
+                field
+              }
+            );
+          }
+        }
+
+        if (recordIds.has(record.id)) {
+          return this.invalid(
+            ErrorCodes.MASTER_DUPLICATE,
+            `マスター内でIDが重複しています: ${
+              masterName
+            }/${record.id}`,
+            {
+              master: masterName,
+              id: record.id
+            }
+          );
+        }
+
+        recordIds.add(record.id);
+
+        nodes.set(
+          `${masterName}:${record.id}`,
+          record.references || []
+        );
+      }
+    }
+
+    const central =
+      masters.business_regulation_master;
+
+    for (
+      const reference of
+      central.references || []
+    ) {
+      const master =
+        masters[reference.master];
+
+      if (!master) {
+        return this.invalid(
+          ErrorCodes.MASTER_MISSING,
+          `参照マスターが不足しています: ${
+            reference.master
+          }`,
+          { reference }
+        );
+      }
+
+      const rule = (
+        master.records || []
+      ).find(
+        item => item.id === reference.id
+      );
+
+      if (!rule) {
+        return this.invalid(
+          ErrorCodes.RULE_NOT_FOUND,
+          `参照規則が見つかりません: ${
+            reference.master
+          }/${reference.id}`,
+          { reference }
+        );
+      }
+
+      if (
+        master.enabled !== false &&
+        rule.enabled !== false
+      ) {
+        resolvedRules.push({
+          master: reference.master,
+          id: rule.id,
+          priority: rule.priority
+        });
+      }
+    }
+
+    const priorities = new Map();
+
+    for (const rule of resolvedRules) {
+      if (priorities.has(rule.priority)) {
+        return this.invalid(
+          ErrorCodes.PRIORITY_CONFLICT,
+          `優先順位が競合しています: ${
+            rule.priority
+          }`,
+          {
+            priority: rule.priority,
+            ids: [
+              priorities.get(
+                rule.priority
+              ),
+              `${rule.master}:${rule.id}`
+            ]
+          }
+        );
+      }
+
+      priorities.set(
+        rule.priority,
+        `${rule.master}:${rule.id}`
+      );
+    }
+
+    const graph = nodes;
+    const visiting = new Set();
+    const visited = new Set();
+    const path = [];
+
+    const visit = node => {
+      if (visiting.has(node)) {
+        const index =
+          path.indexOf(node);
+
+        return [
+          ...path.slice(index),
+          node
+        ];
+      }
+
+      if (visited.has(node)) {
+        return null;
+      }
+
+      visiting.add(node);
+      path.push(node);
+
+      for (
+        const reference of
+        graph.get(node) || []
+      ) {
+        const next =
+          `${reference.master}:${
+            reference.id
+          }`;
+
+        if (!graph.has(next)) {
+          continue;
+        }
+
+        const cycle = visit(next);
+
+        if (cycle) {
+          return cycle;
+        }
+      }
+
+      path.pop();
+      visiting.delete(node);
+      visited.add(node);
+
+      return null;
+    };
+
+    for (const node of graph.keys()) {
+      const cycle = visit(node);
+
+      if (cycle) {
+        return this.invalid(
+          ErrorCodes.CIRCULAR_REFERENCE,
+          `循環参照を検出しました: ${
+            cycle.join(' -> ')
+          }`,
+          { cycle }
+        );
+      }
+    }
+
+    return this.valid({
+      resolved_rule_count:
+        resolvedRules.length
     });
   }
 

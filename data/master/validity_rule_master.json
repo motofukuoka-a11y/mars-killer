@@ -1,0 +1,122 @@
+{
+  "id": "VALIDITY_RULE_MASTER",
+  "name": "有効期間・運賃制度マスター",
+  "enabled": true,
+  "description": "有効日数、途中下車および遠距離逓減制を管理する。",
+  "conditions": {},
+  "references": [],
+  "priority": 0,
+  "records": [
+    {
+      "id": "LONG_DISTANCE_DISCOUNT",
+      "name": "遠距離逓減制",
+      "enabled": true,
+      "description": "運賃計算キロから遠距離逓減制の適用対象を判定する。",
+      "conditions": {
+        "required_fields": [
+          "fare_calculation_km"
+        ],
+        "all": [
+          {
+            "field": "fare_calculation_km",
+            "operator": "greater_than_or_equal",
+            "value": 601
+          }
+        ],
+        "result_key": "long_distance_discount",
+        "applicable_reason": "運賃計算キロが601km以上であるため、遠距離逓減制の対象です。",
+        "not_applicable_reason": "運賃計算キロが601km未満であるため、遠距離逓減制の対象外です。",
+        "missing_input_reason": "遠距離逓減制の判定には運賃計算キロが必要です。"
+      },
+      "references": [],
+      "priority": 100
+    },
+    {
+      "id": "STOPOVER_ALLOWED",
+      "name": "途中下車可否",
+      "enabled": true,
+      "description": "営業キロ、利用形態および制限情報から途中下車可否を判定する。",
+      "conditions": {
+        "required_fields": [
+          "business_km",
+          "ticket_usage_type",
+          "metropolitan_suburban_area_only",
+          "stopover_restricted"
+        ],
+        "all": [
+          {
+            "field": "business_km",
+            "operator": "greater_than",
+            "value": 100
+          },
+          {
+            "field": "ticket_usage_type",
+            "operator": "equals",
+            "value": "valid_period"
+          },
+          {
+            "field": "metropolitan_suburban_area_only",
+            "operator": "equals",
+            "value": false
+          },
+          {
+            "field": "stopover_restricted",
+            "operator": "equals",
+            "value": false
+          }
+        ],
+        "result_key": "stopover_allowed",
+        "applicable_reason": "営業キロ、利用形態および途中下車制限の条件を満たしています。",
+        "not_applicable_reason": "営業キロ、利用形態、大都市近郊区間または途中下車制限により途中下車できません。",
+        "missing_input_reason": "途中下車可否の判定に必要な営業キロまたは制限情報が不足しています。"
+      },
+      "references": [
+        {
+          "master": "station_group_master",
+          "id": "METROPOLITAN_SUBURBAN_AREA"
+        }
+      ],
+      "priority": 800
+    },
+    {
+      "id": "VALID_DAYS",
+      "name": "有効日数判定",
+      "enabled": true,
+      "description": "営業キロと有効期間から必要有効日数および期間内かを判定する。",
+      "conditions": {
+        "required_fields": [
+          "business_km",
+          "request_date",
+          "ticket_start_date",
+          "ticket_end_date"
+        ],
+        "all": [
+          {
+            "field": "request_date",
+            "operator": "date_on_or_after",
+            "reference_field": "ticket_start_date"
+          },
+          {
+            "field": "request_date",
+            "operator": "date_on_or_before",
+            "reference_field": "ticket_end_date"
+          }
+        ],
+        "result_key": "valid_days",
+        "applicable_reason": "申出日はきっぷの有効期間内です。",
+        "not_applicable_reason": "申出日はきっぷの有効期間外です。",
+        "missing_input_reason": "有効日数判定には営業キロ、申出日、有効開始日および有効終了日が必要です。",
+        "calculation": {
+          "type": "valid_days_by_business_km",
+          "same_day_max_km": 100,
+          "base_max_km": 200,
+          "base_days": 2,
+          "additional_km_unit": 200,
+          "additional_days_per_unit": 1
+        }
+      },
+      "references": [],
+      "priority": 900
+    }
+  ]
+}

@@ -16,7 +16,7 @@ export default class BusinessEngine {
     refundEngine,
     validationEngine,
     rules = {},
-    regulations = {}
+    ruleResolver
   }) {
     Object.assign(this, {
       routeEngine,
@@ -27,7 +27,7 @@ export default class BusinessEngine {
       refundEngine,
       validationEngine,
       rules,
-      regulations
+      ruleResolver
     });
   }
 
@@ -62,12 +62,12 @@ export default class BusinessEngine {
       );
 
       const regulationResult =
-        this.evaluateRegulations(
+        this.ruleResolver.resolve({
           input,
-          state,
-          result,
-          validation.details
-        );
+          businessState: state,
+          operationResult: result,
+          validatedDates: validation.details
+        });
 
       if (!regulationResult.valid) {
         return this.failure(
@@ -86,6 +86,8 @@ export default class BusinessEngine {
           regulationResult.regulations,
         regulation_details:
           regulationResult.details,
+        referenced_masters:
+          regulationResult.referenced_masters || [],
         fare: result.fare,
         calculation: [
           ...result.calculation,
@@ -121,365 +123,6 @@ export default class BusinessEngine {
         requestDate <= endDate,
       expired: requestDate > endDate
     };
-  }
-
-  evaluateRegulations(
-    input,
-    businessState,
-    operationResult,
-    validatedDates
-  ) {
-    const context =
-      this.createRegulationContext(
-        input,
-        businessState,
-        operationResult,
-        validatedDates
-      );
-
-    const validation =
-      this.validationEngine.validate({
-        type: 'business_regulations',
-        context,
-        businessRegulations:
-          this.regulations
-      });
-
-    if (!validation.valid) {
-      return validation;
-    }
-
-    const regulationValues = {};
-    const details = [];
-    const calculation = [];
-
-    for (
-      const regulation of
-      this.regulations.regulations
-    ) {
-      const missing =
-        validation.details
-          .missing_by_regulation[
-            regulation.regulation_id
-          ] || [];
-
-      const evaluated =
-        missing.length > 0
-          ? {
-              applicable: false,
-              reason:
-                regulation
-                  .missing_input_reason,
-              missing_fields: missing,
-              calculated_value: null
-            }
-          : this.evaluateRegulation(
-              regulation,
-              context
-            );
-
-      regulationValues[
-        regulation.result_key
-      ] = evaluated.applicable;
-
-      details.push({
-        regulation_id:
-          regulation.regulation_id,
-        key: regulation.result_key,
-        name: regulation.name,
-        applicable:
-          evaluated.applicable,
-        reason: evaluated.reason,
-        missing_fields:
-          evaluated.missing_fields || [],
-        calculated_value:
-          evaluated.calculated_value
-      });
-
-      calculation.push({
-        engine: 'BusinessEngine',
-        type: 'regulation',
-        regulation_id:
-          regulation.regulation_id,
-        applicable:
-          evaluated.applicable,
-        reason: evaluated.reason,
-        calculated_value:
-          evaluated.calculated_value
-      });
-    }
-
-    return {
-      valid: true,
-      regulations: regulationValues,
-      details,
-      calculation,
-      error_code: null,
-      message: null
-    };
-  }
-
-  createRegulationContext(
-    input,
-    businessState,
-    operationResult,
-    validatedDates
-  ) {
-    const route =
-      this.findRoute(operationResult.details);
-
-    return {
-      business_km:
-        input.businessKm ??
-        route?.business_km ??
-        null,
-      fare_calculation_km:
-        input.fareCalculationKm ??
-        route?.fare_calculation_km ??
-        route?.business_km ??
-        null,
-      request_date:
-        input.requestDate,
-      ticket_start_date:
-        input.ticketStartDate ||
-        input.requestDate,
-      ticket_end_date:
-        input.ticketEndDate ||
-        input.requestDate,
-      ticket_type: input.ticketType,
-      ticket_usage_type:
-        input.ticketUsageType,
-      departure_status:
-        input.departureStatus,
-      before_use:
-        businessState.before_use,
-      in_valid_period:
-        businessState.in_valid_period,
-      expired: businessState.expired,
-      specific_city_zone_applicable:
-        input.regulationContext
-          ?.specificCityZoneApplicable,
-      specific_route_section_applicable:
-        input.regulationContext
-          ?.specificRouteSectionApplicable,
-      outside_section_ride_applicable:
-        input.regulationContext
-          ?.outsideSectionRideApplicable,
-      selected_route_applicable:
-        input.regulationContext
-          ?.selectedRouteApplicable,
-      turnback_ride_applicable:
-        input.regulationContext
-          ?.turnbackRideApplicable,
-      metropolitan_suburban_area_only:
-        input.regulationContext
-          ?.metropolitanSuburbanAreaOnly,
-      stopover_restricted:
-        input.regulationContext
-          ?.stopoverRestricted,
-      validated_request_date:
-        validatedDates.requestDate,
-      validated_start_date:
-        validatedDates.startDate,
-      validated_end_date:
-        validatedDates.endDate
-    };
-  }
-
-  findRoute(details) {
-    if (!details || typeof details !== 'object') {
-      return null;
-    }
-
-    if (
-      details.route &&
-      typeof details.route === 'object'
-    ) {
-      return details.route;
-    }
-
-    if (
-      details.original_quote?.route
-    ) {
-      return details.original_quote.route;
-    }
-
-    for (const value of Object.values(details)) {
-      const found = this.findRoute(value);
-
-      if (found) {
-        return found;
-      }
-    }
-
-    return null;
-  }
-
-  evaluateRegulation(
-    regulation,
-    context
-  ) {
-    const applicable =
-      this.evaluateConditionGroup(
-        regulation.conditions,
-        context
-      );
-
-    return {
-      applicable,
-      reason: applicable
-        ? regulation.applicable_reason
-        : regulation.not_applicable_reason,
-      missing_fields: [],
-      calculated_value:
-        regulation.calculation
-          ? this.calculateRegulationValue(
-              regulation.calculation,
-              context
-            )
-          : null
-    };
-  }
-
-  evaluateConditionGroup(
-    group,
-    context
-  ) {
-    if (!group) {
-      return true;
-    }
-
-    if (Array.isArray(group.all)) {
-      return group.all.every(condition =>
-        this.evaluateCondition(
-          condition,
-          context
-        )
-      );
-    }
-
-    if (Array.isArray(group.any)) {
-      return group.any.some(condition =>
-        this.evaluateCondition(
-          condition,
-          context
-        )
-      );
-    }
-
-    return false;
-  }
-
-  evaluateCondition(
-    condition,
-    context
-  ) {
-    const actual =
-      context[condition.field];
-
-    const expected =
-      condition.reference_field
-        ? context[
-            condition.reference_field
-          ]
-        : condition.value;
-
-    switch (condition.operator) {
-      case 'equals':
-        return actual === expected;
-
-      case 'not_equals':
-        return actual !== expected;
-
-      case 'greater_than':
-        return Number(actual) >
-          Number(expected);
-
-      case 'greater_than_or_equal':
-        return Number(actual) >=
-          Number(expected);
-
-      case 'less_than':
-        return Number(actual) <
-          Number(expected);
-
-      case 'less_than_or_equal':
-        return Number(actual) <=
-          Number(expected);
-
-      case 'includes':
-        return Array.isArray(expected) &&
-          expected.includes(actual);
-
-      case 'date_on_or_after':
-        return this.dateValue(actual) >=
-          this.dateValue(expected);
-
-      case 'date_on_or_before':
-        return this.dateValue(actual) <=
-          this.dateValue(expected);
-
-      default:
-        throw this.error(
-          ErrorCodes.UNSUPPORTED_OPERATION,
-          `未対応の営業規則演算子です: ${
-            condition.operator
-          }`,
-          { condition }
-        );
-    }
-  }
-
-  calculateRegulationValue(
-    calculation,
-    context
-  ) {
-    if (
-      calculation.type !==
-      'valid_days_by_business_km'
-    ) {
-      return null;
-    }
-
-    const km = Number(context.business_km);
-
-    if (
-      km <= calculation.same_day_max_km
-    ) {
-      return {
-        valid_days: 1,
-        required_end_date:
-          context.ticket_start_date
-      };
-    }
-
-    const additionalDistance =
-      Math.max(
-        0,
-        km - calculation.base_max_km
-      );
-
-    const additionalDays =
-      Math.ceil(
-        additionalDistance /
-        calculation.additional_km_unit
-      ) *
-      calculation.additional_days_per_unit;
-
-    return {
-      valid_days:
-        calculation.base_days +
-        additionalDays,
-      required_end_date: null
-    };
-  }
-
-  dateValue(value) {
-    const date = new Date(
-      `${value}T00:00:00`
-    );
-
-    return date.getTime();
   }
 
   executeOperation(
@@ -821,6 +464,7 @@ export default class BusinessEngine {
       business_state: null,
       regulations: {},
       regulation_details: [],
+      referenced_masters: [],
       fare: {
         original: 0,
         additional: 0,

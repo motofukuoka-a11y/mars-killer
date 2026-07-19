@@ -531,6 +531,19 @@ function renderBusiness(result) {
           <li>
             <strong>${esc(item.name)}</strong>
             <p>${esc(item.reason)}</p>
+            <small>
+              参照マスター：${esc(
+                item.referenced_master || '不明'
+              )} /
+              優先順位：${esc(item.priority ?? '')}
+            </small>
+            ${
+              item.reference_json
+                ? `<small>参照JSON：${esc(
+                    item.reference_json
+                  )}</small>`
+                : ''
+            }
             ${
               item.missing_fields?.length
                 ? `<small>不足入力：${
@@ -601,6 +614,17 @@ function renderBusiness(result) {
 
     <section class="reason">
       <h2>営業規則判定結果</h2>
+
+      <h3>参照したマスター</h3>
+      <p>
+        ${
+          result.referenced_masters?.length
+            ? result.referenced_masters
+                .map(esc)
+                .join('、')
+            : 'なし'
+        }
+      </p>
 
       <h3>適用された規則</h3>
       <ul>

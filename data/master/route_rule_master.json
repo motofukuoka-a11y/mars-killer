@@ -1,0 +1,107 @@
+{
+  "id": "ROUTE_RULE_MASTER",
+  "name": "経路規則マスター",
+  "enabled": true,
+  "description": "経路特定区間、区間外乗車、選択乗車および折返し乗車を管理する。",
+  "conditions": {},
+  "references": [],
+  "priority": 0,
+  "records": [
+    {
+      "id": "SPECIFIC_ROUTE_SECTION",
+      "name": "経路特定区間",
+      "enabled": true,
+      "description": "経路特定区間の対象経路を判定する。",
+      "conditions": {
+        "required_fields": [
+          "specific_route_section_applicable"
+        ],
+        "all": [
+          {
+            "field": "specific_route_section_applicable",
+            "operator": "equals",
+            "value": true
+          }
+        ],
+        "result_key": "specific_route_section",
+        "applicable_reason": "指定された経路は経路特定区間の対象です。",
+        "not_applicable_reason": "指定された経路は経路特定区間の対象外です。",
+        "missing_input_reason": "経路特定区間の判定には経路マスターによる対象判定が必要です。"
+      },
+      "references": [],
+      "priority": 300
+    },
+    {
+      "id": "OUTSIDE_SECTION_RIDE",
+      "name": "区間外乗車",
+      "enabled": true,
+      "description": "区間外乗車の対象経路を判定する。",
+      "conditions": {
+        "required_fields": [
+          "outside_section_ride_applicable"
+        ],
+        "all": [
+          {
+            "field": "outside_section_ride_applicable",
+            "operator": "equals",
+            "value": true
+          }
+        ],
+        "result_key": "outside_section_ride",
+        "applicable_reason": "指定された経路は区間外乗車の対象です。",
+        "not_applicable_reason": "指定された経路は区間外乗車の対象外です。",
+        "missing_input_reason": "区間外乗車の判定には経路マスターによる対象判定が必要です。"
+      },
+      "references": [],
+      "priority": 400
+    },
+    {
+      "id": "SELECTED_ROUTE",
+      "name": "選択乗車",
+      "enabled": true,
+      "description": "選択乗車の対象経路を判定する。",
+      "conditions": {
+        "required_fields": [
+          "selected_route_applicable"
+        ],
+        "all": [
+          {
+            "field": "selected_route_applicable",
+            "operator": "equals",
+            "value": true
+          }
+        ],
+        "result_key": "selected_route",
+        "applicable_reason": "指定された経路は選択乗車の対象です。",
+        "not_applicable_reason": "指定された経路は選択乗車の対象外です。",
+        "missing_input_reason": "選択乗車の判定には経路マスターによる対象判定が必要です。"
+      },
+      "references": [],
+      "priority": 500
+    },
+    {
+      "id": "TURNBACK_RIDE",
+      "name": "折返し乗車",
+      "enabled": true,
+      "description": "折返し乗車の対象経路を判定する。",
+      "conditions": {
+        "required_fields": [
+          "turnback_ride_applicable"
+        ],
+        "all": [
+          {
+            "field": "turnback_ride_applicable",
+            "operator": "equals",
+            "value": true
+          }
+        ],
+        "result_key": "turnback_ride",
+        "applicable_reason": "指定された経路は折返し乗車の対象です。",
+        "not_applicable_reason": "指定された経路は折返し乗車の対象外です。",
+        "missing_input_reason": "折返し乗車の判定には経路マスターによる対象判定が必要です。"
+      },
+      "references": [],
+      "priority": 600
+    }
+  ]
+}

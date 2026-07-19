@@ -1,0 +1,46 @@
+{
+  "id": "BUSINESS_REGULATION_MASTER",
+  "name": "営業規則マスター",
+  "enabled": true,
+  "description": "営業規則の入口と参照先を管理する中央マスター。",
+  "conditions": {},
+  "references": [
+    {
+      "master": "validity_rule_master",
+      "id": "LONG_DISTANCE_DISCOUNT"
+    },
+    {
+      "master": "station_group_master",
+      "id": "SPECIFIC_CITY_ZONE"
+    },
+    {
+      "master": "route_rule_master",
+      "id": "SPECIFIC_ROUTE_SECTION"
+    },
+    {
+      "master": "route_rule_master",
+      "id": "OUTSIDE_SECTION_RIDE"
+    },
+    {
+      "master": "route_rule_master",
+      "id": "SELECTED_ROUTE"
+    },
+    {
+      "master": "route_rule_master",
+      "id": "TURNBACK_RIDE"
+    },
+    {
+      "master": "station_group_master",
+      "id": "METROPOLITAN_SUBURBAN_AREA"
+    },
+    {
+      "master": "validity_rule_master",
+      "id": "STOPOVER_ALLOWED"
+    },
+    {
+      "master": "validity_rule_master",
+      "id": "VALID_DAYS"
+    }
+  ],
+  "priority": 0
+}
