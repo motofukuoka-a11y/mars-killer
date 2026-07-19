@@ -19,23 +19,54 @@ export const DISCOUNT_TYPES = Object.freeze({
 
 export const MAX_PASSENGER_COUNT = 99;
 
-const DEFINITIONS = Object.freeze([
-  ['adult-normal', AGE_CATEGORIES.ADULT, DISCOUNT_TYPES.NONE, '大人', '通常'],
-  ['adult-student', AGE_CATEGORIES.ADULT, DISCOUNT_TYPES.STUDENT, '大人', '学割'],
-  ['adult-disability-type1', AGE_CATEGORIES.ADULT, DISCOUNT_TYPES.DISABILITY_TYPE1, '大人', '障害者1種'],
-  ['adult-disability-type2', AGE_CATEGORIES.ADULT, DISCOUNT_TYPES.DISABILITY_TYPE2, '大人', '障害者2種'],
-  ['adult-round-trip', AGE_CATEGORIES.ADULT, DISCOUNT_TYPES.ROUND_TRIP, '大人', '往復割引'],
-  ['adult-group', AGE_CATEGORIES.ADULT, DISCOUNT_TYPES.GROUP, '大人', '団体'],
-  ['adult-other', AGE_CATEGORIES.ADULT, DISCOUNT_TYPES.OTHER, '大人', 'その他割引'],
-  ['child-normal', AGE_CATEGORIES.CHILD, DISCOUNT_TYPES.NONE, '小児', '通常'],
-  ['child-disability-type1', AGE_CATEGORIES.CHILD, DISCOUNT_TYPES.DISABILITY_TYPE1, '小児', '障害者1種'],
-  ['child-disability-type2', AGE_CATEGORIES.CHILD, DISCOUNT_TYPES.DISABILITY_TYPE2, '小児', '障害者2種'],
-  ['child-group', AGE_CATEGORIES.CHILD, DISCOUNT_TYPES.GROUP, '小児', '団体'],
-  ['child-other', AGE_CATEGORIES.CHILD, DISCOUNT_TYPES.OTHER, '小児', 'その他割引'],
-  ['assistant-normal', AGE_CATEGORIES.ASSISTANT, DISCOUNT_TYPES.ASSISTANT_NORMAL, '介助者', '通常介助者'],
-  ['assistant-disability-type1', AGE_CATEGORIES.ASSISTANT, DISCOUNT_TYPES.ASSISTANT_TYPE1, '介助者', '障害者1種介助者'],
-  ['assistant-disability-type2', AGE_CATEGORIES.ASSISTANT, DISCOUNT_TYPES.ASSISTANT_TYPE2, '介助者', '障害者2種介助者']
+const AGE_DEFINITIONS = Object.freeze([
+  [AGE_CATEGORIES.ADULT, '大人'],
+  [AGE_CATEGORIES.CHILD, '小児'],
+  [AGE_CATEGORIES.ASSISTANT, '介助者']
 ]);
+
+const DISCOUNT_DEFINITIONS = Object.freeze([
+  [DISCOUNT_TYPES.NONE, '通常'],
+  [DISCOUNT_TYPES.STUDENT, '学割'],
+  [DISCOUNT_TYPES.DISABILITY_TYPE1, '障害者1種'],
+  [DISCOUNT_TYPES.DISABILITY_TYPE2, '障害者2種'],
+  [DISCOUNT_TYPES.ROUND_TRIP, '往復割引'],
+  [DISCOUNT_TYPES.GROUP, '団体'],
+  [DISCOUNT_TYPES.ASSISTANT_TYPE1, '障害者1種介助'],
+  [DISCOUNT_TYPES.ASSISTANT_TYPE2, '障害者2種介助'],
+  [DISCOUNT_TYPES.OTHER, 'その他割引']
+]);
+
+const passengerGroupId = (ageCategory, discountType) => {
+  if (ageCategory === AGE_CATEGORIES.ASSISTANT) {
+    if (discountType === DISCOUNT_TYPES.ASSISTANT_TYPE1) return 'assistant-disability-type1';
+    if (discountType === DISCOUNT_TYPES.ASSISTANT_TYPE2) return 'assistant-disability-type2';
+    if (discountType === DISCOUNT_TYPES.DISABILITY_TYPE1) return 'assistant-disabled-person-type1';
+    if (discountType === DISCOUNT_TYPES.DISABILITY_TYPE2) return 'assistant-disabled-person-type2';
+  }
+  const discountId = {
+    [DISCOUNT_TYPES.NONE]: 'normal',
+    [DISCOUNT_TYPES.DISABILITY_TYPE1]: 'disability-type1',
+    [DISCOUNT_TYPES.DISABILITY_TYPE2]: 'disability-type2',
+    [DISCOUNT_TYPES.ROUND_TRIP]: 'round-trip',
+    [DISCOUNT_TYPES.ASSISTANT_TYPE1]: 'assistant-type1',
+    [DISCOUNT_TYPES.ASSISTANT_TYPE2]: 'assistant-type2'
+  }[discountType] || discountType;
+  return `${ageCategory}-${discountId}`;
+};
+
+const DEFINITIONS = Object.freeze(
+  AGE_DEFINITIONS.flatMap(([ageCategory, ageLabel]) =>
+    DISCOUNT_DEFINITIONS.map(([discountType, discountLabel]) => [
+      passengerGroupId(ageCategory, discountType),
+      ageCategory,
+      discountType,
+      ageLabel,
+      discountLabel
+    ])
+  )
+);
+
 
 export const PASSENGER_GROUP_DEFINITIONS = Object.freeze(
   DEFINITIONS.map(([passenger_group_id, age_category, discount_type, age_label, discount_label]) =>

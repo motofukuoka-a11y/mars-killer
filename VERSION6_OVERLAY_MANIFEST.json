@@ -1,5 +1,5 @@
 {
-  "overlay_version": "6.0-stage8",
+  "overlay_version": "6.0-ui-card-refactor",
   "base_version": "5.1",
   "files": [
     {
@@ -9,12 +9,12 @@
     },
     {
       "path": "index.html",
-      "sha256": "617f1c111ea8d33bd7f81ad668f6272aaefc0de9541bd8efb8cdf3e83ce6ffc8",
+      "sha256": "c0e9d60a34c956f75c9e14b738f4329ee6367ae723f8861bf361e7586f4d43b2",
       "operation": "replace_or_add"
     },
     {
       "path": "service-worker.js",
-      "sha256": "7463c7c3985161119da99b9105b609092fdb660dd8fc27c5b67785441e04ca51",
+      "sha256": "ea1bddc62e674f77afc20c057b98ea10aba7c87c55bdf3ddce3d2797cbb3b619",
       "operation": "replace_or_add"
     },
     {
@@ -106,6 +106,36 @@
       "path": "data/rules/accident_rules_v6.json",
       "sha256": "283b103b834d319f9297fd2a3c65cc28e5a1bce7569c42eb6b975681d0c10e6a",
       "operation": "replace_or_add"
+    },
+    {
+      "path": "ui/DynamicCardList.js",
+      "operation": "replace_or_add",
+      "sha256": "3df7ff7bd3712cf1b29f550cd24eb4ec6ccd6fe25ec73a8578c7abfd441451b5"
+    },
+    {
+      "path": "ui/PassengerCardList.js",
+      "operation": "replace_or_add",
+      "sha256": "cf88c861b3b718f33721d8b358ca6e223afb1d820e299aea60ba0983656c5522"
+    },
+    {
+      "path": "ui/SectionCardList.js",
+      "operation": "replace_or_add",
+      "sha256": "16ab23ead94d5afd712ef5b33b560ca63c347ed83d3a537cdddfe94076df08d0"
+    },
+    {
+      "path": "ui/Version51StateController.js",
+      "operation": "replace_or_add",
+      "sha256": "2af517b40ccd2145414714bc2dc405c2fba31fadd9923ea2c3c4ce8cd3796c26"
+    },
+    {
+      "path": "services/PassengerModel.js",
+      "operation": "replace_or_add",
+      "sha256": "5f34c7b28640ba7ec0e96ec9685aac82b9ff16f5fa9895f3171fbbe916bdfd11"
+    },
+    {
+      "path": "services/SectionServiceManager.js",
+      "operation": "replace_or_add",
+      "sha256": "46a2b1ea1380a8ff2e2be5e467c3c7421b3862c2466bf980b18c652e66e9a6b5"
     }
   ],
   "required_repository_dependencies": [
@@ -131,15 +161,12 @@
     "services/PassengerCalculationService.js",
     "services/PracticalValidationService.js",
     "services/PassengerRuleService.js",
-    "services/PassengerModel.js",
     "services/SearchConditionAdapter.js",
-    "services/SectionServiceManager.js",
-    "ui/StationAutocomplete.js",
-    "ui/Version51StateController.js"
+    "ui/StationAutocomplete.js"
   ],
   "notes": [
-    "Commit・Push・GitHub Pages公開は行わない。",
-    "適用前にdry-runを実行する。",
-    "既存ファイルは適用時にバックアップする。"
+    "旅客入力と指定区画入力をスマートフォン優先の動的カードUIへ変更する。",
+    "BusinessEngine・RuleResolver・運賃距離計算ロジックは変更しない。",
+    "Commit・Push・GitHub Pages公開は行わない。"
   ]
 }

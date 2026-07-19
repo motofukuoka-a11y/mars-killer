@@ -6,6 +6,8 @@ import {
   passengerTotals
 } from '../services/PassengerModel.js';
 import {buildSectionServices} from '../services/SectionServiceManager.js';
+import PassengerCardList from './PassengerCardList.js';
+import SectionCardList from './SectionCardList.js';
 
 const STORAGE_KEY = 'mars-killer-v5.1-input-state';
 const MAX_VIA_STATIONS = 12;
@@ -20,6 +22,8 @@ export default class Version51StateController {
     this.engine = engine;
     this.root = root;
     this.autocompleteInstances = [];
+    this.passengerCardList = null;
+    this.sectionCardList = null;
     this.state = {
       search: {
         origin: {station_id: null, station_name: root.getElementById('start')?.value || ''},
@@ -38,8 +42,9 @@ export default class Version51StateController {
     this.restore();
     this.setupFixedStationInputs();
     this.setupViaStations();
+    this.setupPassengerCards();
+    this.setupSectionCards();
     this.renderPassengerInputs();
-    this.renderPassengerRows();
     this.renderViaStations();
     this.renderSectionServices();
     this.bindGeneralInputs();
@@ -152,106 +157,123 @@ export default class Version51StateController {
     if (!this.state.search.via.length) container.innerHTML = '<p class="input-help">経由駅は設定されていません。</p>';
   }
 
-  renderPassengerInputs() {
-    const container = this.root.getElementById('passengerGroups');
-    if (!container) return;
-    const grouped = Object.groupBy
-      ? Object.groupBy(PASSENGER_GROUP_DEFINITIONS, row => row.age_category)
-      : PASSENGER_GROUP_DEFINITIONS.reduce((acc, row) => ((acc[row.age_category] ||= []).push(row), acc), {});
-    const labels = {adult: '大人', child: '小児', assistant: '介助者'};
-    container.innerHTML = Object.entries(grouped).map(([category, definitions]) => `
-      <section class="passenger-category" aria-labelledby="passenger-${category}">
-        <h3 id="passenger-${category}">${labels[category]}</h3>
-        ${definitions.map(definition => {
-          const current = this.state.passengers.find(row => row.passenger_group_id === definition.passenger_group_id)?.count || 0;
-          return `<div class="passenger-stepper" data-passenger-id="${definition.passenger_group_id}">
-            <span>${definition.discount_label}</span>
-            <button type="button" data-delta="-1" aria-label="${definition.discount_label}を1人減らす">−</button>
-            <input type="number" min="0" max="99" step="1" inputmode="numeric" value="${current}" aria-label="${labels[category]} ${definition.discount_label} 人数">
-            <button type="button" data-delta="1" aria-label="${definition.discount_label}を1人増やす">＋</button>
-          </div>`;
-        }).join('')}
-      </section>`).join('');
-
-    container.addEventListener('click', event => {
-      const button = event.target.closest('[data-delta]');
-      if (!button) return;
-      const row = button.closest('[data-passenger-id]');
-      const input = row.querySelector('input');
-      input.value = Math.max(0, Math.min(99, Number(input.value || 0) + Number(button.dataset.delta)));
-      this.updatePassenger(row.dataset.passengerId, input.value);
-    });
-    container.addEventListener('input', event => {
-      const input = event.target.closest('input[type="number"]');
-      if (!input) return;
-      this.updatePassenger(input.closest('[data-passenger-id]').dataset.passengerId, input.value);
-    });
+  setupPassengerCards() {
+    this.passengerCardList = new PassengerCardList({
+      container: this.root.getElementById('passengerGroups'),
+      addButton: this.root.getElementById('addPassenger'),
+      itemName: '旅客',
+      onChange: cards => this.applyPassengerCards(cards)
+    }).init();
   }
 
-  updatePassenger(id, value) {
-    const row = this.state.passengers.find(item => item.passenger_group_id === id);
-    if (row) row.count = value === '' ? 0 : Number(value);
-    this.renderPassengerRows();
+  setupSectionCards() {
+    this.sectionCardList = new SectionCardList({
+      container: this.root.getElementById('sectionServices'),
+      addButton: this.root.getElementById('addSectionService'),
+      itemName: '指定区画',
+      onChange: services => {
+        this.state.route.section_services = services;
+        this.save();
+        this.emitChange('section-services');
+      }
+    }).init();
+  }
+
+  passengerCardsFromState() {
+    const cards = this.state.passengers
+      .filter(row => Number(row.count) > 0)
+      .map(row => ({
+        age_category: row.age_category,
+        discount_type: row.discount_type === 'assistant_normal' ? 'none' : row.discount_type,
+        count: Number(row.count)
+      }));
+    return cards.length ? cards : [{age_category: 'adult', discount_type: 'none', count: 1}];
+  }
+
+  renderPassengerInputs() {
+    this.passengerCardList?.setItems(this.passengerCardsFromState());
+  }
+
+  applyPassengerCards(cards) {
+    const next = createPassengerState();
+    for (const card of cards) {
+      const definition = PASSENGER_GROUP_DEFINITIONS.find(row =>
+        row.age_category === card.age_category &&
+        row.discount_type === card.discount_type
+      );
+      if (!definition) continue;
+      const target = next.find(row => row.passenger_group_id === definition.passenger_group_id);
+      if (target) target.count += Math.max(1, Math.min(99, Number(card.count) || 1));
+    }
+    this.state.passengers = next;
     this.save();
     this.emitChange('passengers');
   }
 
-  renderPassengerRows(calculatedRows = null) {
-    const container = this.root.getElementById('passengerTable');
-    if (!container) return;
-    const active = (calculatedRows || this.state.passengers).filter(row => Number(row.count) > 0);
-    if (!active.length) {
-      container.innerHTML = '<p class="input-help">大人または小児の人数を入力してください。</p>';
-      return;
+  renderPassengerRows() {
+    // 入力はPassengerCardListへ集約。計算結果はapp.jsの結果カードで表示する。
+  }
+
+  routeStations() {
+    const sections = this.state.route.distance?.sections || [];
+    const stations = [];
+    const seen = new Set();
+    const append = (stationId, stationName) => {
+      const key = stationId != null ? `id:${stationId}` : `name:${stationName || ''}`;
+      if (!stationName || seen.has(key)) return;
+      seen.add(key);
+      stations.push({station_id: stationId ?? null, station_name: stationName});
+    };
+    for (const section of sections) {
+      append(section.from_station_id, section.from);
+      append(section.to_station_id, section.to);
     }
-    container.innerHTML = `<div class="passenger-list">${active.map(row => `
-      <article class="passenger-card">
-        <strong>${this.escape(row.age_label || this.definition(row.passenger_group_id)?.age_label || row.age_category)}</strong>
-        <span>${Number(row.count)}人</span>
-        <span>${this.escape(row.discount_label || this.definition(row.passenger_group_id)?.discount_label || row.discount_type)}</span>
-        ${row.subtotal != null ? `<b>小計 ${Number(row.subtotal).toLocaleString('ja-JP')}円</b>` : ''}
-      </article>`).join('')}</div>`;
+    return stations;
   }
 
   applyRoute(route) {
     const sections = route?.distance?.sections || [];
+    const hadServices = this.state.route.section_services.length > 0;
     this.state.route.distance = route?.distance || null;
-    this.state.route.section_services = buildSectionServices(sections, this.state.route.section_services);
+    if (!hadServices) {
+      this.state.route.section_services = buildSectionServices(sections, []);
+    }
     this.renderSectionServices();
     this.save();
   }
 
   renderSectionServices() {
-    const container = this.root.getElementById('sectionServices');
-    if (!container) return;
-    const sections = this.state.route.distance?.sections || [];
-    if (!sections.length) {
-      container.innerHTML = '<p class="input-help">経路計算後に区間ごとの列車種別と設備を設定できます。</p>';
+    if (!this.sectionCardList) return;
+    const stations = this.routeStations();
+    this.sectionCardList.setStations(stations);
+    if (!stations.length) {
+      this.sectionCardList.setItems([]);
+      const container = this.root.getElementById('sectionServices');
+      if (container) container.innerHTML = '<p class="input-help">経路計算後に指定区画を追加できます。</p>';
+      const addButton = this.root.getElementById('addSectionService');
+      if (addButton) addButton.disabled = true;
       return;
     }
-    container.innerHTML = this.state.route.section_services.map((service, index) => {
-      const section = sections[index] || {};
-      return `<article class="section-service-card" data-section-id="${service.section_id}">
-        <h3>${this.escape(section.from)} → ${this.escape(section.to)}</h3>
-        <small>${this.escape(section.line || '')}</small>
-        <label>列車種別<select data-field="train_type">
-          ${this.options([['local','普通'],['rapid','快速'],['express','急行'],['limited_express','特急'],['shinkansen','新幹線']], service.train_type)}
-        </select></label>
-        <label>設備・席種<select data-field="seat_type">
-          ${this.options([['none','設備指定なし'],['non_reserved','自由席'],['reserved','指定席'],['green','グリーン'],['gran_class','グランクラス'],['sleeper','寝台']], service.seat_type)}
-        </select></label>
-      </article>`;
-    }).join('');
-    container.onchange = event => {
-      const field = event.target.dataset.field;
-      if (!field) return;
-      const id = event.target.closest('[data-section-id]').dataset.sectionId;
-      const service = this.state.route.section_services.find(row => row.section_id === id);
-      service[field] = event.target.value;
-      service.charge_applicable = service.train_type !== 'local' || service.seat_type !== 'none';
-      this.save();
-      this.emitChange('section-services');
-    };
+    const addButton = this.root.getElementById('addSectionService');
+    if (addButton) addButton.disabled = false;
+    const services = this.state.route.section_services.length
+      ? this.state.route.section_services
+      : [this.sectionCardList.createDefaultItem()];
+    this.sectionCardList.setItems(services.map(service => {
+      const from = stations.find(station => station.station_id != null && station.station_id === service.from_station_id)
+        || stations.find(station => station.station_name === service.from_station_name)
+        || stations[0];
+      const to = stations.find(station => station.station_id != null && station.station_id === service.to_station_id)
+        || stations.find(station => station.station_name === service.to_station_name)
+        || stations[stations.length - 1];
+      return {
+        ...service,
+        from_station_id: from?.station_id ?? null,
+        from_station_name: from?.station_name ?? '',
+        to_station_id: to?.station_id ?? null,
+        to_station_name: to?.station_name ?? ''
+      };
+    }));
   }
 
   bindGeneralInputs() {
@@ -313,7 +335,6 @@ export default class Version51StateController {
 
     this.renderViaStations();
     this.renderPassengerInputs();
-    this.renderPassengerRows();
     this.renderSectionServices();
     this.save();
     this.emitChange('history-restore');

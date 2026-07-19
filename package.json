@@ -10,13 +10,19 @@
     "test:integration": "node tests/version60-stage5-integration.mjs",
     "test:abnormal": "node tests/version60-stage5-abnormal.mjs",
     "test:stress": "node tests/version60-stage5-stress.mjs",
-    "test": "npm run test:stage1 && npm run test:stage2 && npm run test:stage3 && npm run test:stage4 && npm run test:integration && npm run test:abnormal && npm run test:stress && npm run test:stage6 && npm run test:stage7 && npm run test:stage8",
+    "test": "npm run test:stage1 && npm run test:stage2 && npm run test:stage3 && npm run test:stage4 && npm run test:integration && npm run test:abnormal && npm run test:stress && npm run test:stage6 && npm run test:stage7 && npm run test:stage8 && npm run test:ui-refactor",
     "release:gate": "node tools/release-gate-stage5.mjs",
     "test:stage6": "node tests/version60-stage6-ui-integration.mjs",
     "test:stage7": "node tests/version60-stage7-release-preflight.mjs",
     "preflight": "node tools/release-preflight-stage7.mjs",
     "test:stage8": "node tests/version60-stage8-overlay-installer.mjs",
     "overlay:dry-run": "node tools/apply-version6-overlay.mjs --dry-run",
-    "overlay:verify": "node tools/verify-version6-integration.mjs"
+    "overlay:verify": "node tools/verify-version6-integration.mjs",
+    "test:ui-refactor": "node tests/version60-ui-card-refactor.mjs",
+    "lint": "eslint",
+    "build": "node --check app.js && node --check ui/DynamicCardList.js && node --check ui/PassengerCardList.js && node --check ui/SectionCardList.js && node --check ui/Version51StateController.js && node --check services/PassengerModel.js && node --check services/SectionServiceManager.js && npm run test:ui-refactor"
+  },
+  "devDependencies": {
+    "eslint": "10.7.0"
   }
 }

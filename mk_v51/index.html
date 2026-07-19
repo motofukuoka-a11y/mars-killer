@@ -218,17 +218,22 @@
       <input id="date" type="date">
     </label>
 
-    <section class="v51-card">
-      <h2>旅客</h2>
-      <div id="passengerGroups"></div>
-      <div id="passengerTable" aria-live="polite"></div>
+    <section class="v51-card dynamic-card-section" aria-labelledby="passengerSectionTitle">
+      <div class="section-heading">
+        <h2 id="passengerSectionTitle">旅客</h2>
+      </div>
+      <div id="passengerGroups" class="entry-card-list" aria-live="polite"></div>
+      <button id="addPassenger" class="add-entry-button" type="button">＋旅客追加</button>
     </section>
 
-    <section class="v51-card">
-      <h2>区間ごとの列車・設備</h2>
-      <div id="sectionServices" aria-live="polite">
-        <p class="input-help">経路計算後に設定できます。</p>
+    <section class="v51-card dynamic-card-section" aria-labelledby="sectionServiceTitle">
+      <div class="section-heading">
+        <h2 id="sectionServiceTitle">指定区画</h2>
       </div>
+      <div id="sectionServices" class="entry-card-list" aria-live="polite">
+        <p class="input-help">経路計算後に指定区画を追加できます。</p>
+      </div>
+      <button id="addSectionService" class="add-entry-button" type="button" disabled>＋指定区画追加</button>
     </section>
 
     <label>

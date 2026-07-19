@@ -1,7 +1,10 @@
-const CACHE_NAME = 'mars-killer-v6.0-stage7';
+const CACHE_NAME = 'mars-killer-v6.0-ui-refactor';
 const CRITICAL_ASSETS = [
   './','./index.html','./app.js','./engine.js','./manifest.webmanifest',
   './ui/Version6RefundPanel.js','./ui/Version6RefundController.js',
+  './ui/Version51StateController.js','./ui/DynamicCardList.js',
+  './ui/PassengerCardList.js','./ui/SectionCardList.js',
+  './services/PassengerModel.js','./services/SectionServiceManager.js',
   './services/v6/Version6Platform.js','./services/v6/CalculationServicesV6.js',
   './services/v6/PassengerRefundServicesV6.js','./services/v6/AccidentHandlingServicesV6.js',
   './services/v6/RuleResolverV6.js','./services/v6/ResultBuilderV6.js','./services/v6/ErrorHandlingV6.js',
@@ -17,9 +20,9 @@ const OPTIONAL_ASSETS = [
   './shared/ErrorCodes.js','./shared/Constants.js','./shared/Utils.js','./shared/RuleResolver.js',
   './services/StationSearchIndex.js','./services/PracticalStorage.js','./services/DebugService.js',
   './services/PracticalOperationPlatform.js','./services/PassengerCalculationService.js',
-  './services/PracticalValidationService.js','./services/PassengerRuleService.js','./services/PassengerModel.js',
-  './services/SearchConditionAdapter.js','./services/SectionServiceManager.js',
-  './ui/StationAutocomplete.js','./ui/Version51StateController.js'
+  './services/PracticalValidationService.js','./services/PassengerRuleService.js',
+  './services/SearchConditionAdapter.js',
+  './ui/StationAutocomplete.js'
 ];
 const NETWORK_FIRST_TYPES = new Set(['document','script','style']);
 const NETWORK_FIRST_EXTENSIONS = new Set(['.html','.js','.css','.json','.webmanifest']);

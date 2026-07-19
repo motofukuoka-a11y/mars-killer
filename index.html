@@ -77,6 +77,24 @@
     .passenger-result-list{display:grid;gap:1rem}.passenger-result-card{border:1px solid var(--border,#9aa0a6);border-radius:14px;padding:1rem;min-width:0}.passenger-result-card header{display:flex;justify-content:space-between;gap:1rem;align-items:center;margin-bottom:.75rem}.passenger-result-card dl{display:grid;gap:.5rem;margin:0}.passenger-result-card dl div{display:flex;justify-content:space-between;gap:1rem}.passenger-result-card dt,.passenger-result-card dd{margin:0}.passenger-subtotal{border-top:1px solid var(--border,#9aa0a6);padding-top:.65rem;font-weight:700}.formula-steps{padding-left:1.25rem}.formula-steps li{margin:.5rem 0}.formula-steps span{display:block;overflow-wrap:anywhere}.passenger-result-card details ul{padding-left:1.25rem}.passenger-result-card details li{margin:.55rem 0}.passenger-result-card details p{margin:.25rem 0}.passenger-result-card details small{display:block;overflow-wrap:anywhere}@media(min-width:768px){.passenger-result-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
     .v6-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}.v6-form-grid label{display:flex;flex-direction:column;gap:.35rem}.v6-refund-total{font-size:1.35rem}.v6-options h3{margin-top:1.25rem}@media(max-width:680px){.v6-form-grid{grid-template-columns:1fr}}
+    .dynamic-card-section{display:grid;gap:1rem}
+    .entry-card-list{display:grid;gap:1rem}
+    .entry-card{display:grid;gap:1rem;padding:1rem;border:1px solid var(--border,currentColor);border-radius:1rem;background:color-mix(in srgb,currentColor 4%,transparent);box-shadow:0 .35rem 1rem rgba(0,0,0,.08)}
+    .entry-card__header{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .entry-card__header h3{margin:0;font-size:1.05rem}
+    .entry-card__delete{min-height:44px;padding:.55rem .85rem}
+    .entry-card__fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+    .entry-card__fields label{display:grid;gap:.4rem;min-width:0}
+    .entry-card__fields select{width:100%;min-height:48px}
+    .entry-card__full{grid-column:1/-1;display:grid;gap:.4rem}
+    .field-label{font-weight:600}
+    .count-stepper{display:grid;grid-template-columns:48px minmax(64px,1fr) 48px;gap:.5rem;max-width:15rem}
+    .count-stepper button,.count-stepper input{min-height:48px;text-align:center}
+    .count-stepper input{width:100%}
+    .add-entry-button{width:100%;min-height:50px;border-style:dashed;border-radius:.85rem;font-weight:700}
+    .add-entry-button:disabled{opacity:.55;cursor:not-allowed}
+    @media(max-width:680px){.entry-card{padding:.9rem}.entry-card__fields{grid-template-columns:1fr}.entry-card__full{grid-column:auto}.count-stepper{max-width:none}.entry-card__delete{padding-inline:.7rem}}
+    @media(min-width:900px){.entry-card-list{grid-template-columns:repeat(2,minmax(0,1fr))}.section-entry-card{grid-column:span 1}}
 </style>
   <title>MARS KILLER｜運賃・料金・払戻計算支援</title>
 </head>
@@ -222,17 +240,22 @@
       <input id="date" type="date">
     </label>
 
-    <section class="v51-card">
-      <h2>旅客</h2>
-      <div id="passengerGroups"></div>
-      <div id="passengerTable" aria-live="polite"></div>
+    <section class="v51-card dynamic-card-section" aria-labelledby="passengerSectionTitle">
+      <div class="section-heading">
+        <h2 id="passengerSectionTitle">旅客</h2>
+      </div>
+      <div id="passengerGroups" class="entry-card-list" aria-live="polite"></div>
+      <button id="addPassenger" class="add-entry-button" type="button">＋旅客追加</button>
     </section>
 
-    <section class="v51-card">
-      <h2>区間ごとの列車・設備</h2>
-      <div id="sectionServices" aria-live="polite">
-        <p class="input-help">経路計算後に設定できます。</p>
+    <section class="v51-card dynamic-card-section" aria-labelledby="sectionServiceTitle">
+      <div class="section-heading">
+        <h2 id="sectionServiceTitle">指定区画</h2>
       </div>
+      <div id="sectionServices" class="entry-card-list" aria-live="polite">
+        <p class="input-help">経路計算後に指定区画を追加できます。</p>
+      </div>
+      <button id="addSectionService" class="add-entry-button" type="button" disabled>＋指定区画追加</button>
     </section>
 
     <label>

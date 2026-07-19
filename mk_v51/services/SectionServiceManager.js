@@ -15,7 +15,9 @@ export function buildSectionServices(sections = [], previous = []) {
     return {
       section_id: sectionId,
       from_station_id: section.from_station_id ?? null,
+      from_station_name: section.from ?? section.from_station_name ?? '',
       to_station_id: section.to_station_id ?? null,
+      to_station_name: section.to ?? section.to_station_name ?? '',
       train_type: existing?.train_type ?? 'local',
       seat_type: existing?.seat_type ?? 'none',
       service_name: existing?.service_name ?? null,

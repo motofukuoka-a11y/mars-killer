@@ -11,6 +11,6 @@ assert.match(app,/__MARS_KILLER_V6_CONTROLLER__/);
 const sw=fs.readFileSync(new URL('../service-worker.js',import.meta.url),'utf8');
 assert.match(sw,/CRITICAL_ASSETS/);
 assert.match(sw,/Promise\.allSettled/);
-assert.match(sw,/mars-killer-v6\.0-stage(?:6|7)/);
+assert.match(sw,/mars-killer-v6\.0-(?:stage6|stage7|ui-refactor)/);
 assert.equal(typeof Version6RefundController,'function');
 console.log('Version 6.0 Stage 6 UI integration acceptance: PASS');
