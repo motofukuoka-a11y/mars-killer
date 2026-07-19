@@ -3,6 +3,11 @@ import FareEngine from './engines/FareEngine.js';
 import ChargeEngine from './engines/ChargeEngine.js';
 import ChangeEngine from './engines/ChangeEngine.js';
 import RefundEngine from './engines/RefundEngine.js';
+import DiscountEngine from './engines/DiscountEngine.js';
+import ValidationEngine from './engines/ValidationEngine.js';
+import {
+  DiscountType
+} from './shared/Constants.js';
 
 export class SalesEngine {
 
@@ -34,6 +39,15 @@ export class SalesEngine {
     this.refundEngine = new RefundEngine(
       this.refundRules
     );
+
+    this.validationEngine =
+      new ValidationEngine();
+
+    this.discountEngine =
+      new DiscountEngine(
+        this.discountRules,
+        this.validationEngine
+      );
   }
 
   static async load(base = './data') {
@@ -156,6 +170,20 @@ export class SalesEngine {
     return this.refundEngine.calculate(options);
   }
 
+  /**
+   * 割引計算を実行する。
+   */
+  discount(options) {
+    return this.discountEngine.calculate(options);
+  }
+
+  /**
+   * 入力検証を実行する。
+   */
+  validate(options) {
+    return this.validationEngine.validate(options);
+  }
+
   discounted(amount, rate, rounding) {
     return this.fareEngine.discounted(
       amount,
@@ -238,61 +266,38 @@ export class SalesEngine {
     let discountDetail = null;
 
     if (discountId) {
-      const rule = this.discountRules.find(
-        item => item.discount_id === discountId
-      );
-
-      if (!rule) {
-        throw new Error(
-          `割引ルールなし: ${discountId}`
-        );
-      }
-
-      if (rule.rate == null) {
-        throw new Error(
-          `${discountId} は商品別または設定依存です`
-        );
-      }
-
-      if (
-        rule.distance_condition === 'business_km>100' &&
-        !(route.business_km > 100)
-      ) {
-        throw new Error(
-          '割引の距離条件を満たしません'
-        );
-      }
-
-      const applied = [];
-
-      for (const component of components) {
-        if (
-          !rule.targets.includes(component.component) ||
-          !component.discountable
-        ) {
-          continue;
-        }
-
-        const before = component.amount_yen;
-        component.pre_discount_yen = before;
-
-        component.amount_yen = this.discounted(
-          before,
-          Number(rule.rate),
-          rule.rounding
-        );
-
-        applied.push({
-          component: component.component,
-          before,
-          after: component.amount_yen
-        });
-      }
-
-      discountDetail = {
-        discount_id: discountId,
-        applied
+      const discountTypeMap = {
+        STUDENT: DiscountType.STUDENT,
+        DISABILITY_TYPE1_SOLO:
+          DiscountType.DISABILITY_TYPE1_SOLO,
+        DISABILITY_TYPE1_CAREGIVER:
+          DiscountType
+            .DISABILITY_TYPE1_CAREGIVER,
+        DISABILITY_TYPE2_SOLO:
+          DiscountType.DISABILITY_TYPE2_SOLO,
+        EMPLOYEE_PURCHASE_TICKET:
+          DiscountType.EMPLOYEE_PURCHASE,
+        FAMILY_PURCHASE_TICKET:
+          DiscountType.FAMILY_PURCHASE
       };
+
+      const discountType =
+        discountTypeMap[discountId] ||
+        discountId;
+
+      discountDetail =
+        this.discountEngine.applyToComponents({
+          discountType,
+          components,
+          businessKm: route.business_km,
+          passenger
+        });
+
+      if (!discountDetail.applicable) {
+        throw new Error(
+          discountDetail.reason
+        );
+      }
     }
 
     const total = components.reduce(

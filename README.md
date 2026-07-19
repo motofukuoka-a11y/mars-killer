@@ -54,7 +54,7 @@
 ```javascript
 const result = engine.refund({
   ticketType: 'ordinary',
-  status: 'before_trip',
+  used: false,
   amountYen: 4510
 });
 ```
@@ -68,7 +68,7 @@ const result = engine.quote({
   passenger: 'adult',
   refund: {
     ticketType: 'ordinary',
-    status: 'before_trip'
+    used: false
   }
 });
 
@@ -90,7 +90,7 @@ const result = engine.quote({
   },
   refund: {
     ticketType: 'limited_express',
-    status: 'before_train_departure'
+    usageState: 'before_use'
   }
 });
 ```
@@ -102,7 +102,7 @@ const result = engine.quote({
 ```javascript
 const result = engine.refund({
   ticketType: 'ordinary',
-  status: 'after_trip_start',
+  usageState: 'after_use',
   amountYen: 6820,
   unusedAmountYen: 2640,
   remainingBusinessKm: 145.2
@@ -114,7 +114,7 @@ const result = engine.refund({
 ```javascript
 const result = engine.refund({
   ticketType: 'ordinary',
-  status: 'journey_abandoned',
+  forwardAbandonment: true,
   amountYen: 4510,
   unusedAmountYen: 2640
 });
@@ -127,7 +127,7 @@ const result = engine.refund({
 |`refundable`|払戻可否|
 |`refund_target`|普通乗車券または特急券|
 |`ticket_type`|`ordinary`または`limited_express`|
-|`status`|旅行開始前、旅行開始後、前途放棄、列車発車前、列車発車後、使用開始後|
+|`usage_state`|未使用、使用開始前、使用開始後、前途放棄|
 |`refund_before_fee_yen`|手数料控除前の払戻対象額|
 |`fee_yen`|払戻手数料|
 |`refund_after_fee_yen`|手数料控除後の払戻金額|
@@ -140,8 +140,7 @@ const result = engine.refund({
 `data/rules/refund_rules.json`は次の情報を管理します。
 
 - 対象券種
-- 普通乗車券の旅行開始前・旅行開始後・前途放棄
-- 特急券等の列車発車前・列車発車後・使用開始後
+- 未使用・使用開始前・使用開始後・前途放棄
 - 払戻可否
 - 普通乗車券手数料220円
 - 特急券手数料340円
@@ -158,43 +157,262 @@ const result = engine.refund({
 - 団体券、ジパング倶楽部、株主優待は未対応です。
 - 指定席特急券の出発日・申出時刻による段階的な手数料は未対応です。
 - 列車運休、事故、遅延等による無手数料払戻しは未対応です。
-- 旅行開始後の普通乗車券は、未使用区間額を`unusedAmountYen`、未使用区間営業キロを`remainingBusinessKm`で指定する必要があります。
-- 営業キロ条件は未使用区間101km以上として判定します。
+- 使用開始後の普通乗車券は、未使用区間額を`unusedAmountYen`、未使用区間営業キロを`remainingBusinessKm`で指定する必要があります。
 - `quote()`は通常見積額から払戻対象額を取得しますが、使用開始後の未使用区間額は自動算出しません。
 - 前途放棄はVersion 2.6では払戻し不可として扱います。
 - 最終的な取扱いは最新の規程、通達、発売端末表示で確認してください。
 
-## 払戻し状態一覧
+## Version 2.7変更内容
 
-払戻し判定は`used: true/false`ではなく、`status`の列挙値で指定します。
+Version 2.7では、今後の営業実務機能で共通利用する基盤を追加しました。
 
-### 普通乗車券
+- `DiscountEngine`を追加
+- `ValidationEngine`を追加
+- 共通エラーコードを追加
+- 共通定数を追加
+- 共通ユーティリティを追加
+- `SalesEngine.discount()`を追加
+- `SalesEngine.validate()`を追加
+- 既存の`quote()`割引処理を`DiscountEngine`経由へ移行
+- 割引率・距離条件・丸め方式を`discount_rules.json`で管理
+- 社員購入券と家族購入券を別々の割引種別として定義
 
-|status|判定時点|
+## 追加エンジン
+
+### DiscountEngine
+
+保存先：
+
+```text
+engines/DiscountEngine.js
+```
+
+担当範囲：
+
+- 学生割引
+- 障害者割引
+- 社員購入券
+- 家族購入券
+- 割引可否判定
+- 割引額計算
+- 対象構成要素への割引適用
+- 計算根拠の生成
+
+割引率、営業キロ条件、対象項目、丸め方式は
+`data/rules/discount_rules.json`から取得します。
+
+社員購入券・家族購入券は、公開可能な正式割引率が
+未設定のため、推測値を使用せず非適用結果を返します。
+
+### ValidationEngine
+
+保存先：
+
+```text
+engines/ValidationEngine.js
+```
+
+入力検証のみを担当します。
+
+- 駅名未入力
+- 同一駅
+- 営業キロ不正
+- status不正
+- 券種不正
+- 規則JSON不足
+- 必須項目不足
+- 数値不正
+
+検証結果は例外ではなく、次の共通形式で返します。
+
+```javascript
+{
+  valid: false,
+  error_code: 'ERR_REQUIRED_FIELD',
+  message: 'startは必須です。',
+  details: {
+    field: 'start'
+  }
+}
+```
+
+## Version 2.7ディレクトリ構成
+
+```text
+mars-killer/
+├── engines/
+│   ├── RouteEngine.js
+│   ├── FareEngine.js
+│   ├── ChargeEngine.js
+│   ├── ChangeEngine.js
+│   ├── RefundEngine.js
+│   ├── DiscountEngine.js
+│   └── ValidationEngine.js
+├── shared/
+│   ├── ErrorCodes.js
+│   ├── Constants.js
+│   └── Utils.js
+└── data/
+    └── rules/
+        └── discount_rules.json
+```
+
+## DiscountEngine利用例
+
+### 学生割引
+
+```javascript
+import {
+  DiscountType
+} from './shared/Constants.js';
+
+const result = engine.discount({
+  discountType: DiscountType.STUDENT,
+  beforeDiscountYen: 4510,
+  businessKm: 318.7,
+  passenger: 'adult'
+});
+```
+
+返却例：
+
+```javascript
+{
+  applicable: true,
+  discount_type: 'student',
+  discount_id: 'STUDENT',
+  before_discount_yen: 4510,
+  discount_yen: 910,
+  after_discount_yen: 3600,
+  reason: '学生割引',
+  error_code: null,
+  calculation_basis: {
+    rate: 0.2,
+    rounding: 'discounted_fare_down_to_10'
+  }
+}
+```
+
+### 社員購入券
+
+```javascript
+const result = engine.discount({
+  discountType:
+    DiscountType.EMPLOYEE_PURCHASE,
+  beforeDiscountYen: 4510,
+  businessKm: 318.7
+});
+```
+
+正式な割引率がマスタへ設定されるまでは、
+`applicable: false`と`ERR_RULE_NOT_FOUND`を返します。
+
+## ValidationEngine利用例
+
+```javascript
+const result = engine.validate({
+  type: 'quote',
+  start: '札幌',
+  goal: '札幌',
+  passenger: 'adult'
+});
+```
+
+返却例：
+
+```javascript
+{
+  valid: false,
+  error_code: 'ERR_INVALID_STATION',
+  message: '発駅と着駅が同一です。',
+  details: {
+    start: '札幌',
+    goal: '札幌'
+  }
+}
+```
+
+## DiscountEngine返却値
+
+|項目|内容|
 |---|---|
-|`before_trip`|旅行開始前|
-|`after_trip_start`|旅行開始後|
-|`journey_abandoned`|前途放棄|
+|`applicable`|割引適用可否|
+|`discount_type`|共通割引種別|
+|`discount_id`|JSON上の割引規則ID|
+|`before_discount_yen`|割引前金額|
+|`discount_yen`|割引額|
+|`after_discount_yen`|割引後金額|
+|`reason`|適用理由または非適用理由|
+|`error_code`|共通エラーコード|
+|`calculation_basis`|割引率・丸め・距離条件等|
 
-### 特急券・指定席券・グリーン券等
+## 共通エラーコード
 
-|status|判定時点|
-|---|---|
-|`before_train_departure`|列車発車前|
-|`after_train_departure`|列車発車後|
-|`after_use_start`|使用開始後|
+保存先：
 
-## 判定の考え方
+```text
+shared/ErrorCodes.js
+```
 
-普通乗車券は「旅行を開始したか」を基準に判定します。
+主なコード：
 
-特急券・指定席券・グリーン券等は、「列車が発車したか」と
-「券を使用開始したか」を別々の状態として判定します。
+- `ERR_INVALID_STATION`
+- `ERR_INVALID_STATUS`
+- `ERR_INVALID_TICKET_TYPE`
+- `ERR_INVALID_PASSENGER_TYPE`
+- `ERR_INVALID_DISCOUNT_TYPE`
+- `ERR_REFUND_NOT_ALLOWED`
+- `ERR_RULE_NOT_FOUND`
+- `ERR_REQUIRED_FIELD`
+- `ERR_ROUTE_NOT_FOUND`
+- `ERR_DISTANCE`
+- `ERR_INVALID_NUMBER`
+- `ERR_JSON_MISSING`
+- `ERR_JSON_LOAD_FAILED`
+- `ERR_UNSUPPORTED_OPERATION`
 
-`RefundEngine`は券種と`status`の組み合わせから
-`refund_rules.json`の規則を選択します。状態に対応する払戻可否、
-手数料、払戻対象額の取得方法、営業キロ条件はJSON側で管理します。
+今後のエンジン追加時も、この定数へコードを追加します。
 
-旅行開始後の普通乗車券で営業キロ条件を扱う場合は、
-未使用区間が`101km以上`であることを判定します。
+## 共通定数
+
+保存先：
+
+```text
+shared/Constants.js
+```
+
+次の定数を集約しています。
+
+- `RefundStatus`
+- `PassengerType`
+- `TicketType`
+- `DiscountType`
+- `SeasonType`
+- `ChargeType`
+- `DistanceComparison`
+
+## 共通ユーティリティ
+
+保存先：
+
+```text
+shared/Utils.js
+```
+
+提供機能：
+
+- `formatYen()`
+- `ceilBusinessKm()`
+- `compareBusinessKm()`
+- `loadJson()`
+- `isFiniteNumber()`
+- `toFiniteNumber()`
+- `createBusinessError()`
+
+## Version 2.7 Known limitations
+
+- 社員購入券と家族購入券の割引率・対象範囲は未設定です。
+- 割引証明書、手帳、購入券の現物確認は自動化しません。
+- ValidationEngineは入力形式を検証しますが、発売可否を最終決定するものではありません。
+- 既存エンジン固有のエラーコードは、今後段階的に共通エラーコードへ移行します。
 
