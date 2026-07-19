@@ -1,0 +1,145 @@
+{
+  "overlay_version": "6.0-stage8",
+  "base_version": "5.1",
+  "files": [
+    {
+      "path": "app.js",
+      "sha256": "e2d67674e968e5d30c97a6570c0eb07547f6dd39df99e8ffd3f9d822658e16da",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "index.html",
+      "sha256": "617f1c111ea8d33bd7f81ad668f6272aaefc0de9541bd8efb8cdf3e83ce6ffc8",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "service-worker.js",
+      "sha256": "7463c7c3985161119da99b9105b609092fdb660dd8fc27c5b67785441e04ca51",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "manifest.webmanifest",
+      "sha256": "c3c9ff64542994d4c60bf5df9c04391eb8ce1e4a67ad9d57dfef364ce2f11785",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "ui/Version6RefundController.js",
+      "sha256": "926b1b38f0c7ed2b021b005844470f5a9b880042c298d53aeef9eb0958bb7185",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "ui/Version6RefundPanel.js",
+      "sha256": "0a91f8a16a318c706aaa78e6594abccb617af23950bd63c5a58e60a7d0e87001",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "models/Version6Models.js",
+      "sha256": "5f96a2f81d32ade83ae615df1f5cfc09ace4f0c3f991640eaf64e866830d6e9d",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "validation/ValidationEngineV6.js",
+      "sha256": "b8548db1feaabbb77dee9b218ebaf5ce1014ba6192aa8945e2e025f98f0e3e2b",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "engines/v6/BusinessEngineV6.js",
+      "sha256": "a0dd79572cd7c818355b8ba83a597870c96769b085c19400b409e2debd1d6653",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "debug/Version6Logging.js",
+      "sha256": "862a1cd8bd52d8cec1370419905a83c12af3bc268f6a274f4e530c92a3b70dcd",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "services/v6/AccidentHandlingServicesV6.js",
+      "sha256": "fc6c5886af8800dd97a0b0014b6c13a344aef5b4096d903539f22ad3f28bf025",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "services/v6/CalculationServicesV6.js",
+      "sha256": "d6be39b9c433fd22150af49dffe0dee72ce01c3ec1937aaaac69fb7e98dd0b18",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "services/v6/ErrorHandlingV6.js",
+      "sha256": "b892ca4b9bc2691436c4ac2db55fde3b1b2e0a9937b75128387790d16b5f96ec",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "services/v6/PassengerRefundServicesV6.js",
+      "sha256": "116d998f2b8f5a6868dac8eb87b78c5fa44ee5eaacffada3a4f75926fec4e809",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "services/v6/RefundRoundingServiceV6.js",
+      "sha256": "cbc246e96d622798f95f66ef2f74b6d22ee714d559760d8d392c6c8ebe7adfc2",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "services/v6/RefundRuleServiceV6.js",
+      "sha256": "14b9bf963dfcb6c0e070813fc0b3295b0efe3728209451360b6950ed83bdc0e5",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "services/v6/ResultBuilderV6.js",
+      "sha256": "db2381ded9bdc14f87e9eae1c82fc36ffb568f4bda4d78b1670c8b3555d25bd0",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "services/v6/RuleResolverV6.js",
+      "sha256": "1d61242a545f8934c5fb14b0278dc9ceab2ed08543266b3bf21454b801917371",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "services/v6/Version6Platform.js",
+      "sha256": "39066cb794a5b9ac277244f9e4b9dd12d6eb8e9d2abad425a03895a24d0a1646",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "data/rules/refund_rules_v6.json",
+      "sha256": "386812bb842b533a196ea383543206530f8a270d4667f4cd9cbfc7c3486bb849",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "data/rules/accident_rules_v6.json",
+      "sha256": "283b103b834d319f9297fd2a3c65cc28e5a1bce7569c42eb6b975681d0c10e6a",
+      "operation": "replace_or_add"
+    }
+  ],
+  "required_repository_dependencies": [
+    "styles.css",
+    "icons/icon-192.png",
+    "icons/icon-512.png",
+    "engines/RouteEngine.js",
+    "engines/FareEngine.js",
+    "engines/ChargeEngine.js",
+    "engines/ChangeEngine.js",
+    "engines/RefundEngine.js",
+    "engines/DiscountEngine.js",
+    "engines/ValidationEngine.js",
+    "engines/BusinessEngine.js",
+    "shared/ErrorCodes.js",
+    "shared/Constants.js",
+    "shared/Utils.js",
+    "shared/RuleResolver.js",
+    "services/StationSearchIndex.js",
+    "services/PracticalStorage.js",
+    "services/DebugService.js",
+    "services/PracticalOperationPlatform.js",
+    "services/PassengerCalculationService.js",
+    "services/PracticalValidationService.js",
+    "services/PassengerRuleService.js",
+    "services/PassengerModel.js",
+    "services/SearchConditionAdapter.js",
+    "services/SectionServiceManager.js",
+    "ui/StationAutocomplete.js",
+    "ui/Version51StateController.js"
+  ],
+  "notes": [
+    "Commit・Push・GitHub Pages公開は行わない。",
+    "適用前にdry-runを実行する。",
+    "既存ファイルは適用時にバックアップする。"
+  ]
+}

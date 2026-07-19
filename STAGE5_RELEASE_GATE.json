@@ -1,0 +1,51 @@
+{
+  "generated_at": "2026-07-19T16:20:13.423Z",
+  "release_ready": true,
+  "missing_files": [],
+  "test_results": [
+    {
+      "file": "tests/version60-stage1-acceptance.mjs",
+      "passed": true,
+      "stdout": "Version 6.0 Stage1 acceptance: PASS",
+      "stderr": ""
+    },
+    {
+      "file": "tests/version60-stage2-passenger-refund.mjs",
+      "passed": true,
+      "stdout": "Version 6.0 Stage2 passenger refund acceptance: PASS",
+      "stderr": ""
+    },
+    {
+      "file": "tests/version60-stage3-accident-handling.mjs",
+      "passed": true,
+      "stdout": "Version 6.0 Stage3 accident handling acceptance: PASS",
+      "stderr": ""
+    },
+    {
+      "file": "tests/version60-stage4-common-infrastructure.mjs",
+      "passed": true,
+      "stdout": "Version 6.0 Stage4 common infrastructure acceptance: PASS",
+      "stderr": ""
+    },
+    {
+      "file": "tests/version60-stage5-integration.mjs",
+      "passed": true,
+      "stdout": "Version 6.0 Stage5 integration acceptance: PASS",
+      "stderr": ""
+    },
+    {
+      "file": "tests/version60-stage5-abnormal.mjs",
+      "passed": true,
+      "stdout": "Version 6.0 Stage5 abnormal acceptance: PASS",
+      "stderr": ""
+    },
+    {
+      "file": "tests/version60-stage5-stress.mjs",
+      "passed": true,
+      "stdout": "{\"status\":\"PASS\",\"iterations\":10000,\"elapsed_ms\":235.091,\"average_ms\":0.023509}",
+      "stderr": ""
+    }
+  ],
+  "syntax_checked": 21,
+  "syntax_failures": []
+}

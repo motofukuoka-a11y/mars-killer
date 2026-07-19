@@ -1,0 +1,22 @@
+{
+  "name": "mars-killer-v6-stage8",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:stage1": "node tests/version60-stage1-acceptance.mjs",
+    "test:stage2": "node tests/version60-stage2-passenger-refund.mjs",
+    "test:stage3": "node tests/version60-stage3-accident-handling.mjs",
+    "test:stage4": "node tests/version60-stage4-common-infrastructure.mjs",
+    "test:integration": "node tests/version60-stage5-integration.mjs",
+    "test:abnormal": "node tests/version60-stage5-abnormal.mjs",
+    "test:stress": "node tests/version60-stage5-stress.mjs",
+    "test": "npm run test:stage1 && npm run test:stage2 && npm run test:stage3 && npm run test:stage4 && npm run test:integration && npm run test:abnormal && npm run test:stress && npm run test:stage6 && npm run test:stage7 && npm run test:stage8",
+    "release:gate": "node tools/release-gate-stage5.mjs",
+    "test:stage6": "node tests/version60-stage6-ui-integration.mjs",
+    "test:stage7": "node tests/version60-stage7-release-preflight.mjs",
+    "preflight": "node tools/release-preflight-stage7.mjs",
+    "test:stage8": "node tests/version60-stage8-overlay-installer.mjs",
+    "overlay:dry-run": "node tools/apply-version6-overlay.mjs --dry-run",
+    "overlay:verify": "node tools/verify-version6-integration.mjs"
+  }
+}

@@ -1,0 +1,896 @@
+{
+  "generated_at": "2026-07-19T16:34:49.070Z",
+  "scope": "Version 5.1 changed-files overlay plus Version 6 cumulative implementation",
+  "checks": {
+    "required_files": [
+      {
+        "file": "index.html",
+        "exists": true
+      },
+      {
+        "file": "app.js",
+        "exists": true
+      },
+      {
+        "file": "engine.js",
+        "exists": true
+      },
+      {
+        "file": "service-worker.js",
+        "exists": true
+      },
+      {
+        "file": "manifest.webmanifest",
+        "exists": true
+      },
+      {
+        "file": "ui/Version6RefundPanel.js",
+        "exists": true
+      },
+      {
+        "file": "ui/Version6RefundController.js",
+        "exists": true
+      },
+      {
+        "file": "services/v6/Version6Platform.js",
+        "exists": true
+      },
+      {
+        "file": "validation/ValidationEngineV6.js",
+        "exists": true
+      },
+      {
+        "file": "engines/v6/BusinessEngineV6.js",
+        "exists": true
+      },
+      {
+        "file": "data/rules/refund_rules_v6.json",
+        "exists": true
+      },
+      {
+        "file": "data/rules/accident_rules_v6.json",
+        "exists": true
+      }
+    ],
+    "html_references": [
+      {
+        "file": "manifest.webmanifest",
+        "exists": true
+      },
+      {
+        "file": "icons/icon-192.png",
+        "exists": false
+      },
+      {
+        "file": "styles.css",
+        "exists": false
+      },
+      {
+        "file": "app.js",
+        "exists": true
+      },
+      {
+        "file": "ui/Version6RefundPanel.js",
+        "exists": true
+      }
+    ],
+    "module_imports": [
+      {
+        "from": "app.js",
+        "target": "engine.js",
+        "exists": true
+      },
+      {
+        "from": "app.js",
+        "target": "engines/RefundEngine.js",
+        "exists": false
+      },
+      {
+        "from": "app.js",
+        "target": "shared/Constants.js",
+        "exists": false
+      },
+      {
+        "from": "app.js",
+        "target": "ui/Version51StateController.js",
+        "exists": false
+      },
+      {
+        "from": "engine.js",
+        "target": "engines/RouteEngine.js",
+        "exists": false
+      },
+      {
+        "from": "engine.js",
+        "target": "engines/FareEngine.js",
+        "exists": false
+      },
+      {
+        "from": "engine.js",
+        "target": "engines/ChargeEngine.js",
+        "exists": false
+      },
+      {
+        "from": "engine.js",
+        "target": "engines/ChangeEngine.js",
+        "exists": false
+      },
+      {
+        "from": "engine.js",
+        "target": "engines/RefundEngine.js",
+        "exists": false
+      },
+      {
+        "from": "engine.js",
+        "target": "engines/DiscountEngine.js",
+        "exists": false
+      },
+      {
+        "from": "engine.js",
+        "target": "engines/ValidationEngine.js",
+        "exists": false
+      },
+      {
+        "from": "engine.js",
+        "target": "engines/BusinessEngine.js",
+        "exists": false
+      },
+      {
+        "from": "engine.js",
+        "target": "shared/RuleResolver.js",
+        "exists": false
+      },
+      {
+        "from": "engine.js",
+        "target": "shared/Constants.js",
+        "exists": false
+      },
+      {
+        "from": "engine.js",
+        "target": "services/StationSearchIndex.js",
+        "exists": false
+      },
+      {
+        "from": "engine.js",
+        "target": "services/PracticalStorage.js",
+        "exists": false
+      },
+      {
+        "from": "engine.js",
+        "target": "services/DebugService.js",
+        "exists": false
+      },
+      {
+        "from": "engine.js",
+        "target": "services/PracticalOperationPlatform.js",
+        "exists": false
+      },
+      {
+        "from": "engine.js",
+        "target": "services/PassengerCalculationService.js",
+        "exists": false
+      },
+      {
+        "from": "engine.js",
+        "target": "services/PracticalValidationService.js",
+        "exists": false
+      },
+      {
+        "from": "engine.js",
+        "target": "services/PassengerRuleService.js",
+        "exists": false
+      },
+      {
+        "from": "engine.js",
+        "target": "services/SearchConditionAdapter.js",
+        "exists": false
+      },
+      {
+        "from": "engine.js",
+        "target": "services/PassengerModel.js",
+        "exists": false
+      },
+      {
+        "from": "engine.js",
+        "target": "services/SectionServiceManager.js",
+        "exists": false
+      },
+      {
+        "from": "engines/v6/BusinessEngineV6.js",
+        "target": "models/Version6Models.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/app.js",
+        "target": "mk_v51/engine.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/app.js",
+        "target": "mk_v51/engines/RefundEngine.js",
+        "exists": false
+      },
+      {
+        "from": "mk_v51/app.js",
+        "target": "mk_v51/shared/Constants.js",
+        "exists": false
+      },
+      {
+        "from": "mk_v51/app.js",
+        "target": "mk_v51/ui/Version51StateController.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/engine.js",
+        "target": "mk_v51/engines/RouteEngine.js",
+        "exists": false
+      },
+      {
+        "from": "mk_v51/engine.js",
+        "target": "mk_v51/engines/FareEngine.js",
+        "exists": false
+      },
+      {
+        "from": "mk_v51/engine.js",
+        "target": "mk_v51/engines/ChargeEngine.js",
+        "exists": false
+      },
+      {
+        "from": "mk_v51/engine.js",
+        "target": "mk_v51/engines/ChangeEngine.js",
+        "exists": false
+      },
+      {
+        "from": "mk_v51/engine.js",
+        "target": "mk_v51/engines/RefundEngine.js",
+        "exists": false
+      },
+      {
+        "from": "mk_v51/engine.js",
+        "target": "mk_v51/engines/DiscountEngine.js",
+        "exists": false
+      },
+      {
+        "from": "mk_v51/engine.js",
+        "target": "mk_v51/engines/ValidationEngine.js",
+        "exists": false
+      },
+      {
+        "from": "mk_v51/engine.js",
+        "target": "mk_v51/engines/BusinessEngine.js",
+        "exists": false
+      },
+      {
+        "from": "mk_v51/engine.js",
+        "target": "mk_v51/shared/RuleResolver.js",
+        "exists": false
+      },
+      {
+        "from": "mk_v51/engine.js",
+        "target": "mk_v51/shared/Constants.js",
+        "exists": false
+      },
+      {
+        "from": "mk_v51/engine.js",
+        "target": "mk_v51/services/StationSearchIndex.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/engine.js",
+        "target": "mk_v51/services/PracticalStorage.js",
+        "exists": false
+      },
+      {
+        "from": "mk_v51/engine.js",
+        "target": "mk_v51/services/DebugService.js",
+        "exists": false
+      },
+      {
+        "from": "mk_v51/engine.js",
+        "target": "mk_v51/services/PracticalOperationPlatform.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/engine.js",
+        "target": "mk_v51/services/PassengerCalculationService.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/engine.js",
+        "target": "mk_v51/services/PracticalValidationService.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/engine.js",
+        "target": "mk_v51/services/PassengerRuleService.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/engine.js",
+        "target": "mk_v51/services/SearchConditionAdapter.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/engine.js",
+        "target": "mk_v51/services/PassengerModel.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/engine.js",
+        "target": "mk_v51/services/SectionServiceManager.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/PassengerCalculationService.js",
+        "target": "mk_v51/shared/Constants.js",
+        "exists": false
+      },
+      {
+        "from": "mk_v51/services/PassengerCalculationService.js",
+        "target": "mk_v51/services/PassengerModel.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/PassengerCalculationService.js",
+        "target": "mk_v51/services/SectionServiceManager.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/PracticalOperationPlatform.js",
+        "target": "mk_v51/services/SearchConditionAdapter.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/PracticalOperationPlatform.js",
+        "target": "mk_v51/services/PassengerModel.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/PracticalOperationPlatform.js",
+        "target": "mk_v51/services/SectionServiceManager.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/PracticalValidationService.js",
+        "target": "mk_v51/services/PassengerModel.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/PracticalValidationService.js",
+        "target": "mk_v51/services/SectionServiceManager.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/SearchConditionAdapter.js",
+        "target": "mk_v51/services/PassengerModel.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/v6/AccidentHandlingServicesV6.js",
+        "target": "mk_v51/services/v6/Version6Errors.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/v6/BusinessEngineV6.js",
+        "target": "mk_v51/services/v6/Version6Models.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/v6/PassengerRefundServicesV6.js",
+        "target": "mk_v51/services/v6/RefundRuleServiceV6.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/v6/PassengerRefundServicesV6.js",
+        "target": "mk_v51/services/v6/RefundRoundingServiceV6.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/v6/PassengerRefundServicesV6.js",
+        "target": "mk_v51/services/v6/Version6Errors.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/v6/RefundRuleServiceV6.js",
+        "target": "mk_v51/services/v6/RefundRulesV6.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/v6/ResultBuilderV6.js",
+        "target": "mk_v51/services/v6/Version6Models.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/v6/RuleResolverV6.js",
+        "target": "mk_v51/services/v6/Version6Models.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/v6/ValidationEngineV6.js",
+        "target": "mk_v51/services/v6/Version6Models.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/v6/Version6Platform.js",
+        "target": "mk_v51/services/v6/ValidationEngineV6.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/v6/Version6Platform.js",
+        "target": "mk_v51/services/v6/BusinessEngineV6.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/v6/Version6Platform.js",
+        "target": "mk_v51/services/v6/RuleResolverV6.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/v6/Version6Platform.js",
+        "target": "mk_v51/services/v6/ResultBuilderV6.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/v6/Version6Platform.js",
+        "target": "mk_v51/services/v6/DebugLoggerV6.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/v6/Version6Platform.js",
+        "target": "mk_v51/services/v6/AuditLogV6.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/v6/Version6Platform.js",
+        "target": "mk_v51/services/v6/Version6Models.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/v6/Version6Platform.js",
+        "target": "mk_v51/services/v6/Version6Errors.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/v6/Version6Platform.js",
+        "target": "mk_v51/services/v6/PassengerRefundServicesV6.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/services/v6/Version6Platform.js",
+        "target": "mk_v51/services/v6/AccidentHandlingServicesV6.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/tests/version51-acceptance.mjs",
+        "target": "mk_v51/services/PassengerModel.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/tests/version51-acceptance.mjs",
+        "target": "mk_v51/services/SectionServiceManager.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/tests/version51-acceptance.mjs",
+        "target": "mk_v51/services/StationSearchIndex.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/tests/version51-acceptance.mjs",
+        "target": "mk_v51/services/SearchConditionAdapter.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/tests/version6-stage1-acceptance.mjs",
+        "target": "mk_v51/services/v6/Version6Platform.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/tests/version6-stage1-acceptance.mjs",
+        "target": "mk_v51/services/v6/DebugLoggerV6.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/tests/version6-stage1-acceptance.mjs",
+        "target": "mk_v51/services/v6/AuditLogV6.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/tests/version6-stage1-acceptance.mjs",
+        "target": "mk_v51/services/v6/Version6Models.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/tests/version6-stage2-passenger-refund.mjs",
+        "target": "mk_v51/services/v6/Version6Platform.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/tests/version6-stage2-passenger-refund.mjs",
+        "target": "mk_v51/services/v6/Version6Models.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/tests/version6-stage3-accident-handling.mjs",
+        "target": "mk_v51/services/v6/Version6Platform.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/tests/version6-stage3-accident-handling.mjs",
+        "target": "mk_v51/services/v6/Version6Models.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/ui/Version51StateController.js",
+        "target": "mk_v51/ui/StationAutocomplete.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/ui/Version51StateController.js",
+        "target": "mk_v51/services/PassengerModel.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/ui/Version51StateController.js",
+        "target": "mk_v51/services/SectionServiceManager.js",
+        "exists": true
+      },
+      {
+        "from": "services/v6/AccidentHandlingServicesV6.js",
+        "target": "services/v6/RefundRoundingServiceV6.js",
+        "exists": true
+      },
+      {
+        "from": "services/v6/CalculationServicesV6.js",
+        "target": "services/v6/PassengerRefundServicesV6.js",
+        "exists": true
+      },
+      {
+        "from": "services/v6/CalculationServicesV6.js",
+        "target": "services/v6/AccidentHandlingServicesV6.js",
+        "exists": true
+      },
+      {
+        "from": "services/v6/PassengerRefundServicesV6.js",
+        "target": "services/v6/RefundRuleServiceV6.js",
+        "exists": true
+      },
+      {
+        "from": "services/v6/PassengerRefundServicesV6.js",
+        "target": "services/v6/RefundRoundingServiceV6.js",
+        "exists": true
+      },
+      {
+        "from": "services/v6/RefundRuleServiceV6.js",
+        "target": "data/rules/refund_rules_v6.json",
+        "exists": true
+      },
+      {
+        "from": "services/v6/RuleResolverV6.js",
+        "target": "models/Version6Models.js",
+        "exists": true
+      },
+      {
+        "from": "services/v6/Version6Platform.js",
+        "target": "validation/ValidationEngineV6.js",
+        "exists": true
+      },
+      {
+        "from": "services/v6/Version6Platform.js",
+        "target": "engines/v6/BusinessEngineV6.js",
+        "exists": true
+      },
+      {
+        "from": "services/v6/Version6Platform.js",
+        "target": "services/v6/RuleResolverV6.js",
+        "exists": true
+      },
+      {
+        "from": "services/v6/Version6Platform.js",
+        "target": "services/v6/CalculationServicesV6.js",
+        "exists": true
+      },
+      {
+        "from": "services/v6/Version6Platform.js",
+        "target": "services/v6/ResultBuilderV6.js",
+        "exists": true
+      },
+      {
+        "from": "services/v6/Version6Platform.js",
+        "target": "services/v6/ErrorHandlingV6.js",
+        "exists": true
+      },
+      {
+        "from": "services/v6/Version6Platform.js",
+        "target": "debug/Version6Logging.js",
+        "exists": true
+      },
+      {
+        "from": "tests/version60-stage1-acceptance.mjs",
+        "target": "services/v6/Version6Platform.js",
+        "exists": true
+      },
+      {
+        "from": "tests/version60-stage2-passenger-refund.mjs",
+        "target": "services/v6/Version6Platform.js",
+        "exists": true
+      },
+      {
+        "from": "tests/version60-stage3-accident-handling.mjs",
+        "target": "services/v6/Version6Platform.js",
+        "exists": true
+      },
+      {
+        "from": "tests/version60-stage4-common-infrastructure.mjs",
+        "target": "services/v6/Version6Platform.js",
+        "exists": true
+      },
+      {
+        "from": "tests/version60-stage4-common-infrastructure.mjs",
+        "target": "services/v6/ErrorHandlingV6.js",
+        "exists": true
+      },
+      {
+        "from": "tests/version60-stage4-common-infrastructure.mjs",
+        "target": "debug/Version6Logging.js",
+        "exists": true
+      },
+      {
+        "from": "tests/version60-stage5-abnormal.mjs",
+        "target": "services/v6/Version6Platform.js",
+        "exists": true
+      },
+      {
+        "from": "tests/version60-stage5-integration.mjs",
+        "target": "services/v6/Version6Platform.js",
+        "exists": true
+      },
+      {
+        "from": "tests/version60-stage5-stress.mjs",
+        "target": "services/v6/Version6Platform.js",
+        "exists": true
+      },
+      {
+        "from": "tests/version60-stage6-ui-integration.mjs",
+        "target": "ui/Version6RefundController.js",
+        "exists": true
+      },
+      {
+        "from": "ui/Version6RefundController.js",
+        "target": "services/v6/Version6Platform.js",
+        "exists": true
+      },
+      {
+        "from": "ui/Version6RefundPanel.js",
+        "target": "ui/Version6RefundController.js",
+        "exists": true
+      }
+    ],
+    "service_worker_critical_assets": [
+      {
+        "file": "index.html",
+        "exists": true
+      },
+      {
+        "file": "app.js",
+        "exists": true
+      },
+      {
+        "file": "engine.js",
+        "exists": true
+      },
+      {
+        "file": "manifest.webmanifest",
+        "exists": true
+      },
+      {
+        "file": "ui/Version6RefundPanel.js",
+        "exists": true
+      },
+      {
+        "file": "ui/Version6RefundController.js",
+        "exists": true
+      },
+      {
+        "file": "services/v6/Version6Platform.js",
+        "exists": true
+      },
+      {
+        "file": "services/v6/CalculationServicesV6.js",
+        "exists": true
+      },
+      {
+        "file": "services/v6/PassengerRefundServicesV6.js",
+        "exists": true
+      },
+      {
+        "file": "services/v6/AccidentHandlingServicesV6.js",
+        "exists": true
+      },
+      {
+        "file": "services/v6/RuleResolverV6.js",
+        "exists": true
+      },
+      {
+        "file": "services/v6/ResultBuilderV6.js",
+        "exists": true
+      },
+      {
+        "file": "services/v6/ErrorHandlingV6.js",
+        "exists": true
+      },
+      {
+        "file": "validation/ValidationEngineV6.js",
+        "exists": true
+      },
+      {
+        "file": "engines/v6/BusinessEngineV6.js",
+        "exists": true
+      },
+      {
+        "file": "models/Version6Models.js",
+        "exists": true
+      },
+      {
+        "file": "debug/Version6Logging.js",
+        "exists": true
+      },
+      {
+        "file": "data/rules/refund_rules_v6.json",
+        "exists": true
+      },
+      {
+        "file": "data/rules/accident_rules_v6.json",
+        "exists": true
+      }
+    ],
+    "service_worker_optional_assets": [
+      {
+        "file": "styles.css",
+        "exists": false
+      },
+      {
+        "file": "icons/icon-192.png",
+        "exists": false
+      },
+      {
+        "file": "icons/icon-512.png",
+        "exists": false
+      },
+      {
+        "file": "engines/RouteEngine.js",
+        "exists": false
+      },
+      {
+        "file": "engines/FareEngine.js",
+        "exists": false
+      },
+      {
+        "file": "engines/ChargeEngine.js",
+        "exists": false
+      },
+      {
+        "file": "engines/ChangeEngine.js",
+        "exists": false
+      },
+      {
+        "file": "engines/RefundEngine.js",
+        "exists": false
+      },
+      {
+        "file": "engines/DiscountEngine.js",
+        "exists": false
+      },
+      {
+        "file": "engines/ValidationEngine.js",
+        "exists": false
+      },
+      {
+        "file": "engines/BusinessEngine.js",
+        "exists": false
+      },
+      {
+        "file": "shared/ErrorCodes.js",
+        "exists": false
+      },
+      {
+        "file": "shared/Constants.js",
+        "exists": false
+      },
+      {
+        "file": "shared/Utils.js",
+        "exists": false
+      },
+      {
+        "file": "shared/RuleResolver.js",
+        "exists": false
+      },
+      {
+        "file": "services/StationSearchIndex.js",
+        "exists": false
+      },
+      {
+        "file": "services/PracticalStorage.js",
+        "exists": false
+      },
+      {
+        "file": "services/DebugService.js",
+        "exists": false
+      },
+      {
+        "file": "services/PracticalOperationPlatform.js",
+        "exists": false
+      },
+      {
+        "file": "services/PassengerCalculationService.js",
+        "exists": false
+      },
+      {
+        "file": "services/PracticalValidationService.js",
+        "exists": false
+      },
+      {
+        "file": "services/PassengerRuleService.js",
+        "exists": false
+      },
+      {
+        "file": "services/PassengerModel.js",
+        "exists": false
+      },
+      {
+        "file": "services/SearchConditionAdapter.js",
+        "exists": false
+      },
+      {
+        "file": "services/SectionServiceManager.js",
+        "exists": false
+      },
+      {
+        "file": "ui/StationAutocomplete.js",
+        "exists": false
+      },
+      {
+        "file": "ui/Version51StateController.js",
+        "exists": false
+      }
+    ],
+    "manifest_icons": [
+      {
+        "file": "icons/icon-192.png",
+        "exists": false
+      },
+      {
+        "file": "icons/icon-512.png",
+        "exists": false
+      }
+    ],
+    "manifest_fields": {
+      "name": true,
+      "short_name": true,
+      "start_url": true,
+      "display": true
+    },
+    "ui_tokens": {
+      "version6_panel_script": true,
+      "version6_mount": true,
+      "service_worker_registration": true
+    }
+  },
+  "summary": {
+    "required_missing": 0,
+    "module_imports_missing": 38,
+    "critical_assets_missing": 0,
+    "html_references_missing": 2,
+    "manifest_icons_missing": 2,
+    "optional_assets_missing": 27,
+    "overlay_internal_gate_passed": true,
+    "full_application_release_ready": false,
+    "release_blockers": [
+      "Runtime module imports are missing from this overlay.",
+      "HTML-referenced assets are missing from this overlay.",
+      "Manifest icons are missing from this overlay.",
+      "The complete historical repository has not been provided.",
+      "Browser, installability, and offline behavior have not been verified in a real browser."
+    ]
+  }
+}

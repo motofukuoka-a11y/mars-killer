@@ -1419,55 +1419,5 @@ node tests/version51-acceptance.mjs
 
 GitHub Pages公開後の確認項目は`RELEASE_CHECKLIST.md`を参照してください。
 
-## Version 6.0.0 Stage 1
-
-Version6の処理基盤を追加しました。
-
-```text
-ValidationEngineV6
-→ BusinessEngineV6
-→ RuleResolverV6
-→ CalculationServiceRouterV6
-→ ResultBuilderV6
-→ AuditLog
-```
-
-`BusinessEngineV6`と`RuleResolverV6`では金額計算を行いません。
-複数の事故取扱候補がある場合は自動選択せず、
-`multiple_choices_available`を返します。
-
-受入試験：
-
-```bash
-node tests/version60-stage1-acceptance.mjs
-```
-
-## Version 6.0 Stage 2：旅客任意払戻
-
-Version 6.0の旅客任意払戻は、`BusinessEngineV6`で券種・旅行状態を判定し、`RuleResolverV6`で規則を確定した後、券種別サービスで計算します。
-
-- `BeforeTravelRefundService`
-- `AfterTravelRefundService`
-- `CommuterPassRefundService`
-- `CouponTicketRefundService`
-- `RefundRuleServiceV6`
-- `RefundRoundingServiceV6`
-
-旅行開始後の普通乗車券は、不乗区間が営業キロ101km以上の場合のみ対象とし、既乗区間運賃は必ずFareEngineの結果を利用します。定期乗車券は通常計算と旬割計算の両方を生成して比較します。普通回数乗車券の一部使用時は、残余枚数ではなく使用枚数分の券面区間片道普通運賃を発売額から控除します。
-
-## Version 6.0 Stage 3
-
-事故取扱は旅客任意払戻と分離し、次の専用サービスで処理します。
-
-- `AccidentRefundService`
-- `AccidentChangeService`
-- `TravelDiscontinuationService`
-- `DelayRefundService`
-- `ExpressContinuationService`
-- `FreeReturnService`
-- `AlternativeRouteService`
-- `AccidentCommuterService`
-- `AccidentCouponService`
-- `ComparisonService`
-
-他経路乗車では運賃・料金・設備料金を個別比較し、過剰額のみ払いもどします。不足額は収受しません。
+### Version 6.0 Actual Stage 3
+事故取扱は `services/v6/AccidentHandlingServicesV6.js` に分離しています。事故取扱候補が複数ある場合は自動選択せず、`selected_candidate_id` が指定された場合のみ計算します。未乗車区間運賃は FareEngine 接続時のみ計算し、未接続時は手動確認を返します。

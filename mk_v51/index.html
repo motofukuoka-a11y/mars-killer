@@ -75,8 +75,6 @@
     @media(max-width:520px){.via-row{grid-template-columns:1fr}.passenger-stepper{grid-template-columns:minmax(0,1fr) 44px 58px 44px}.section-heading{align-items:flex-start;flex-direction:column}.passenger-card{grid-template-columns:1fr auto}}
 
     .passenger-result-list{display:grid;gap:1rem}.passenger-result-card{border:1px solid var(--border,#9aa0a6);border-radius:14px;padding:1rem;min-width:0}.passenger-result-card header{display:flex;justify-content:space-between;gap:1rem;align-items:center;margin-bottom:.75rem}.passenger-result-card dl{display:grid;gap:.5rem;margin:0}.passenger-result-card dl div{display:flex;justify-content:space-between;gap:1rem}.passenger-result-card dt,.passenger-result-card dd{margin:0}.passenger-subtotal{border-top:1px solid var(--border,#9aa0a6);padding-top:.65rem;font-weight:700}.formula-steps{padding-left:1.25rem}.formula-steps li{margin:.5rem 0}.formula-steps span{display:block;overflow-wrap:anywhere}.passenger-result-card details ul{padding-left:1.25rem}.passenger-result-card details li{margin:.55rem 0}.passenger-result-card details p{margin:.25rem 0}.passenger-result-card details small{display:block;overflow-wrap:anywhere}@media(min-width:768px){.passenger-result-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
-
-    .v6-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}.v6-form-grid label{display:flex;flex-direction:column;gap:.35rem}.v6-refund-total{font-size:1.35rem}.v6-options h3{margin-top:1.25rem}@media(max-width:680px){.v6-form-grid{grid-template-columns:1fr}}
 </style>
   <title>MARS KILLER｜運賃・料金・払戻計算支援</title>
 </head>
@@ -148,8 +146,6 @@
         <option value="sale">発売額</option>
         <option value="refund">払戻額</option>
         <option value="business">営業実務</option>
-        <option value="passenger_refund">Version 6 旅客任意払戻</option>
-        <option value="accident_handling">Version 6 事故取扱</option>
       </select>
     </label>
 
@@ -341,56 +337,6 @@
       </label>
     </div>
 
-
-    <section id="version6Options" class="v51-card v6-options" hidden>
-      <h2>Version 6 払戻・事故取扱</h2>
-      <input type="hidden" name="business_mode" value="passenger_refund">
-      <div class="v6-form-grid">
-        <label>券種<select name="ticket_type">
-          <option value="ordinary">普通乗車券</option><option value="discount_ordinary">割引普通乗車券</option>
-          <option value="reserved_express">指定席特急券</option><option value="reserved_green">グリーン券</option>
-          <option value="commuter_pass">定期券</option><option value="coupon_ticket">普通回数券</option>
-        </select></label>
-        <label>旅行状態<select name="travel_state"><option value="before_travel">旅行開始前</option><option value="after_travel">旅行開始後</option></select></label>
-        <label>券面金額<input name="face_value" type="number" min="0" inputmode="numeric"></label>
-        <label>設備料金<input name="facility_charge" type="number" min="0" inputmode="numeric"></label>
-        <label>出発日までの日数<input name="days_before_departure" type="number" min="0" inputmode="numeric"></label>
-        <label>不乗区間営業キロ<input name="unused_business_km" type="number" min="0" step="0.1" inputmode="decimal"></label>
-        <label>既乗区間運賃（確認入力）<input name="used_section_fare" type="number" min="0" inputmode="numeric"></label>
-        <label>片道普通運賃<input name="one_way_fare" type="number" min="0"></label>
-        <label>経過日数<input name="elapsed_days" type="number" min="0"></label>
-        <label>1か月定期運賃<input name="one_month_commuter_fare" type="number" min="0"></label>
-        <label>1旬相当額<input name="period_fare" type="number" min="0"></label>
-        <label>経過旬数<input name="elapsed_periods" type="number" min="0"></label>
-        <label>総枚数<input name="total_sheets" type="number" min="1"></label>
-        <label>残余枚数<input name="remaining_sheets" type="number" min="0"></label>
-        <label>券面区間片道運賃<input name="coupon_section_single_fare" type="number" min="0"></label>
-      </div>
-      <div data-v6-accident hidden>
-        <h3>事故取扱条件</h3>
-        <div class="v6-form-grid">
-          <label>事故区分<select name="incident_type"><option value="before_departure">出発前</option><option value="after_departure">出発後</option><option value="delay">遅延</option><option value="return_transport">無賃送還</option><option value="alternate_route">他経路乗車</option><option value="commuter_accident">定期券</option><option value="coupon_accident">回数券</option></select></label>
-          <label>選択する取扱<input name="selected_candidate" placeholder="候補表示後に入力"></label>
-          <label>遅延分<input name="delay_minutes" type="number" min="0"></label>
-          <label>運賃額<input name="fare_amount" type="number" min="0"></label>
-          <label>料金額<input name="charge_amount" type="number" min="0"></label>
-          <label>原経路運賃<input name="original_fare" type="number" min="0"></label>
-          <label>実利用運賃<input name="actual_fare" type="number" min="0"></label>
-          <label>原経路料金<input name="original_charge" type="number" min="0"></label>
-          <label>実利用料金<input name="actual_charge" type="number" min="0"></label>
-          <label>原設備料金<input name="original_facility" type="number" min="0"></label>
-          <label>実設備料金<input name="actual_facility" type="number" min="0"></label>
-          <label>運休連続日数<input name="suspension_days" type="number" min="0"></label>
-          <label>日割額<input name="daily_split_fare" type="number" min="0"></label>
-          <label>発駅<input name="origin"></label><label>送還駅<input name="return_station"></label>
-          <label>他経路<input name="alternative_route"></label>
-        </div>
-        <label><input name="returned_to_origin" type="checkbox">発駅へ送還済み</label>
-      </div>
-      <div class="v5-checks"><label><input name="special_product" type="checkbox">特別企画乗車券</label><label><input name="before_validity_start" type="checkbox">有効開始日前</label><label><input name="discount_re_evaluated" type="checkbox">割引再判定済み</label></div>
-      <p class="input-help">未確定の取扱いは自動選択せず、候補または手動確認を表示します。</p>
-    </section>
-
     <button id="calc" class="primary" disabled>計算する</button>
   </section>
 
@@ -470,6 +416,5 @@
 })();
 </script>
 <script type="module" src="./app.js"></script>
-<script type="module" src="./ui/Version6RefundPanel.js"></script>
 </body>
 </html>

@@ -87,52 +87,19 @@
 - 最終リリース確認表を追加。
 - Stage 1〜5の変更ファイルを統合した最終パッケージを作成。
 
-## Version 6.0.0 Stage 1
-
-- Version6共通モデルを追加
-- ValidationEngineV6を追加
-- BusinessEngineV6を追加（業務判定のみ）
-- RuleResolverV6を追加
-- CalculationServiceRouterV6を追加
-- ResultBuilderV6を追加
-- DebugLogger、AuditLog、ErrorHandlingV6を追加
-- Version6Platformで処理順序を統合
-- 旅客任意払戻の基本計算、旅行開始後101km境界を実装
-- 事故時の全額払戻、事故列変、旅行中止、120分遅延、急乗承、無賃送還、他経路乗車の基盤を実装
-- Version6 Stage1受入試験を追加
-
-## Version 6.0.0 Stage 2
+## Version 6.0.0 Actual Stage 2
 
 - 旅客任意払戻の規則マスターを追加。
-- 旅行開始前の普通乗車券、立席特急券、座席未指定券、指定席券類の手数料判定を追加。
-- 指定席・設備料金の30％手数料と10円未満端数整理を追加。
-- 旅行開始後の101km境界とFareEngine経由の既乗区間運賃再計算を実装。
-- 定期乗車券について通常計算と旬割計算を必ず比較し、有利な払戻額を採用。
-- 普通回数乗車券の未使用・一部使用計算を追加。
-- 旅客払戻の入力ValidationとStage 2受入試験を追加。
+- 旅行開始前の普通乗車券・自由席券・立席特急券・座席未指定券・指定席券類の計算サービスを追加。
+- 指定席券類の申出時期判定と、設備料金のみを対象とする30％手数料計算を追加。
+- 旅行開始後の101km境界、FareEngineによる既乗区間運賃再計算、220円控除を追加。
+- 定期乗車券の通常計算と旬割計算の比較を追加。
+- 普通回数乗車券の使用枚数控除方式を追加。
+- 券種別入力ValidationとStage 2受入試験を追加。
 
-## Version 6.0 Stage 3
-
-- 事故取扱専用サービス群を追加
-- 旅行開始前の全額払戻・事故列変を追加
-- 旅行開始後の旅行中止、120分以上遅延、急乗承を追加
-- 無賃送還と他経路乗車を追加
-- 運賃・料金・設備料金の個別比較を追加
-- 事故時定期券・普通回数券の5日以上運休条件と払戻計算を追加
-- 事故取扱用Validationと境界値試験を追加
-
-## Version 6.0 Stage 4
-- Validation・BusinessEngine・RuleResolver・CalculationService・ResultBuilderの処理境界を統合基盤で強制
-- DebugLoggerに開始・終了・異常・処理時間記録を追加
-- PerformanceLogを追加
-- AuditLogを許可項目方式とし個人情報を保存しない構造へ変更
-- ValidationError / BusinessRuleError / CalculationError / SystemError / UnexpectedErrorを分類
-- 通信系エラーのみRetry可能とする判定を追加
-- 内部例外・StackTraceを利用者へ表示しないErrorResultを追加
-## Version 6.0 Actual Stage 8
-
-- Added SHA-256 manifest for Version 6 overlay files.
-- Added dry-run/apply installer with automatic backup and receipt.
-- Added post-application integration verifier.
-- Added Stage 8 installer acceptance test.
-
+## Version 6.0 Actual Stage 3
+- 事故発生前の全額払戻、事故列変、後日の旅行を専用サービス化。
+- 旅行開始後の旅行中止、急乗承、無賃送還、他経路乗車を専用サービス化。
+- 遅延119分／120分の境界判定を実装。
+- 他経路乗車では運賃・料金・設備料金を個別比較し、不足額を収受しない。
+- 事故時定期券・普通回数券の専用サービスと5日境界を追加。

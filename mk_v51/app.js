@@ -1246,16 +1246,6 @@ async function calculate(request = {}) {
   try {
     if (!silent) setStatus('計算中…');
 
-    if (['passenger_refund','accident_handling'].includes($('operation').value)) {
-      const panel = $('version6Options');
-      const mode = panel?.querySelector('[name="business_mode"]');
-      if (mode) mode.value = $('operation').value;
-      const response = window.__MARS_KILLER_V6_CONTROLLER__?.calculate();
-      if (!response) throw new Error('Version 6計算画面を初期化できませんでした。');
-      setStatus(response.error ? 'Version 6計算エラー' : 'Version 6計算完了', response.error ? 'error' : 'ok');
-      return;
-    }
-
     const via = version51State?.getOptions().via || [];
 
     engine.setDebugEnabled(
@@ -1358,11 +1348,9 @@ function syncOperation() {
   const operation = $('operation').value;
   const refund = operation === 'refund';
   const business = operation === 'business';
-  const version6 = operation === 'passenger_refund' || operation === 'accident_handling';
   $('refundOptions').hidden = !refund;
   $('businessOptions').hidden = !business;
-  if ($('version6Options')) $('version6Options').hidden = !version6;
-  $('calc').textContent = version6 ? (operation === 'accident_handling' ? '事故取扱を判定' : '旅客払戻を計算') : business ? '営業実務を計算' : refund ? '払戻額を計算' : '発売額を計算';
+  $('calc').textContent = business ? '営業実務を計算' : refund ? '払戻額を計算' : '発売額を計算';
 }
 
 function applyTheme(value) {

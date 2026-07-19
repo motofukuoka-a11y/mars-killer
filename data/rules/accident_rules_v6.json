@@ -1,0 +1,10 @@
+{
+  "version": "6.0.0",
+  "delay_refund_minutes": 120,
+  "commuter_coupon_minimum_suspension_days": 5,
+  "additional_collection": 0,
+  "handling": {
+    "before_departure": ["accident_full_refund", "accident_train_change", "later_travel"],
+    "after_departure": ["travel_discontinuation", "express_continuation", "free_return", "alternative_route"]
+  }
+}
