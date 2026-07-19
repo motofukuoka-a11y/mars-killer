@@ -2,6 +2,11 @@ import { SalesEngine } from './engine.js';
 import { RefundStatus } from './engines/RefundEngine.js';
 import { TicketUsageType, DepartureStatus } from './shared/Constants.js';
 
+window.__MARS_KILLER_APP_STARTED__ = true;
+window.dispatchEvent(
+  new Event('mars-killer-app-started')
+);
+
 const $ = id => document.getElementById(id);
 let engine;
 
@@ -1102,7 +1107,218 @@ function setupTheme() {
   );
 }
 
+
+let serviceWorkerRegistration = null;
+let serviceWorkerReloaded = false;
+
+function updateElements() {
+  return {
+    area: $('updateNotice'),
+    message: $('updateMessage'),
+    button: $('updateButton')
+  };
+}
+
+function showUpdateNotice(
+  message =
+    '新しいバージョンがあります。更新すると最新版へ切り替わります。',
+  {
+    buttonText = '更新する',
+    kind = ''
+  } = {}
+) {
+  const {
+    area,
+    message: messageElement,
+    button
+  } = updateElements();
+
+  if (
+    !area ||
+    !messageElement ||
+    !button
+  ) {
+    return;
+  }
+
+  messageElement.textContent = message;
+  button.textContent = buttonText;
+  button.disabled =
+    kind === 'working';
+  area.dataset.kind = kind;
+  area.hidden = false;
+}
+
+function hideUpdateNotice() {
+  const { area } = updateElements();
+
+  if (area) {
+    area.hidden = true;
+    area.dataset.kind = '';
+  }
+}
+
+function waitingWorker(
+  registration =
+    serviceWorkerRegistration
+) {
+  return (
+    registration?.waiting ||
+    (
+      registration?.installing
+        ?.state === 'installed'
+        ? registration.installing
+        : null
+    )
+  );
+}
+
+function requestServiceWorkerUpdate() {
+  try {
+    const worker =
+      waitingWorker();
+
+    if (!worker) {
+      throw new Error(
+        '更新用Service Workerが待機していません。'
+      );
+    }
+
+    setStatus('更新中…');
+    showUpdateNotice(
+      '最新版へ切り替えています。',
+      {
+        buttonText: '更新中…',
+        kind: 'working'
+      }
+    );
+
+    worker.postMessage({
+      type: 'SKIP_WAITING'
+    });
+  } catch (error) {
+    setStatus(
+      `更新失敗: ${error.message}`,
+      'error'
+    );
+    showUpdateNotice(
+      `更新に失敗しました。${error.message}`,
+      {
+        buttonText: '再試行',
+        kind: 'error'
+      }
+    );
+  }
+}
+
+function watchInstallingWorker(
+  registration,
+  worker
+) {
+  if (!worker) {
+    return;
+  }
+
+  worker.addEventListener(
+    'statechange',
+    () => {
+      if (
+        worker.state === 'installed' &&
+        navigator.serviceWorker
+          .controller
+      ) {
+        showUpdateNotice();
+      }
+
+      if (
+        worker.state === 'redundant'
+      ) {
+        setStatus(
+          '更新失敗: Service Workerのインストールに失敗しました。',
+          'error'
+        );
+        showUpdateNotice(
+          '更新の準備に失敗しました。',
+          {
+            buttonText: '再確認',
+            kind: 'error'
+          }
+        );
+      }
+    }
+  );
+}
+
+async function registerServiceWorker() {
+  if (
+    !('serviceWorker' in navigator)
+  ) {
+    return;
+  }
+
+  setStatus('更新確認中…');
+
+  try {
+    const registration =
+      await navigator.serviceWorker
+        .register(
+          './service-worker.js',
+          {
+            updateViaCache: 'none'
+          }
+        );
+
+    serviceWorkerRegistration =
+      registration;
+
+    if (
+      registration.waiting &&
+      navigator.serviceWorker.controller
+    ) {
+      showUpdateNotice();
+    }
+
+    if (registration.installing) {
+      watchInstallingWorker(
+        registration,
+        registration.installing
+      );
+    }
+
+    registration.addEventListener(
+      'updatefound',
+      () => {
+        watchInstallingWorker(
+          registration,
+          registration.installing
+        );
+      }
+    );
+
+    await registration.update();
+  } catch (error) {
+    setStatus(
+      `更新失敗: ${error.message}`,
+      'error'
+    );
+    showUpdateNotice(
+      '最新版の確認に失敗しました。通信状態を確認して再試行してください。',
+      {
+        buttonText: '再確認',
+        kind: 'error'
+      }
+    );
+  }
+}
+
 async function init() {
+  window.__MARS_KILLER_APP_STARTED__ = true;
+  window.dispatchEvent(
+    new Event(
+      'mars-killer-app-started'
+    )
+  );
+
   try {
     setupTheme();
     setStatus('マスタ読込み中…');
@@ -1130,6 +1346,13 @@ async function init() {
     setStatus(
       `準備完了：${engine.stations.length}駅`,
       'ok'
+    );
+
+    window.__MARS_KILLER_APP_READY__ = true;
+    window.dispatchEvent(
+      new Event(
+        'mars-killer-app-ready'
+      )
     );
 
     $('calc').disabled = false;
@@ -1176,13 +1399,36 @@ window.addEventListener(
   () => setStatus('オフライン利用中', 'ok')
 );
 
+$('updateButton')?.addEventListener(
+  'click',
+  () => {
+    if (
+      waitingWorker()
+    ) {
+      requestServiceWorkerUpdate();
+    } else {
+      hideUpdateNotice();
+      registerServiceWorker();
+    }
+  }
+);
+
 if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.addEventListener(
+    'controllerchange',
+    () => {
+      if (serviceWorkerReloaded) {
+        return;
+      }
+
+      serviceWorkerReloaded = true;
+      location.reload();
+    }
+  );
+
   window.addEventListener(
     'load',
-    () =>
-      navigator.serviceWorker.register(
-        './service-worker.js'
-      )
+    registerServiceWorker
   );
 }
 
