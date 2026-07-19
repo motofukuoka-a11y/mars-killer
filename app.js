@@ -251,6 +251,230 @@ function createRefundOptions(result) {
   return options;
 }
 
+
+function lineTypeLabel(value) {
+  return value === 'local' ? '地方交通線' : '幹線';
+}
+
+function routeDistance(route) {
+  return route?.distance || {
+    sections: [],
+    totals: {
+      business_km: route?.business_km || 0,
+      conversion_km: route?.conversion_km || 0,
+      fare_calculation_km: route?.fare_calculation_km || 0
+    }
+  };
+}
+
+function renderDistanceSection(
+  title,
+  sections,
+  lineType,
+  field
+) {
+  const filtered = sections.filter(
+    section =>
+      section.line_type === lineType
+  );
+
+  if (!filtered.length) {
+    return '';
+  }
+
+  return `
+    <section class="reason distance-section">
+      <h2>${esc(title)}</h2>
+      ${filtered.map(section => `
+        <div class="distance-row">
+          <strong>${esc(section.line)}</strong>
+          <span>${esc(section.from)}→${esc(section.to)}</span>
+          <b>${esc(section[field])}km</b>
+        </div>
+      `).join('')}
+    </section>
+  `;
+}
+
+function renderDistanceSummary(distance) {
+  const sections =
+    distance.sections || [];
+
+  return `
+    ${renderDistanceSection(
+      '営業キロ',
+      sections,
+      'main',
+      'business_km'
+    )}
+    ${renderDistanceSection(
+      '換算キロ',
+      sections,
+      'local',
+      'conversion_km'
+    )}
+    <section class="reason distance-total">
+      <h2>運賃計算キロ</h2>
+      <p class="total-distance">
+        ${esc(
+          distance.totals
+            ?.fare_calculation_km || 0
+        )}km
+      </p>
+    </section>
+  `;
+}
+
+function renderRouteFlow(route) {
+  const sections =
+    route?.distance?.sections ||
+    route?.sections ||
+    [];
+
+  if (!sections.length) {
+    return '';
+  }
+
+  const steps = [
+    `<strong>${esc(
+      sections[0].from
+    )}</strong>`
+  ];
+
+  for (const section of sections) {
+    steps.push(`
+      <span class="route-arrow">↓</span>
+      <span>
+        ${esc(section.line)}
+        （${esc(
+          lineTypeLabel(
+            section.line_type
+          )
+        )}）
+      </span>
+      <span class="route-arrow">↓</span>
+      <strong>${esc(section.to)}</strong>
+    `);
+  }
+
+  return `
+    <section class="reason">
+      <h2>経路</h2>
+      <div class="route-flow">
+        ${steps.join('')}
+      </div>
+    </section>
+  `;
+}
+
+function renderCalculationLog(items) {
+  if (!items?.length) {
+    return '';
+  }
+
+  return items.map(item => {
+    const sections =
+      item.sections ||
+      item.used_sections ||
+      [];
+
+    const lines = sections.map(
+      section => section.line
+    );
+
+    return `
+      <article class="calculation-log">
+        <p>
+          <strong>${esc(
+            item.engine || 'Engine'
+          )}</strong>
+          ${
+            item.operation
+              ? ` / ${esc(item.operation)}`
+              : ''
+          }
+        </p>
+        ${
+          item.business_km != null
+            ? `<p>営業キロ：${
+                esc(item.business_km)
+              }km</p>`
+            : ''
+        }
+        ${
+          item.conversion_km != null
+            ? `<p>換算キロ：${
+                esc(item.conversion_km)
+              }km</p>`
+            : ''
+        }
+        ${
+          item.fare_calculation_km != null
+            ? `<p>運賃計算キロ：${
+                esc(
+                  item.fare_calculation_km
+                )
+              }km</p>`
+            : ''
+        }
+        ${
+          lines.length
+            ? `<p>使用路線：${
+                lines
+                  .map(esc)
+                  .join(' → ')
+              }</p>`
+            : ''
+        }
+        ${
+          sections.length
+            ? `<p>使用区間：${
+                sections
+                  .map(section => {
+                    const distanceText =
+                      section.line_type ===
+                      'local'
+                        ? `換算キロ ${
+                            esc(
+                              section
+                                .conversion_km
+                            )
+                          }km`
+                        : `営業キロ ${
+                            esc(
+                              section
+                                .business_km
+                            )
+                          }km`;
+
+                    return `${
+                      esc(section.from)
+                    }→${
+                      esc(section.to)
+                    }（${
+                      esc(section.line)
+                    }・${
+                      esc(
+                        lineTypeLabel(
+                          section.line_type
+                        )
+                      )
+                    }・${distanceText}）`;
+                  })
+                  .join(' → ')
+              }</p>`
+            : ''
+        }
+        ${
+          item.reason
+            ? `<p>${esc(item.reason)}</p>`
+            : ''
+        }
+      </article>
+    `;
+  }).join('');
+}
+
 function renderSale(result) {
   const route = result.route;
 
@@ -270,6 +494,8 @@ function renderSale(result) {
     `)
     .join('');
 
+  const distance = routeDistance(route);
+
   const segments = route.segments
     .map((segment, index) => `
       <tr>
@@ -277,8 +503,9 @@ function renderSale(result) {
         <td>${esc(segment.from_station_name)}</td>
         <td>${esc(segment.to_station_name)}</td>
         <td>${esc(segment.line_name)}</td>
-        <td>${segment.business_km}</td>
-        <td>${segment.conversion_km}</td>
+        <td>${esc(lineTypeLabel(segment.line_type))}</td>
+        <td>${segment.line_type === 'local' ? '' : esc(segment.business_km)}</td>
+        <td>${segment.line_type === 'local' ? esc(segment.conversion_km) : ''}</td>
       </tr>
     `)
     .join('');
@@ -294,20 +521,8 @@ function renderSale(result) {
       </p>
     </section>
 
-    <div class="metrics">
-      <div>
-        <span>営業キロ</span>
-        <strong>${route.business_km}km</strong>
-      </div>
-      <div>
-        <span>換算キロ</span>
-        <strong>${route.conversion_km}km</strong>
-      </div>
-      <div>
-        <span>計算キロ</span>
-        <strong>${route.fare_calculation_km}km</strong>
-      </div>
-    </div>
+    ${renderDistanceSummary(distance)}
+    ${renderRouteFlow({distance})}
 
     <section class="reason">
       <h2>計算根拠</h2>
@@ -350,8 +565,9 @@ function renderSale(result) {
               <th>発</th>
               <th>着</th>
               <th>線名</th>
-              <th>営業</th>
-              <th>換算</th>
+              <th>路線区分</th>
+              <th>営業キロ</th>
+              <th>換算キロ</th>
             </tr>
           </thead>
           <tbody>${segments}</tbody>
@@ -508,7 +724,7 @@ function checkedValue(name) { return document.querySelector(`input[name="${name}
 function syncBusinessPeriodFields() { $('businessPeriodFields').hidden = checkedValue('ticketUsageType') !== TicketUsageType.VALID_PERIOD; }
 function createBusinessInput(via) {
   const requestDate=$('requestDate').value, usage=checkedValue('ticketUsageType'), departure=checkedValue('departureStatus');
-  return {requestDate,ticketType:$('businessTicketType').value,ticketUsageType:usage,ticketStartDate:usage===TicketUsageType.VALID_PERIOD?$('ticketStartDate').value:requestDate,ticketEndDate:usage===TicketUsageType.VALID_PERIOD?$('ticketEndDate').value:requestDate,departureStatus:departure===DepartureStatus.AFTER_DEPARTURE?DepartureStatus.AFTER_DEPARTURE:DepartureStatus.BEFORE_DEPARTURE,discountType:$('discount').value||null,operation:$('businessOperation').value,start:$('start').value,goal:$('goal').value,actualGoal:$('goal').value,via,passenger:$('passenger').value};
+  return {requestDate,ticketType:$('businessTicketType').value,ticketUsageType:usage,ticketStartDate:usage===TicketUsageType.VALID_PERIOD?$('ticketStartDate').value:requestDate,ticketEndDate:usage===TicketUsageType.VALID_PERIOD?$('ticketEndDate').value:requestDate,departureStatus:departure===DepartureStatus.AFTER_DEPARTURE?DepartureStatus.AFTER_DEPARTURE:DepartureStatus.BEFORE_DEPARTURE,discountType:$('discount').value||null,operation:$('businessOperation').value,debugMode:$('businessDebugMode')?.checked||false,start:$('start').value,goal:$('goal').value,actualGoal:$('goal').value,via,passenger:$('passenger').value};
 }
 function renderBusiness(result) {
   const state = result.business_state || {};
@@ -596,6 +812,17 @@ function renderBusiness(result) {
       </div>
     </div>
 
+    ${renderDistanceSummary(result.distance || {
+      sections: [],
+      totals: {
+        business_km: 0,
+        conversion_km: 0,
+        fare_calculation_km: 0
+      }
+    })}
+
+    ${renderRouteFlow({distance: result.distance})}
+
     <section class="reason">
       <h2>営業状態</h2>
       <p>
@@ -636,17 +863,56 @@ function renderBusiness(result) {
                 .map(item => esc(item.name))
                 .join('、') || 'なし'
             }</p>
-            <h3>距離</h3>
+            <h3>区間一覧（経路順）</h3>
+            <ol>
+              ${
+                result.distance
+                  ?.sections
+                  ?.length
+                    ? result.distance
+                        .sections
+                        .map(section => `
+                          <li>
+                            ${esc(section.from)}
+                            →
+                            ${esc(section.to)}
+                            /
+                            ${esc(section.line)}
+                            （${esc(
+                              lineTypeLabel(
+                                section.line_type
+                              )
+                            )}）
+                            /
+                            ${
+                              section.line_type ===
+                              'local'
+                                ? `換算キロ ${
+                                    esc(
+                                      section
+                                        .conversion_km
+                                    )
+                                  }km`
+                                : `営業キロ ${
+                                    esc(
+                                      section
+                                        .business_km
+                                    )
+                                  }km`
+                            }
+                          </li>
+                        `)
+                        .join('')
+                    : '<li>なし</li>'
+              }
+            </ol>
+            <h3>距離合計</h3>
             <p>
-              営業キロ：
-              ${esc(result.railway_master.totals.business_km)}
-              km /
-              換算キロ：
-              ${esc(result.railway_master.totals.conversion_km)}
-              km /
-              運賃計算キロ：
-              ${esc(result.railway_master.totals.fare_calculation_km)}
-              km
+              営業キロ合計：${esc(result.distance?.totals.business_km || 0)}km /
+              換算キロ合計：${esc(result.distance?.totals.conversion_km || 0)}km /
+              運賃計算キロ：${
+                esc(result.distance?.totals.fare_calculation_km || 0)
+              }km
             </p>
             ${
               result.railway_master.reference_json
@@ -687,11 +953,7 @@ function renderBusiness(result) {
       <h2>計算内容</h2>
       ${
         result.calculation?.length
-          ? result.calculation.map(item =>
-              `<p>${esc(
-                JSON.stringify(item)
-              )}</p>`
-            ).join('')
+          ? renderCalculationLog(result.calculation)
           : `<p>${esc(
               result.message ||
               '計算結果なし'

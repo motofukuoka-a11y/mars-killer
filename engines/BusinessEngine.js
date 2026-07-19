@@ -90,6 +90,9 @@ export default class BusinessEngine {
           regulationResult.referenced_masters || [],
         railway_master:
           regulationResult.railway || null,
+        distance:
+          regulationResult.railway?.distance ||
+          this.emptyDistance(),
         fare: result.fare,
         calculation: [
           ...result.calculation,
@@ -275,7 +278,39 @@ export default class BusinessEngine {
             rule.calculation_type,
           section,
           business_km:
-            quote.route.business_km
+            quote.route.distance
+              ?.totals.business_km ??
+            quote.route.business_km,
+          conversion_km:
+            quote.route.distance
+              ?.totals.conversion_km ??
+            quote.route.conversion_km,
+          fare_calculation_km:
+            quote.route.distance
+              ?.totals
+                .fare_calculation_km ??
+            quote.route
+              .fare_calculation_km,
+          sections:
+            quote.route.distance
+              ?.sections ||
+            [],
+          used_lines:
+            (
+              quote.route.distance
+                ?.sections ||
+              []
+            ).map(section =>
+              section.line
+            ),
+          used_sections:
+            (
+              quote.route.distance
+                ?.sections ||
+              []
+            ).map(section => ({
+              ...section
+            }))
         },
         {
           engine: 'FareEngine',
@@ -454,6 +489,17 @@ export default class BusinessEngine {
     };
   }
 
+  emptyDistance() {
+    return {
+      sections: [],
+      totals: {
+        business_km: 0,
+        conversion_km: 0,
+        fare_calculation_km: 0
+      }
+    };
+  }
+
   failure(
     operation,
     errorCode,
@@ -468,6 +514,7 @@ export default class BusinessEngine {
       regulation_details: [],
       referenced_masters: [],
       railway_master: null,
+      distance: this.emptyDistance(),
       fare: {
         original: 0,
         additional: 0,

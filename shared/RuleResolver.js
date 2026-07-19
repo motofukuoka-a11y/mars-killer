@@ -123,7 +123,14 @@ export default class RuleResolver {
   }
 
   resolveRailwayContext(route,{debugMode=false}={}) {
-    if(!route) return {companies:[],lines:[],stations:[],distances:[],referenced_masters:[]};
+    if(!route)return{
+      companies:[],lines:[],stations:[],distances:[],
+      totals:{business_km:0,conversion_km:0,fare_calculation_km:0},
+      distance:{sections:[],totals:{
+        business_km:0,conversion_km:0,fare_calculation_km:0
+      }},
+      referenced_masters:[]
+    };
     const stationIds=[route.start_station_id,route.goal_station_id,
       ...(route.segments||[]).flatMap(s=>[s.from_station_id,s.to_station_id])].filter(Boolean);
     const lineIds=[...(route.segments||[]).map(s=>s.line_id).filter(Boolean)];
@@ -136,6 +143,19 @@ export default class RuleResolver {
       ...lines.map(l=>l.metadata?.company_id)
     ].filter(Boolean))];
     const companies=companyIds.map(id=>this.getRecord('company_master',id)).filter(Boolean);
+    const routeDistance=route.distance||{
+      sections:(route.segments||[]).map(segment=>({
+        segment_id:segment.segment_id,
+        from:segment.from_station_name,
+        to:segment.to_station_name,
+        line:segment.line_name,
+        line_type:segment.line_type==='local'?'local':'main',
+        business_km:segment.line_type==='local'?null:segment.business_km,
+        conversion_km:segment.line_type==='local'?segment.conversion_km:null
+      })),
+      totals:{business_km:route.business_km||0,conversion_km:route.conversion_km||0,
+        fare_calculation_km:route.fare_calculation_km||0}
+    };
     const result={
       companies:companies.map(x=>({id:x.id,name:x.name})),
       lines:lines.map(x=>({id:x.id,name:x.name})),
@@ -145,14 +165,21 @@ export default class RuleResolver {
         conversion_km:x.metadata?.conversion_km,
         fare_calculation_km:x.metadata?.fare_calculation_km
       })),
-      totals:{
-        business_km:route.business_km,
-        conversion_km:route.conversion_km,
-        fare_calculation_km:route.fare_calculation_km
+      totals:{...routeDistance.totals},
+      distance:{
+        sections:[...(routeDistance.sections||[])],
+        totals:{...routeDistance.totals}
       },
+      route_sections:(route.segments||[]).map(s=>({
+        from:s.from_station_name,to:s.to_station_name,line:s.line_name,
+        line_type:s.line_type,business_km:s.business_km,
+        conversion_km:s.conversion_km,fare_calculation_km:s.fare_calculation_km
+      })),
       referenced_masters:['company_master','line_master','station_master','distance_master']
     };
-    if(debugMode) result.reference_json=result.referenced_masters.map(m=>`data/master/${MASTER_FILES[m]}`);
+    if(debugMode)result.reference_json=result.referenced_masters.map(
+      m=>`data/master/${MASTER_FILES[m]}`
+    );
     return result;
   }
 

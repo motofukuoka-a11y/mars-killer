@@ -1004,3 +1004,196 @@ BusinessEngine
 - 運賃計算キロ
 - 参照マスター
 - 参照JSON
+
+## Version 4.1変更内容
+
+Version 4.1では、営業キロ・換算キロ・運賃計算キロを経路順の単一配列で管理します。
+
+- `distance.sections`を正式な区間モデルとして採用
+- `business_sections`と`conversion_sections`を廃止
+- 経路順を崩さずに区間情報を保持
+- UI、Calculation Log、Debugを同じ`sections`から生成
+- 幹線区間は`business_km`だけを保持
+- 地方交通線区間は`conversion_km`だけを保持
+- Version 4.0互換の`route.business_km`等は維持
+
+## distance正式仕様
+
+```javascript
+{
+  distance: {
+    sections: [
+      {
+        segment_id,
+        from,
+        to,
+        line,
+        line_type,
+        business_km,
+        conversion_km
+      }
+    ],
+    totals: {
+      business_km,
+      conversion_km,
+      fare_calculation_km
+    }
+  }
+}
+```
+
+`sections`は必ず実際の経路順で格納します。
+
+## 幹線区間
+
+```javascript
+{
+  segment_id: '...',
+  from: '札幌',
+  to: '旭川',
+  line: '函館本線',
+  line_type: 'main',
+  business_km: 136.8,
+  conversion_km: null
+}
+```
+
+幹線区間では`business_km`だけに値を設定します。
+
+## 地方交通線区間
+
+```javascript
+{
+  segment_id: '...',
+  from: '旭川',
+  to: '網走',
+  line: '石北本線',
+  line_type: 'local',
+  business_km: null,
+  conversion_km: 261.5
+}
+```
+
+地方交通線区間では`conversion_km`だけに値を設定します。
+
+## 混在経路
+
+```javascript
+{
+  sections: [
+    {
+      from: '札幌',
+      to: '旭川',
+      line: '函館本線',
+      line_type: 'main',
+      business_km: 136.8,
+      conversion_km: null
+    },
+    {
+      from: '旭川',
+      to: '網走',
+      line: '石北本線',
+      line_type: 'local',
+      business_km: null,
+      conversion_km: 261.5
+    }
+  ],
+  totals: {
+    business_km: 136.8,
+    conversion_km: 261.5,
+    fare_calculation_km: 398.3
+  }
+}
+```
+
+## 営業キロ表示
+
+`distance.sections`から`line_type === "main"`の区間だけを表示します。
+
+```text
+営業キロ
+函館本線
+札幌→旭川
+136.8km
+```
+
+## 換算キロ表示
+
+`distance.sections`から`line_type === "local"`の区間だけを表示します。
+
+```text
+換算キロ
+石北本線
+旭川→網走
+261.5km
+```
+
+## 運賃計算キロ表示
+
+```text
+営業キロ 136.8km
+換算キロ 261.5km
+────────
+運賃計算キロ 398.3km
+```
+
+## 幹線のみ
+
+```text
+営業キロ
+函館本線
+札幌→小樽
+33.8km
+
+運賃計算キロ
+33.8km
+```
+
+換算キロ欄は表示しません。
+
+## 地方交通線のみ
+
+```text
+換算キロ
+地方交通線
+A駅→B駅
+123.4km
+
+運賃計算キロ
+123.4km
+```
+
+営業キロ欄は表示しません。
+
+## 経路表示
+
+```text
+札幌
+↓
+函館本線（幹線）
+↓
+旭川
+↓
+石北本線（地方交通線）
+↓
+網走
+```
+
+経路表示は`distance.sections`を先頭から順番に処理します。
+
+## Calculation Log
+
+Calculation Logは`sections`から以下を経路順に生成します。
+
+- 営業キロ
+- 換算キロ
+- 運賃計算キロ
+- 使用路線
+- 使用区間
+
+## Debug
+
+Debugでは`distance.sections`を加工せず、経路順の区間一覧として表示します。
+
+別途`business_sections`および`conversion_sections`は生成しません。
+
