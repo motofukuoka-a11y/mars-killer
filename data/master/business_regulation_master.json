@@ -3,7 +3,6 @@
   "name": "営業規則マスター",
   "enabled": true,
   "description": "営業規則の入口と参照先を管理する中央マスター。",
-  "conditions": {},
   "references": [
     {
       "master": "validity_rule_master",
@@ -40,7 +39,28 @@
     {
       "master": "validity_rule_master",
       "id": "VALID_DAYS"
+    },
+    {
+      "master": "company_master",
+      "relation": "company_context"
+    },
+    {
+      "master": "line_master",
+      "relation": "line_context"
+    },
+    {
+      "master": "station_master",
+      "relation": "station_context"
+    },
+    {
+      "master": "distance_master",
+      "relation": "distance_context"
     }
   ],
-  "priority": 0
+  "priority": 0,
+  "metadata": {
+    "schema_version": "4.0",
+    "railway_master_compatible": true
+  },
+  "records": []
 }

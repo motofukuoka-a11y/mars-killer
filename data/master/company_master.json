@@ -1,0 +1,28 @@
+{
+  "id": "COMPANY_MASTER",
+  "name": "鉄道会社マスター",
+  "enabled": true,
+  "description": "全国JR・私鉄・第三セクターを共通IDで管理する。",
+  "references": [],
+  "priority": 0,
+  "metadata": {
+    "schema_version": "4.0",
+    "entity": "company"
+  },
+  "records": [
+    {
+      "id": "JRH",
+      "enabled": true,
+      "name": "北海道旅客鉄道",
+      "description": "JR北海道",
+      "conditions": {},
+      "references": [],
+      "metadata": {
+        "company_type": "jr",
+        "country": "JP",
+        "operator_code": "JRH"
+      },
+      "priority": 100
+    }
+  ]
+}

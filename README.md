@@ -794,3 +794,213 @@ URLへ`?debug=1`を付けると、参照したJSONファイル名も表示しま
 - 新しい条件演算子や新しい計算方式そのものを追加する場合はRuleResolverの拡張が必要です。
 - 営業規則の具体的な対象駅・区間は正式資料に基づきマスターへ登録してください。
 
+
+
+## Version 4.0変更内容
+
+Version 4.0では、全国JR・私鉄・第三セクターへ拡張可能な鉄道マスターデータベースを追加しました。
+
+- 会社マスター
+- 路線マスター
+- 駅マスター
+- 距離マスター
+- 普通運賃マスター
+- 料金マスター
+- RuleResolverの鉄道マスター取得API
+- Version 3.0営業規則マスターとの参照統合
+- RouteEngine、FareEngine、ChargeEngineのマスター参照化
+- 鉄道マスターの重複・参照・孤立検証
+- デバッグ画面への会社・路線・駅・距離表示
+
+## 鉄道マスター構造
+
+```text
+data/master/
+├── company_master.json
+├── line_master.json
+├── station_master.json
+├── distance_master.json
+├── fare_master.json
+├── charge_master.json
+├── business_regulation_master.json
+├── station_group_master.json
+├── route_rule_master.json
+└── validity_rule_master.json
+```
+
+全マスター：
+
+```javascript
+{
+  id,
+  name,
+  enabled,
+  description,
+  references,
+  priority,
+  metadata,
+  records
+}
+```
+
+各レコード：
+
+```javascript
+{
+  id,
+  enabled,
+  name,
+  description,
+  conditions,
+  references,
+  metadata,
+  priority
+}
+```
+
+## 会社
+
+`company_master.json`は鉄道事業者を管理します。
+
+```javascript
+{
+  id: 'JRH',
+  name: '北海道旅客鉄道',
+  metadata: {
+    company_type: 'jr',
+    country: 'JP'
+  }
+}
+```
+
+全国対応時はJR各社、私鉄、第三セクターを会社ID単位で追加します。
+
+## 路線
+
+`line_master.json`は`company_id`を参照して路線を管理します。運賃計算上の幹線・地方交通線等は`metadata.line_category`で管理します。
+
+## 駅
+
+`station_master.json`は全国共通の`station_id`と`company_id`、主所属路線等を管理します。同名駅はIDで区別します。
+
+## 営業キロ
+
+`distance_master.json`は駅間ごとに以下を管理します。
+
+- `from_station_id`
+- `to_station_id`
+- `line_id`
+- 営業キロ
+- 換算キロ
+- 運賃計算キロ
+
+## 普通運賃
+
+`fare_master.json`は会社、運賃表、距離帯、大人・小児運賃を管理します。RouteEngineが返した経路区分と距離をFareEngineがマスターへ照会します。
+
+## 料金
+
+`charge_master.json`は以下を管理します。
+
+- 距離制料金
+- 特急料金
+- 設備料金
+- 商品固定料金
+- シーズン差額
+- ネットワーク別料金表候補
+- 料金表名称
+
+## RuleResolver構造
+
+RuleResolverは営業規則だけでなく、次のAPIを提供します。
+
+```javascript
+resolver.getMaster('station_master');
+resolver.getMetadata('fare_master');
+resolver.getRecords('distance_master');
+resolver.getRecord('company_master', 'JRH');
+resolver.findRecords('fare_master', predicate);
+resolver.resolveRailwayContext(route);
+```
+
+Version 3.0の営業規則APIである`resolve()`も維持しています。
+
+## Engine構造
+
+```text
+RouteEngine
+  → RuleResolver.getRecords(station_master)
+  → RuleResolver.getRecords(distance_master)
+
+FareEngine
+  → RuleResolver.getMetadata(fare_master)
+  → RuleResolver.getRecords(fare_master)
+
+ChargeEngine
+  → RuleResolver.getMetadata(charge_master)
+  → RuleResolver.getRecords(charge_master)
+
+BusinessEngine
+  → RuleResolver.resolve()
+```
+
+各Engineの責務は変更していません。
+
+## 既存データ互換
+
+新マスターの`metadata.sources`は、Version 3.0までの既存JSONを互換データソースとして参照できます。
+
+```javascript
+{
+  data_key: 'legacy_stations',
+  record_id_field: 'station_id',
+  field_map: {
+    station_id: 'id',
+    station_name: 'name'
+  }
+}
+```
+
+今後の新規データは各マスターの`records`へ直接追加できます。既存JSONから段階的に移行してもEngineの変更は不要です。
+
+## データ追加方法
+
+1. `company_master.json`へ会社を追加します。
+2. `line_master.json`へ会社ID付きで路線を追加します。
+3. `station_master.json`へ駅を追加します。
+4. `distance_master.json`へ駅間距離を追加します。
+5. `fare_master.json`へ会社別運賃表を追加します。
+6. `charge_master.json`へ料金表を追加します。
+7. 必要な営業規則の会社・路線・駅参照IDを追加します。
+8. Master validationを実行します。
+
+## 全国対応方法
+
+会社IDを名前空間として、各事業者の路線・駅・距離・運賃・料金を追加します。JR、私鉄、第三セクターでEngineを分岐せず、マスターレコードと参照IDで切り替えます。
+
+## ValidationEngine追加検証
+
+- 会社重複
+- 路線重複
+- 駅重複
+- 営業キロ重複
+- 参照整合性
+- 孤立駅
+- 孤立路線
+- 存在しない会社参照
+- 存在しない駅参照
+- 存在しない路線参照
+- 存在しない営業キロ参照
+
+## デバッグ表示
+
+営業規則デバッグ表示では次を確認できます。
+
+- 使用会社
+- 使用路線
+- 使用駅
+- 営業キロ
+- 換算キロ
+- 運賃計算キロ
+- 参照マスター
+- 参照JSON

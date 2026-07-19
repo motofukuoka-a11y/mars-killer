@@ -3,8 +3,20 @@
   "name": "経路規則マスター",
   "enabled": true,
   "description": "経路特定区間、区間外乗車、選択乗車および折返し乗車を管理する。",
-  "conditions": {},
-  "references": [],
+  "references": [
+    {
+      "master": "line_master",
+      "relation": "line_ids"
+    },
+    {
+      "master": "station_master",
+      "relation": "station_ids"
+    },
+    {
+      "master": "distance_master",
+      "relation": "distance_ids"
+    }
+  ],
   "priority": 0,
   "records": [
     {
@@ -29,7 +41,13 @@
         "missing_input_reason": "経路特定区間の判定には経路マスターによる対象判定が必要です。"
       },
       "references": [],
-      "priority": 300
+      "priority": 300,
+      "metadata": {
+        "company_ids": [],
+        "line_ids": [],
+        "station_ids": [],
+        "distance_ids": []
+      }
     },
     {
       "id": "OUTSIDE_SECTION_RIDE",
@@ -53,7 +71,13 @@
         "missing_input_reason": "区間外乗車の判定には経路マスターによる対象判定が必要です。"
       },
       "references": [],
-      "priority": 400
+      "priority": 400,
+      "metadata": {
+        "company_ids": [],
+        "line_ids": [],
+        "station_ids": [],
+        "distance_ids": []
+      }
     },
     {
       "id": "SELECTED_ROUTE",
@@ -77,7 +101,13 @@
         "missing_input_reason": "選択乗車の判定には経路マスターによる対象判定が必要です。"
       },
       "references": [],
-      "priority": 500
+      "priority": 500,
+      "metadata": {
+        "company_ids": [],
+        "line_ids": [],
+        "station_ids": [],
+        "distance_ids": []
+      }
     },
     {
       "id": "TURNBACK_RIDE",
@@ -101,7 +131,17 @@
         "missing_input_reason": "折返し乗車の判定には経路マスターによる対象判定が必要です。"
       },
       "references": [],
-      "priority": 600
+      "priority": 600,
+      "metadata": {
+        "company_ids": [],
+        "line_ids": [],
+        "station_ids": [],
+        "distance_ids": []
+      }
     }
-  ]
+  ],
+  "metadata": {
+    "schema_version": "4.0",
+    "railway_master_compatible": true
+  }
 }

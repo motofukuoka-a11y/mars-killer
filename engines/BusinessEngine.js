@@ -88,6 +88,8 @@ export default class BusinessEngine {
           regulationResult.details,
         referenced_masters:
           regulationResult.referenced_masters || [],
+        railway_master:
+          regulationResult.railway || null,
         fare: result.fare,
         calculation: [
           ...result.calculation,
@@ -465,6 +467,7 @@ export default class BusinessEngine {
       regulations: {},
       regulation_details: [],
       referenced_masters: [],
+      railway_master: null,
       fare: {
         original: 0,
         additional: 0,

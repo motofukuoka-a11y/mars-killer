@@ -615,6 +615,52 @@ function renderBusiness(result) {
     <section class="reason">
       <h2>営業規則判定結果</h2>
 
+      ${
+        result.railway_master
+          ? `
+            <h3>使用会社</h3>
+            <p>${
+              result.railway_master.companies
+                .map(item => esc(item.name))
+                .join('、') || 'なし'
+            }</p>
+            <h3>使用路線</h3>
+            <p>${
+              result.railway_master.lines
+                .map(item => esc(item.name))
+                .join('、') || 'なし'
+            }</p>
+            <h3>使用駅</h3>
+            <p>${
+              result.railway_master.stations
+                .map(item => esc(item.name))
+                .join('、') || 'なし'
+            }</p>
+            <h3>距離</h3>
+            <p>
+              営業キロ：
+              ${esc(result.railway_master.totals.business_km)}
+              km /
+              換算キロ：
+              ${esc(result.railway_master.totals.conversion_km)}
+              km /
+              運賃計算キロ：
+              ${esc(result.railway_master.totals.fare_calculation_km)}
+              km
+            </p>
+            ${
+              result.railway_master.reference_json
+                ? `<p>鉄道参照JSON：${
+                    result.railway_master.reference_json
+                      .map(esc)
+                      .join('、')
+                  }</p>`
+                : ''
+            }
+          `
+          : ''
+      }
+
       <h3>参照したマスター</h3>
       <p>
         ${

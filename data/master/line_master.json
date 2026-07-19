@@ -1,0 +1,39 @@
+{
+  "id": "LINE_MASTER",
+  "name": "路線マスター",
+  "enabled": true,
+  "description": "会社別の路線と運賃計算上の路線区分を管理する。",
+  "references": [
+    {
+      "master": "company_master",
+      "id": "JRH"
+    }
+  ],
+  "priority": 0,
+  "metadata": {
+    "schema_version": "4.0",
+    "entity": "line",
+    "sources": [
+      {
+        "data_key": "legacy_lines",
+        "record_id_field": "line_id",
+        "name_field": "line_name",
+        "defaults": {
+          "company_id": "JRH"
+        },
+        "field_map": {
+          "line_id": "id",
+          "line_name": "name",
+          "line_category": "metadata.line_category"
+        },
+        "value_maps": {
+          "metadata.line_category": {
+            "幹線": "trunk",
+            "地方交通線": "local"
+          }
+        }
+      }
+    ]
+  },
+  "records": []
+}

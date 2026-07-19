@@ -3,8 +3,12 @@
   "name": "駅グループマスター",
   "enabled": true,
   "description": "特定都区市内および大都市近郊区間等の駅グループ規則を管理する。",
-  "conditions": {},
-  "references": [],
+  "references": [
+    {
+      "master": "station_master",
+      "relation": "station_ids"
+    }
+  ],
   "priority": 0,
   "records": [
     {
@@ -35,7 +39,11 @@
         "missing_input_reason": "特定都区市内の判定には営業キロと対象駅グループ判定が必要です。"
       },
       "references": [],
-      "priority": 200
+      "priority": 200,
+      "metadata": {
+        "company_ids": [],
+        "station_ids": []
+      }
     },
     {
       "id": "METROPOLITAN_SUBURBAN_AREA",
@@ -59,7 +67,15 @@
         "missing_input_reason": "大都市近郊区間の判定には駅グループ判定が必要です。"
       },
       "references": [],
-      "priority": 700
+      "priority": 700,
+      "metadata": {
+        "company_ids": [],
+        "station_ids": []
+      }
     }
-  ]
+  ],
+  "metadata": {
+    "schema_version": "4.0",
+    "railway_master_compatible": true
+  }
 }

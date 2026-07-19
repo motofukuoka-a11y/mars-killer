@@ -16,21 +16,73 @@ export class SalesEngine {
   constructor(data) {
     Object.assign(this, data);
 
-    this.routeEngine = new RouteEngine(
-      this.stations,
-      this.segments
-    );
+    this.validationEngine =
+      new ValidationEngine();
 
-    this.fareEngine = new FareEngine(
-      this.ordinaryFares,
-      this.specialFares
-    );
+    this.ruleResolver = new RuleResolver({
+      masters: {
+        business_regulation_master:
+          this.businessRegulationMaster,
+        station_group_master:
+          this.stationGroupMaster,
+        route_rule_master:
+          this.routeRuleMaster,
+        validity_rule_master:
+          this.validityRuleMaster,
+        company_master:
+          this.companyMaster,
+        line_master:
+          this.lineMaster,
+        station_master:
+          this.stationMaster,
+        distance_master:
+          this.distanceMaster,
+        fare_master:
+          this.fareMaster,
+        charge_master:
+          this.chargeMaster
+      },
+      datasets: {
+        legacy_lines: this.lines,
+        legacy_stations: this.stations,
+        legacy_segments: this.segments,
+        legacy_ordinary_fares:
+          this.ordinaryFares,
+        legacy_special_fares:
+          this.specialFares,
+        legacy_charge_tables:
+          this.chargeTables,
+        legacy_product_charges:
+          this.productCharges,
+        legacy_season_adjustments:
+          this.seasonAdjustments
+      },
+      validationEngine:
+        this.validationEngine
+    });
 
-    this.chargeEngine = new ChargeEngine(
-      this.chargeTables,
-      this.productCharges,
-      this.seasonAdjustments
-    );
+    const masterValidation =
+      this.ruleResolver.validate();
+
+    if (!masterValidation.valid) {
+      const error = new Error(
+        masterValidation.message
+      );
+      error.code =
+        masterValidation.error_code;
+      error.details =
+        masterValidation.details;
+      throw error;
+    }
+
+    this.routeEngine =
+      new RouteEngine(this.ruleResolver);
+
+    this.fareEngine =
+      new FareEngine(this.ruleResolver);
+
+    this.chargeEngine =
+      new ChargeEngine(this.ruleResolver);
 
     this.changeEngine = new ChangeEngine(
       this.routeEngine,
@@ -42,28 +94,11 @@ export class SalesEngine {
       this.refundRules
     );
 
-    this.validationEngine =
-      new ValidationEngine();
-
     this.discountEngine =
       new DiscountEngine(
         this.discountRules,
         this.validationEngine
       );
-
-    this.ruleResolver = new RuleResolver({
-      masters: {
-        business_regulation_master:
-          this.businessRegulationMaster,
-        station_group_master:
-          this.stationGroupMaster,
-        route_rule_master:
-          this.routeRuleMaster,
-        validity_rule_master:
-          this.validityRuleMaster
-      },
-      validationEngine: this.validationEngine
-    });
 
     this.businessEngine = new BusinessEngine({
       routeEngine: this.routeEngine,
@@ -91,6 +126,8 @@ export class SalesEngine {
     };
 
     const [
+      lines,
+      lines,
       stations,
       segments,
       ordinaryFares,
@@ -105,8 +142,15 @@ export class SalesEngine {
       stationGroupMaster,
       routeRuleMaster,
       validityRuleMaster,
+      companyMaster,
+      lineMaster,
+      stationMaster,
+      distanceMaster,
+      fareMaster,
+      chargeMaster,
       specialFares
     ] = await Promise.all([
+      get('distance/lines.json'),
       get('distance/stations.json'),
       get('distance/segments.json'),
       get('fare/ordinary_fares.json'),
@@ -121,6 +165,12 @@ export class SalesEngine {
       get('master/station_group_master.json'),
       get('master/route_rule_master.json'),
       get('master/validity_rule_master.json'),
+      get('master/company_master.json'),
+      get('master/line_master.json'),
+      get('master/station_master.json'),
+      get('master/distance_master.json'),
+      get('master/fare_master.json'),
+      get('master/charge_master.json'),
       get('rules/special_fares.json')
     ]);
 
@@ -139,6 +189,12 @@ export class SalesEngine {
       stationGroupMaster,
       routeRuleMaster,
       validityRuleMaster,
+      companyMaster,
+      lineMaster,
+      stationMaster,
+      distanceMaster,
+      fareMaster,
+      chargeMaster,
       specialFares
     });
   }

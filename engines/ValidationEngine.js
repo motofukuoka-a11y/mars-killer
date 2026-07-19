@@ -29,6 +29,8 @@ export default class ValidationEngine {
         return this.validateBusinessRegulations(input);
       case 'master_database':
         return this.validateMasterDatabase(input);
+      case 'railway_master_database':
+        return this.validateRailwayMasterDatabase(input);
       default:
         return this.invalid(
           ErrorCodes.UNSUPPORTED_OPERATION,
@@ -224,7 +226,7 @@ export default class ValidationEngine {
     ) {
       return this.invalid(
         ErrorCodes.MASTER_MISSING,
-        '営業規則マスター群が不足しています。'
+        'マスター群が不足しています。'
       );
     }
 
@@ -245,13 +247,25 @@ export default class ValidationEngine {
       }
     }
 
-    const requiredFields = [
+    const masterFields = [
       'id',
       'name',
       'enabled',
       'description',
+      'references',
+      'priority',
+      'metadata',
+      'records'
+    ];
+
+    const recordFields = [
+      'id',
+      'enabled',
+      'name',
+      'description',
       'conditions',
       'references',
+      'metadata',
       'priority'
     ];
 
@@ -263,6 +277,19 @@ export default class ValidationEngine {
       const [masterName, master] of
       Object.entries(masters)
     ) {
+      for (const field of masterFields) {
+        if (master[field] == null) {
+          return this.invalid(
+            ErrorCodes.REQUIRED_FIELD,
+            `${masterName}.${field}は必須です。`,
+            {
+              master: masterName,
+              field
+            }
+          );
+        }
+      }
+
       if (masterIds.has(master.id)) {
         return this.invalid(
           ErrorCodes.MASTER_DUPLICATE,
@@ -278,28 +305,13 @@ export default class ValidationEngine {
 
       masterIds.add(master.id);
 
-      for (const field of requiredFields) {
-        if (master[field] == null) {
-          return this.invalid(
-            ErrorCodes.REQUIRED_FIELD,
-            `${masterName}.${field}は必須です。`,
-            {
-              master: masterName,
-              field
-            }
-          );
-        }
-      }
-
       const recordIds = new Set();
 
       for (
         const record of
         master.records || []
       ) {
-        for (
-          const field of requiredFields
-        ) {
+        for (const field of recordFields) {
           if (record[field] == null) {
             return this.invalid(
               ErrorCodes.REQUIRED_FIELD,
@@ -344,10 +356,21 @@ export default class ValidationEngine {
       const reference of
       central.references || []
     ) {
-      const master =
+      if (
+        !reference.id ||
+        ![
+          'station_group_master',
+          'route_rule_master',
+          'validity_rule_master'
+        ].includes(reference.master)
+      ) {
+        continue;
+      }
+
+      const targetMaster =
         masters[reference.master];
 
-      if (!master) {
+      if (!targetMaster) {
         return this.invalid(
           ErrorCodes.MASTER_MISSING,
           `参照マスターが不足しています: ${
@@ -358,7 +381,7 @@ export default class ValidationEngine {
       }
 
       const rule = (
-        master.records || []
+        targetMaster.records || []
       ).find(
         item => item.id === reference.id
       );
@@ -374,7 +397,7 @@ export default class ValidationEngine {
       }
 
       if (
-        master.enabled !== false &&
+        targetMaster.enabled !== false &&
         rule.enabled !== false
       ) {
         resolvedRules.push({
@@ -412,7 +435,6 @@ export default class ValidationEngine {
       );
     }
 
-    const graph = nodes;
     const visiting = new Set();
     const visited = new Set();
     const path = [];
@@ -437,14 +459,21 @@ export default class ValidationEngine {
 
       for (
         const reference of
-        graph.get(node) || []
+        nodes.get(node) || []
       ) {
+        if (
+          !reference.master ||
+          !reference.id
+        ) {
+          continue;
+        }
+
         const next =
           `${reference.master}:${
             reference.id
           }`;
 
-        if (!graph.has(next)) {
+        if (!nodes.has(next)) {
           continue;
         }
 
@@ -462,7 +491,7 @@ export default class ValidationEngine {
       return null;
     };
 
-    for (const node of graph.keys()) {
+    for (const node of nodes.keys()) {
       const cycle = visit(node);
 
       if (cycle) {
@@ -479,6 +508,290 @@ export default class ValidationEngine {
     return this.valid({
       resolved_rule_count:
         resolvedRules.length
+    });
+  }
+
+  validateRailwayMasterDatabase(input) {
+    const masters = input.masters || {};
+
+    const required = [
+      'company_master',
+      'line_master',
+      'station_master',
+      'distance_master',
+      'fare_master',
+      'charge_master'
+    ];
+
+    for (const name of required) {
+      if (!masters[name]) {
+        return this.invalid(
+          ErrorCodes.MASTER_MISSING,
+          `鉄道マスターが不足しています: ${name}`,
+          { master: name }
+        );
+      }
+    }
+
+    const duplicateInMaster = (
+      masterName,
+      errorCode,
+      label
+    ) => {
+      const ids = new Set();
+
+      for (
+        const record of
+        masters[masterName].records || []
+      ) {
+        if (ids.has(record.id)) {
+          return this.invalid(
+            errorCode,
+            `${label}IDが重複しています: ${
+              record.id
+            }`,
+            {
+              master: masterName,
+              id: record.id
+            }
+          );
+        }
+
+        ids.add(record.id);
+      }
+
+      return null;
+    };
+
+    for (const result of [
+      duplicateInMaster(
+        'company_master',
+        ErrorCodes.COMPANY_DUPLICATE,
+        '会社'
+      ),
+      duplicateInMaster(
+        'line_master',
+        ErrorCodes.LINE_DUPLICATE,
+        '路線'
+      ),
+      duplicateInMaster(
+        'station_master',
+        ErrorCodes.STATION_DUPLICATE,
+        '駅'
+      ),
+      duplicateInMaster(
+        'distance_master',
+        ErrorCodes.DISTANCE_DUPLICATE,
+        '営業キロ'
+      )
+    ]) {
+      if (result) {
+        return result;
+      }
+    }
+
+    const base =
+      this.validateMasterDatabase(input);
+
+    if (!base.valid) {
+      return base;
+    }
+
+    const companies =
+      input.resolved?.companies || [];
+    const lines =
+      input.resolved?.lines || [];
+    const stations =
+      input.resolved?.stations || [];
+    const distances =
+      input.resolved?.distances || [];
+
+    const duplicateResolved = (
+      rows,
+      errorCode,
+      label
+    ) => {
+      const ids = new Set();
+
+      for (const row of rows) {
+        if (ids.has(row.id)) {
+          return this.invalid(
+            errorCode,
+            `${label}IDが重複しています: ${
+              row.id
+            }`,
+            { id: row.id }
+          );
+        }
+
+        ids.add(row.id);
+      }
+
+      return null;
+    };
+
+    for (const result of [
+      duplicateResolved(
+        companies,
+        ErrorCodes.COMPANY_DUPLICATE,
+        '会社'
+      ),
+      duplicateResolved(
+        lines,
+        ErrorCodes.LINE_DUPLICATE,
+        '路線'
+      ),
+      duplicateResolved(
+        stations,
+        ErrorCodes.STATION_DUPLICATE,
+        '駅'
+      ),
+      duplicateResolved(
+        distances,
+        ErrorCodes.DISTANCE_DUPLICATE,
+        '営業キロ'
+      )
+    ]) {
+      if (result) {
+        return result;
+      }
+    }
+
+    const companyIds =
+      new Set(
+        companies.map(item => item.id)
+      );
+
+    const lineIds =
+      new Set(
+        lines.map(item => item.id)
+      );
+
+    const stationIds =
+      new Set(
+        stations.map(item => item.id)
+      );
+
+    for (const line of lines) {
+      const companyId =
+        line.metadata?.company_id;
+
+      if (
+        companyId &&
+        !companyIds.has(companyId)
+      ) {
+        return this.invalid(
+          ErrorCodes
+            .COMPANY_REFERENCE_NOT_FOUND,
+          `存在しない会社を参照しています: ${
+            companyId
+          }`,
+          {
+            line_id: line.id,
+            company_id: companyId
+          }
+        );
+      }
+    }
+
+    const usedLines = new Set();
+    const usedStations = new Set();
+
+    for (const distance of distances) {
+      const metadata =
+        distance.metadata || {};
+
+      if (
+        metadata.line_id &&
+        !lineIds.has(metadata.line_id)
+      ) {
+        return this.invalid(
+          ErrorCodes.LINE_REFERENCE_NOT_FOUND,
+          `存在しない路線を参照しています: ${
+            metadata.line_id
+          }`,
+          {
+            distance_id: distance.id,
+            line_id: metadata.line_id
+          }
+        );
+      }
+
+      for (
+        const field of [
+          'from_station_id',
+          'to_station_id'
+        ]
+      ) {
+        const stationId = metadata[field];
+
+        if (
+          stationId &&
+          !stationIds.has(stationId)
+        ) {
+          return this.invalid(
+            ErrorCodes
+              .STATION_REFERENCE_NOT_FOUND,
+            `存在しない駅を参照しています: ${
+              stationId
+            }`,
+            {
+              distance_id: distance.id,
+              station_id: stationId
+            }
+          );
+        }
+
+        if (stationId) {
+          usedStations.add(stationId);
+        }
+      }
+
+      if (metadata.line_id) {
+        usedLines.add(metadata.line_id);
+      }
+    }
+
+    const orphanStation =
+      stations.find(
+        station =>
+          !usedStations.has(station.id)
+      );
+
+    if (orphanStation) {
+      return this.invalid(
+        ErrorCodes.ORPHAN_STATION,
+        `距離マスターへ接続されていない駅です: ${
+          orphanStation.id
+        }`,
+        {
+          station_id: orphanStation.id
+        }
+      );
+    }
+
+    const orphanLine =
+      lines.find(
+        line => !usedLines.has(line.id)
+      );
+
+    if (orphanLine) {
+      return this.invalid(
+        ErrorCodes.ORPHAN_LINE,
+        `距離マスターから参照されていない路線です: ${
+          orphanLine.id
+        }`,
+        {
+          line_id: orphanLine.id
+        }
+      );
+    }
+
+    return this.valid({
+      company_count: companies.length,
+      line_count: lines.length,
+      station_count: stations.length,
+      distance_count: distances.length
     });
   }
 

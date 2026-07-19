@@ -1,448 +1,78 @@
-/**
- * ChargeEngine
- *
- * 特急料金・設備料金・商品ごとの固定料金を担当する。
- */
 export default class ChargeEngine {
-
-  static NETWORKS = Object.freeze({
-    HOKKAIDO_CONVENTIONAL: 'hokkaido_conventional',
-    HOKKAIDO_SHINKANSEN: 'hokkaido_shinkansen'
-  });
-
-  static SEAT_TYPES = Object.freeze({
-    UNRESERVED: 'unreserved',
-    RESERVED: 'reserved',
-    GREEN: 'green'
-  });
-
-  static SEASONS = Object.freeze({
-    NORMAL: 'normal',
-    BUSY: 'busy',
-    OFF_PEAK: 'off_peak'
-  });
-
-  static ERROR_CODES = Object.freeze({
-    UNSUPPORTED_CHARGE_TABLE: 'UNSUPPORTED_CHARGE_TABLE',
-    INVALID_ARGUMENT: 'INVALID_ARGUMENT',
-    SEASON_ADJUSTMENT_NOT_FOUND:
-      'SEASON_ADJUSTMENT_NOT_FOUND'
-  });
-
-  constructor(
-    chargeTables,
-    productCharges,
-    seasonAdjustments = []
-  ) {
-    this.chargeTables = chargeTables;
-    this.productCharges = productCharges;
-    this.seasonAdjustments = seasonAdjustments;
-  }
-
-  limitedExpressCharge({
-    km,
-    passenger = 'adult',
-    seatType = ChargeEngine.SEAT_TYPES.UNRESERVED,
-    season = ChargeEngine.SEASONS.NORMAL,
-    network = ChargeEngine.NETWORKS.HOKKAIDO_CONVENTIONAL
-  }) {
-    this.validatePassenger(passenger);
-    this.validatePositiveKm(km);
-    this.validateEnum(
-      seatType,
-      Object.values(ChargeEngine.SEAT_TYPES),
-      '座席種別'
-    );
-    this.validateEnum(
-      season,
-      Object.values(ChargeEngine.SEASONS),
-      'シーズン'
-    );
-    this.validateEnum(
-      network,
-      Object.values(ChargeEngine.NETWORKS),
-      '路線体系'
-    );
-
-    const lookupKm = this.lookupKm(km);
-    const breakdown = [];
-
-    if (seatType === ChargeEngine.SEAT_TYPES.GREEN) {
-      const baseTableId = this.resolveTableId({
-        network,
-        seatType: ChargeEngine.SEAT_TYPES.UNRESERVED,
-        lookupKm
-      });
-
-      const greenTableId = this.resolveTableId({
-        network,
-        seatType: ChargeEngine.SEAT_TYPES.GREEN,
-        lookupKm
-      });
-
-      breakdown.push(
-        this.distanceCharge(
-          baseTableId,
-          lookupKm,
-          passenger
-        )
-      );
-
-      breakdown.push(
-        this.distanceCharge(
-          greenTableId,
-          lookupKm,
-          passenger
-        )
-      );
-    } else {
-      const tableId = this.resolveTableId({
-        network,
-        seatType,
-        lookupKm
-      });
-
-      const baseCharge = this.distanceCharge(
-        tableId,
-        lookupKm,
-        passenger
-      );
-
-      if (
-        seatType === ChargeEngine.SEAT_TYPES.RESERVED
-      ) {
-        const adjustment = this.seasonAdjustment(
-          network,
-          season,
-          passenger
-        );
-
-        baseCharge.base_amount_yen =
-          baseCharge.amount_yen;
-        baseCharge.season_adjustment_yen =
-          adjustment;
-        baseCharge.amount_yen += adjustment;
-        baseCharge.season = season;
-      }
-
-      breakdown.push(baseCharge);
-    }
-
-    const amount = breakdown.reduce(
-      (total, component) =>
-        total + component.amount_yen,
-      0
-    );
-
-    return {
-      component: this.resultComponent(seatType),
-      name: this.resultName(seatType),
-      network,
-      seat_type: seatType,
-      season:
-        seatType === ChargeEngine.SEAT_TYPES.RESERVED
-          ? season
-          : ChargeEngine.SEASONS.NORMAL,
-      lookup_km: lookupKm,
-      amount_yen: amount,
-      discountable:
-        seatType !== ChargeEngine.SEAT_TYPES.GREEN,
-      breakdown
-    };
-  }
-
-  distanceCharge(tableId, km, passenger) {
-    this.validatePassenger(passenger);
-    this.validatePositiveKm(km);
-
-    const lookupKm = this.lookupKm(km);
-
-    const row = this.chargeTables.find(item =>
-      item.table_id === tableId &&
-      Number(item.min_km) <= lookupKm &&
-      lookupKm <= Number(item.max_km)
-    );
-
-    if (!row) {
-      throw this.createError(
-        ChargeEngine.ERROR_CODES.UNSUPPORTED_CHARGE_TABLE,
-        `料金表に該当がありません: ${tableId}/${lookupKm}km`,
-        {
-          table_id: tableId,
-          lookup_km: lookupKm
-        }
-      );
-    }
-
-    return {
-      component: row.component,
-      name: this.tableName(tableId),
-      table_id: tableId,
-      lookup_km: lookupKm,
-      amount_yen: Number(
-        passenger === 'adult'
-          ? row.adult_yen
-          : row.child_yen
-      ),
-      discountable:
-        row.component === 'ordinary_express' ||
-        row.component === 'limited_express_reserved' ||
-        row.component === 'limited_express_unreserved'
-    };
-  }
-
-  tableName(id) {
-    const names = {
-      JRH_HOKKAIDO_SPECIAL_RESERVED:
-        '在来線特急指定席（道内特例）',
-      JRH_A_EXPRESS_RESERVED:
-        'A特急指定席',
-      JRH_A_EXPRESS_UNRESERVED:
-        'A特急自由席',
-      JRH_ORDINARY_EXPRESS:
-        '急行料金',
-      JRH_GREEN_EXPRESS:
-        'グリーン料金',
-      JRH_HOKKAIDO_SHINKANSEN_RESERVED:
-        '北海道新幹線 指定席特急料金',
-      JRH_HOKKAIDO_SHINKANSEN_UNRESERVED:
-        '北海道新幹線 自由席特急料金',
-      JRH_HOKKAIDO_SHINKANSEN_GREEN:
-        '北海道新幹線 グリーン料金',
-      JRH_GRANCLASS_A_HOKKAIDO:
-        'グランクラスA',
-      JRH_GRANCLASS_B_HOKKAIDO:
-        'グランクラスB'
-    };
-
-    return names[id] || id;
-  }
-
-  productCharge(productId, travelDate, passenger) {
-    this.validatePassenger(passenger);
-
-    const date = new Date(
-      `${travelDate}T00:00:00`
-    );
-
-    if (Number.isNaN(date.getTime())) {
-      throw this.createError(
-        ChargeEngine.ERROR_CODES.INVALID_ARGUMENT,
-        `乗車日が不正です: ${travelDate}`,
-        { travel_date: travelDate }
-      );
-    }
-
-    const row = this.productCharges.find(item => {
-
-      if (item.product_id !== productId) {
-        return false;
-      }
-
-      if (
-        item.effective_from &&
-        date < new Date(`${item.effective_from}T00:00:00`)
-      ) {
-        return false;
-      }
-
-      if (
-        item.effective_to &&
-        date > new Date(`${item.effective_to}T23:59:59`)
-      ) {
-        return false;
-      }
-
-      return true;
-    });
-
-    if (!row) {
-      throw new Error(
-        `商品がないか適用期間外です: ${productId}`
-      );
-    }
-
-    return {
-      component: row.component,
-      product_id: productId,
-      name: row.name,
-      amount_yen: Number(
-        passenger === 'adult'
-          ? row.adult_yen
-          : row.child_yen
-      ),
-      discountable: false
-    };
-  }
-
-  resolveTableId({
-    network,
-    seatType,
-    lookupKm
-  }) {
-    const candidates = this.tableCandidates(
-      network,
-      seatType,
-      lookupKm
-    );
-
-    const tableId = candidates.find(id =>
-      this.chargeTables.some(row =>
-        row.table_id === id &&
-        Number(row.min_km) <= lookupKm &&
-        lookupKm <= Number(row.max_km)
-      )
-    );
-
-    if (!tableId) {
-      throw this.createError(
-        ChargeEngine.ERROR_CODES.UNSUPPORTED_CHARGE_TABLE,
-        '対応する特急料金表が登録されていません: ' +
-        `${network}/${seatType}/${lookupKm}km`,
-        {
-          network,
-          seat_type: seatType,
-          lookup_km: lookupKm,
-          candidate_table_ids: candidates
-        }
-      );
-    }
-
-    return tableId;
-  }
-
-  tableCandidates(network, seatType, lookupKm) {
-    if (
-      network ===
-      ChargeEngine.NETWORKS.HOKKAIDO_CONVENTIONAL
-    ) {
-      if (
-        seatType ===
-        ChargeEngine.SEAT_TYPES.UNRESERVED
-      ) {
-        return ['JRH_A_EXPRESS_UNRESERVED'];
-      }
-
-      if (
-        seatType === ChargeEngine.SEAT_TYPES.RESERVED
-      ) {
-        return lookupKm <= 150
-          ? [
-              'JRH_HOKKAIDO_SPECIAL_RESERVED',
-              'JRH_A_EXPRESS_RESERVED'
-            ]
-          : ['JRH_A_EXPRESS_RESERVED'];
-      }
-
-      return ['JRH_GREEN_EXPRESS'];
-    }
-
-    const shinkansenTables = {
-      [ChargeEngine.SEAT_TYPES.UNRESERVED]:
-        ['JRH_HOKKAIDO_SHINKANSEN_UNRESERVED'],
-      [ChargeEngine.SEAT_TYPES.RESERVED]:
-        ['JRH_HOKKAIDO_SHINKANSEN_RESERVED'],
-      [ChargeEngine.SEAT_TYPES.GREEN]:
-        ['JRH_HOKKAIDO_SHINKANSEN_GREEN']
-    };
-
-    return shinkansenTables[seatType];
-  }
-
-  seasonAdjustment(network, season, passenger) {
-    const row = this.seasonAdjustments.find(item =>
-      item.network === network &&
-      item.season === season &&
-      item.applies_to === 'reserved'
-    );
-
-    if (!row) {
-      throw this.createError(
-        ChargeEngine.ERROR_CODES.SEASON_ADJUSTMENT_NOT_FOUND,
-        `シーズン差額設定がありません: ${network}/${season}`,
-        {
-          network,
-          season,
-          passenger
-        }
-      );
-    }
-
-    return Number(
-      passenger === 'adult'
-        ? row.adult_yen
-        : row.child_yen
-    );
-  }
-
-  lookupKm(km) {
-    return Math.ceil(Number(km) - 1e-12);
-  }
-
-  resultComponent(seatType) {
-    const components = {
-      [ChargeEngine.SEAT_TYPES.UNRESERVED]:
-        'limited_express_unreserved',
-      [ChargeEngine.SEAT_TYPES.RESERVED]:
-        'limited_express_reserved',
-      [ChargeEngine.SEAT_TYPES.GREEN]:
-        'limited_express_green'
-    };
-
-    return components[seatType];
-  }
-
-  resultName(seatType) {
-    const names = {
-      [ChargeEngine.SEAT_TYPES.UNRESERVED]:
-        '特急自由席料金',
-      [ChargeEngine.SEAT_TYPES.RESERVED]:
-        '特急指定席料金',
-      [ChargeEngine.SEAT_TYPES.GREEN]:
-        '特急グリーン料金'
-    };
-
-    return names[seatType];
-  }
-
-  validatePassenger(passenger) {
-    this.validateEnum(
-      passenger,
-      ['adult', 'child'],
-      '旅客区分'
-    );
-  }
-
-  validatePositiveKm(km) {
-    if (
-      !Number.isFinite(Number(km)) ||
-      Number(km) <= 0
-    ) {
-      throw this.createError(
-        ChargeEngine.ERROR_CODES.INVALID_ARGUMENT,
-        `営業キロが不正です: ${km}`,
-        { km }
-      );
+  static NETWORKS=Object.freeze({HOKKAIDO_CONVENTIONAL:'hokkaido_conventional',HOKKAIDO_SHINKANSEN:'hokkaido_shinkansen'});
+  static SEAT_TYPES=Object.freeze({UNRESERVED:'unreserved',RESERVED:'reserved',GREEN:'green'});
+  static SEASONS=Object.freeze({NORMAL:'normal',BUSY:'busy',OFF_PEAK:'off_peak'});
+  static ERROR_CODES=Object.freeze({UNSUPPORTED_CHARGE_TABLE:'UNSUPPORTED_CHARGE_TABLE',INVALID_ARGUMENT:'INVALID_ARGUMENT',
+    SEASON_ADJUSTMENT_NOT_FOUND:'SEASON_ADJUSTMENT_NOT_FOUND'});
+  constructor(source,productCharges=[],seasonAdjustments=[]){
+    if(source?.getRecords){
+      this.dataAccess=source;this.config=source.getMetadata('charge_master');
+      const records=source.getRecords('charge_master');
+      this.chargeTables=records.filter(r=>r.metadata?.charge_type==='distance');
+      this.productCharges=records.filter(r=>r.metadata?.charge_type==='product');
+      this.seasonAdjustments=records.filter(r=>r.metadata?.charge_type==='season_adjustment');
+    }else{
+      this.dataAccess=null;this.config={};
+      this.chargeTables=(source||[]).map((x,i)=>({id:`LEGACY-C-${i}`,metadata:{charge_type:'distance',...x}}));
+      this.productCharges=(productCharges||[]).map(x=>({id:x.product_id,name:x.name,metadata:{charge_type:'product',...x}}));
+      this.seasonAdjustments=(seasonAdjustments||[]).map((x,i)=>({id:`LEGACY-S-${i}`,metadata:{charge_type:'season_adjustment',...x}}));
     }
   }
-
-  validateEnum(value, allowed, label) {
-    if (!allowed.includes(value)) {
-      throw this.createError(
-        ChargeEngine.ERROR_CODES.INVALID_ARGUMENT,
-        `${label}が不正です: ${value}`,
-        {
-          value,
-          allowed
-        }
-      );
+  limitedExpressCharge({km,passenger='adult',seatType='unreserved',season='normal',network='hokkaido_conventional'}){
+    this.validatePassenger(passenger);this.validatePositiveKm(km);
+    const lookupKm=this.lookupKm(km),breakdown=[];
+    if(seatType==='green'){
+      breakdown.push(this.distanceCharge(this.resolveTableId({network,seatType:'unreserved',lookupKm}),lookupKm,passenger));
+      breakdown.push(this.distanceCharge(this.resolveTableId({network,seatType:'green',lookupKm}),lookupKm,passenger));
+    }else{
+      const base=this.distanceCharge(this.resolveTableId({network,seatType,lookupKm}),lookupKm,passenger);
+      if(seatType==='reserved'){const adj=this.seasonAdjustment(network,season,passenger);
+        base.base_amount_yen=base.amount_yen;base.season_adjustment_yen=adj;base.amount_yen+=adj;base.season=season;}
+      breakdown.push(base);
     }
+    return{component:seatType==='green'?'limited_express_green':`limited_express_${seatType}`,
+      name:seatType==='green'?'特急グリーン料金':seatType==='reserved'?'特急指定席料金':'特急自由席料金',
+      network,seat_type:seatType,season:seatType==='reserved'?season:'normal',lookup_km:lookupKm,
+      amount_yen:breakdown.reduce((s,x)=>s+x.amount_yen,0),discountable:seatType!=='green',breakdown};
   }
-
-  createError(code, message, details = {}) {
-    const error = new Error(message);
-    error.code = code;
-    error.details = details;
-    return error;
+  distanceCharge(tableId,km,passenger){
+    this.validatePassenger(passenger);const lookupKm=this.lookupKm(km);
+    const row=this.chargeTables.find(r=>r.metadata.table_id===tableId&&
+      Number(r.metadata.min_km)<=lookupKm&&lookupKm<=Number(r.metadata.max_km));
+    if(!row)throw this.createError(ChargeEngine.ERROR_CODES.UNSUPPORTED_CHARGE_TABLE,
+      `料金マスターに該当がありません: ${tableId}/${lookupKm}km`);
+    return{component:row.metadata.component,name:this.tableName(tableId),table_id:tableId,
+      charge_record_id:row.id,lookup_km:lookupKm,
+      amount_yen:Number(passenger==='adult'?row.metadata.adult_yen:row.metadata.child_yen),
+      discountable:['ordinary_express','limited_express_reserved','limited_express_unreserved'].includes(row.metadata.component)};
   }
+  tableName(id){return this.config.table_names?.[id]||id;}
+  productCharge(productId,travelDate,passenger){
+    this.validatePassenger(passenger);const date=new Date(`${travelDate}T00:00:00`);
+    const row=this.productCharges.find(r=>r.id===productId&&
+      (!r.metadata.effective_from||date>=new Date(`${r.metadata.effective_from}T00:00:00`))&&
+      (!r.metadata.effective_to||date<=new Date(`${r.metadata.effective_to}T23:59:59`)));
+    if(!row)throw new Error(`商品がないか適用期間外です: ${productId}`);
+    return{component:row.metadata.component,product_id:productId,name:row.name,
+      amount_yen:Number(passenger==='adult'?row.metadata.adult_yen:row.metadata.child_yen),discountable:false};
+  }
+  resolveTableId({network,seatType,lookupKm}){
+    const n=this.config.networks?.[network];if(!n)throw this.createError('UNSUPPORTED_CHARGE_TABLE',`路線体系がありません: ${network}`);
+    let key=seatType;
+    if(seatType==='reserved'&&n.reserved_short_max_km&&lookupKm<=n.reserved_short_max_km)key='reserved_short';
+    const candidates=n.table_candidates?.[key]||[];
+    const id=candidates.find(x=>this.chargeTables.some(r=>r.metadata.table_id===x&&
+      Number(r.metadata.min_km)<=lookupKm&&lookupKm<=Number(r.metadata.max_km)));
+    if(!id)throw this.createError('UNSUPPORTED_CHARGE_TABLE',`対応する料金表がありません: ${network}/${seatType}/${lookupKm}`);
+    return id;
+  }
+  seasonAdjustment(network,season,passenger){
+    const row=this.seasonAdjustments.find(r=>r.metadata.network===network&&r.metadata.season===season&&r.metadata.applies_to==='reserved');
+    if(!row)throw this.createError('SEASON_ADJUSTMENT_NOT_FOUND',`シーズン差額設定がありません: ${network}/${season}`);
+    return Number(passenger==='adult'?row.metadata.adult_yen:row.metadata.child_yen);
+  }
+  lookupKm(km){return Math.ceil(Number(km)-1e-12);}
+  validatePassenger(p){if(!['adult','child'].includes(p))throw this.createError('INVALID_ARGUMENT',`旅客区分が不正です: ${p}`);}
+  validatePositiveKm(k){if(!Number.isFinite(Number(k))||Number(k)<=0)throw this.createError('INVALID_ARGUMENT',`営業キロが不正です: ${k}`);}
+  createError(code,message,details={}){const e=new Error(message);e.code=code;e.details=details;return e;}
 }

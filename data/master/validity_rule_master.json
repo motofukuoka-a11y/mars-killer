@@ -3,8 +3,12 @@
   "name": "有効期間・運賃制度マスター",
   "enabled": true,
   "description": "有効日数、途中下車および遠距離逓減制を管理する。",
-  "conditions": {},
-  "references": [],
+  "references": [
+    {
+      "master": "distance_master",
+      "relation": "distance_context"
+    }
+  ],
   "priority": 0,
   "records": [
     {
@@ -29,7 +33,11 @@
         "missing_input_reason": "遠距離逓減制の判定には運賃計算キロが必要です。"
       },
       "references": [],
-      "priority": 100
+      "priority": 100,
+      "metadata": {
+        "company_ids": [],
+        "line_ids": []
+      }
     },
     {
       "id": "STOPOVER_ALLOWED",
@@ -76,7 +84,11 @@
           "id": "METROPOLITAN_SUBURBAN_AREA"
         }
       ],
-      "priority": 800
+      "priority": 800,
+      "metadata": {
+        "company_ids": [],
+        "line_ids": []
+      }
     },
     {
       "id": "VALID_DAYS",
@@ -116,7 +128,15 @@
         }
       },
       "references": [],
-      "priority": 900
+      "priority": 900,
+      "metadata": {
+        "company_ids": [],
+        "line_ids": []
+      }
     }
-  ]
+  ],
+  "metadata": {
+    "schema_version": "4.0",
+    "railway_master_compatible": true
+  }
 }

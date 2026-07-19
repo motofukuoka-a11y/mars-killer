@@ -1,0 +1,34 @@
+{
+  "id": "STATION_MASTER",
+  "name": "駅マスター",
+  "enabled": true,
+  "description": "全国の駅を会社・路線参照付きで管理する。",
+  "references": [
+    {
+      "master": "company_master",
+      "id": "JRH"
+    }
+  ],
+  "priority": 0,
+  "metadata": {
+    "schema_version": "4.0",
+    "entity": "station",
+    "sources": [
+      {
+        "data_key": "legacy_stations",
+        "record_id_field": "station_id",
+        "name_field": "station_name",
+        "defaults": {
+          "company_id": "JRH"
+        },
+        "field_map": {
+          "station_id": "id",
+          "station_name": "name",
+          "station_name_kana": "metadata.name_kana",
+          "line_id": "metadata.primary_line_id"
+        }
+      }
+    ]
+  },
+  "records": []
+}

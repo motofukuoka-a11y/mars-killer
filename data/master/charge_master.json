@@ -1,0 +1,118 @@
+{
+  "id": "CHARGE_MASTER",
+  "name": "料金マスター",
+  "enabled": true,
+  "description": "特急料金・設備料金・商品料金・シーズン差額を管理する。",
+  "references": [
+    {
+      "master": "company_master",
+      "id": "JRH"
+    }
+  ],
+  "priority": 0,
+  "metadata": {
+    "schema_version": "4.0",
+    "entity": "charge",
+    "networks": {
+      "hokkaido_conventional": {
+        "company_id": "JRH",
+        "table_candidates": {
+          "unreserved": [
+            "JRH_A_EXPRESS_UNRESERVED"
+          ],
+          "reserved_short": [
+            "JRH_HOKKAIDO_SPECIAL_RESERVED",
+            "JRH_A_EXPRESS_RESERVED"
+          ],
+          "reserved": [
+            "JRH_A_EXPRESS_RESERVED"
+          ],
+          "green": [
+            "JRH_GREEN_EXPRESS"
+          ]
+        },
+        "reserved_short_max_km": 150
+      },
+      "hokkaido_shinkansen": {
+        "company_id": "JRH",
+        "table_candidates": {
+          "unreserved": [
+            "JRH_HOKKAIDO_SHINKANSEN_UNRESERVED"
+          ],
+          "reserved": [
+            "JRH_HOKKAIDO_SHINKANSEN_RESERVED"
+          ],
+          "green": [
+            "JRH_HOKKAIDO_SHINKANSEN_GREEN"
+          ]
+        }
+      }
+    },
+    "sources": [
+      {
+        "data_key": "legacy_charge_tables",
+        "record_id_template": "CHARGE-{table_id}-{min_km}-{max_km}",
+        "name_template": "{table_id} {min_km}-{max_km}km",
+        "defaults": {
+          "company_id": "JRH",
+          "charge_type": "distance"
+        },
+        "field_map": {
+          "table_id": "metadata.table_id",
+          "component": "metadata.component",
+          "min_km": "metadata.min_km",
+          "max_km": "metadata.max_km",
+          "adult_yen": "metadata.adult_yen",
+          "child_yen": "metadata.child_yen"
+        }
+      },
+      {
+        "data_key": "legacy_product_charges",
+        "record_id_field": "product_id",
+        "name_field": "name",
+        "defaults": {
+          "company_id": "JRH",
+          "charge_type": "product"
+        },
+        "field_map": {
+          "product_id": "id",
+          "name": "name",
+          "component": "metadata.component",
+          "adult_yen": "metadata.adult_yen",
+          "child_yen": "metadata.child_yen",
+          "effective_from": "metadata.effective_from",
+          "effective_to": "metadata.effective_to"
+        }
+      },
+      {
+        "data_key": "legacy_season_adjustments",
+        "record_id_template": "SEASON-{network}-{season}-{applies_to}",
+        "name_template": "{network} {season}",
+        "defaults": {
+          "company_id": "JRH",
+          "charge_type": "season_adjustment"
+        },
+        "field_map": {
+          "network": "metadata.network",
+          "season": "metadata.season",
+          "applies_to": "metadata.applies_to",
+          "adult_yen": "metadata.adult_yen",
+          "child_yen": "metadata.child_yen"
+        }
+      }
+    ],
+    "table_names": {
+      "JRH_HOKKAIDO_SPECIAL_RESERVED": "在来線特急指定席（道内特例）",
+      "JRH_A_EXPRESS_RESERVED": "A特急指定席",
+      "JRH_A_EXPRESS_UNRESERVED": "A特急自由席",
+      "JRH_ORDINARY_EXPRESS": "急行料金",
+      "JRH_GREEN_EXPRESS": "グリーン料金",
+      "JRH_HOKKAIDO_SHINKANSEN_RESERVED": "北海道新幹線 指定席特急料金",
+      "JRH_HOKKAIDO_SHINKANSEN_UNRESERVED": "北海道新幹線 自由席特急料金",
+      "JRH_HOKKAIDO_SHINKANSEN_GREEN": "北海道新幹線 グリーン料金",
+      "JRH_GRANCLASS_A_HOKKAIDO": "グランクラスA",
+      "JRH_GRANCLASS_B_HOKKAIDO": "グランクラスB"
+    }
+  },
+  "records": []
+}

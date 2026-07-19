@@ -1,0 +1,71 @@
+{
+  "id": "FARE_MASTER",
+  "name": "普通運賃マスター",
+  "enabled": true,
+  "description": "会社・路線区分・距離帯ごとの普通運賃および加算運賃を管理する。",
+  "references": [
+    {
+      "master": "company_master",
+      "id": "JRH"
+    }
+  ],
+  "priority": 0,
+  "metadata": {
+    "schema_version": "4.0",
+    "entity": "fare",
+    "route_table_rules": {
+      "trunk": {
+        "table_id": "trunk",
+        "distance_field": "business_km"
+      },
+      "local": {
+        "table_id": "local",
+        "distance_field": "business_km"
+      },
+      "mixed_short": {
+        "max_business_km": 10,
+        "table_id": "local",
+        "distance_field": "business_km"
+      },
+      "mixed": {
+        "table_id": "trunk",
+        "distance_field": "fare_calculation_km"
+      }
+    },
+    "sources": [
+      {
+        "data_key": "legacy_ordinary_fares",
+        "record_id_template": "FARE-{line_category}-{min_km}-{max_km}",
+        "name_template": "普通運賃 {line_category} {min_km}-{max_km}km",
+        "defaults": {
+          "company_id": "JRH",
+          "fare_type": "ordinary"
+        },
+        "field_map": {
+          "line_category": "metadata.table_id",
+          "min_km": "metadata.min_km",
+          "max_km": "metadata.max_km",
+          "adult_one_way_fare_yen": "metadata.adult_yen",
+          "child_one_way_fare_yen": "metadata.child_yen"
+        }
+      },
+      {
+        "data_key": "legacy_special_fares",
+        "record_id_field": "special_rule_id",
+        "name_field": "name",
+        "defaults": {
+          "company_id": "JRH",
+          "fare_type": "additional"
+        },
+        "field_map": {
+          "special_rule_id": "id",
+          "name": "name",
+          "adult_yen": "metadata.adult_yen",
+          "child_yen": "metadata.child_yen",
+          "trigger_segment": "metadata.trigger_segment"
+        }
+      }
+    ]
+  },
+  "records": []
+}

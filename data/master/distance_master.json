@@ -1,0 +1,50 @@
+{
+  "id": "DISTANCE_MASTER",
+  "name": "距離マスター",
+  "enabled": true,
+  "description": "駅間の営業キロ・換算キロ・運賃計算キロを管理する。",
+  "references": [
+    {
+      "master": "station_master",
+      "relation": "from_station_id"
+    },
+    {
+      "master": "station_master",
+      "relation": "to_station_id"
+    },
+    {
+      "master": "line_master",
+      "relation": "line_id"
+    }
+  ],
+  "priority": 0,
+  "metadata": {
+    "schema_version": "4.0",
+    "entity": "distance",
+    "sources": [
+      {
+        "data_key": "legacy_segments",
+        "record_id_field": "segment_id",
+        "name_template": "{from_station_id}-{to_station_id}",
+        "field_map": {
+          "segment_id": "id",
+          "from_station_id": "metadata.from_station_id",
+          "to_station_id": "metadata.to_station_id",
+          "line_id": "metadata.line_id",
+          "line_name": "metadata.line_name",
+          "line_category": "metadata.line_category",
+          "business_km": "metadata.business_km",
+          "conversion_km": "metadata.conversion_km",
+          "fare_calculation_km": "metadata.fare_calculation_km"
+        },
+        "value_maps": {
+          "metadata.line_category": {
+            "幹線": "trunk",
+            "地方交通線": "local"
+          }
+        }
+      }
+    ]
+  },
+  "records": []
+}
