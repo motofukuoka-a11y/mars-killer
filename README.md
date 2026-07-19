@@ -479,3 +479,148 @@ const result = engine.business({
 追加エラーコード：`ERR_INVALID_OPERATION`、`ERR_INVALID_DATE`、`ERR_INVALID_PERIOD`、`ERR_INVALID_DEPARTURE_STATUS`。
 
 `data/rules/business_rules.json`は利用形態、列車状態、営業実務ごとの呼出先を管理します。
+
+## Version 2.9変更内容
+
+Version 2.9では、BusinessEngineへ営業規則判定を追加しました。
+
+- 遠距離逓減制
+- 特定都区市内
+- 経路特定区間
+- 区間外乗車
+- 選択乗車
+- 折返し乗車
+- 大都市近郊区間
+- 途中下車可否
+- 有効日数判定
+- 営業規則判定結果のUI表示
+- `business_regulations.json`のPWAキャッシュ
+
+## 営業規則
+
+営業規則の条件はBusinessEngineへ直接記述せず、次のJSONで管理します。
+
+```text
+data/rules/business_regulations.json
+```
+
+各規則は次の情報を持ちます。
+
+- `regulation_id`
+- `result_key`
+- `name`
+- `required_fields`
+- `conditions`
+- `applicable_reason`
+- `not_applicable_reason`
+- `missing_input_reason`
+- 必要に応じた計算設定
+
+BusinessEngineには条件比較の共通処理だけを置き、距離境界、必要入力、適用理由はJSONから取得します。
+
+## BusinessEngineの営業規則判定
+
+BusinessEngineは営業実務計算後に、経路結果と入力情報から営業規則判定用コンテキストを作成します。
+
+```javascript
+const result = engine.business({
+  requestDate: '2026-07-19',
+  ticketType: 'ordinary',
+  ticketUsageType: 'valid_period',
+  ticketStartDate: '2026-07-18',
+  ticketEndDate: '2026-07-20',
+  departureStatus: 'after_departure',
+  operation: 'route_change',
+  start: '札幌',
+  goal: '函館',
+  passenger: 'adult',
+  regulationContext: {
+    specificCityZoneApplicable: false,
+    specificRouteSectionApplicable: false,
+    outsideSectionRideApplicable: false,
+    selectedRouteApplicable: false,
+    turnbackRideApplicable: false,
+    metropolitanSuburbanAreaOnly: false,
+    stopoverRestricted: false
+  }
+});
+```
+
+## 営業規則返却値
+
+```javascript
+{
+  success: true,
+  regulations: {
+    long_distance_discount: false,
+    specific_city_zone: false,
+    specific_route_section: false,
+    outside_section_ride: false,
+    selected_route: false,
+    turnback_ride: false,
+    metropolitan_suburban_area: false,
+    stopover_allowed: true,
+    valid_days: true
+  },
+  regulation_details: [
+    {
+      regulation_id: 'STOPOVER_ALLOWED',
+      name: '途中下車可否',
+      applicable: true,
+      reason: '営業キロ、利用形態および途中下車制限の条件を満たしています。',
+      missing_fields: [],
+      calculated_value: null
+    }
+  ],
+  calculation: [],
+  fare: {},
+  error_code: null
+}
+```
+
+## 入力不足と対象外
+
+規則ごとに必要な入力が不足している場合、営業実務全体を失敗させず、その規則を非適用として返します。
+
+```javascript
+{
+  applicable: false,
+  reason: '経路特定区間の判定には対象区間マスタによる判定結果が必要です。',
+  missing_fields: [
+    'specific_route_section_applicable'
+  ]
+}
+```
+
+対象条件が入力済みで条件を満たさない場合は、`not_applicable_reason`を返します。
+
+## 経路系規則の取扱い
+
+次の規則は正式な対象駅・区間・経路マスタが必要です。
+
+- 特定都区市内
+- 経路特定区間
+- 区間外乗車
+- 選択乗車
+- 折返し乗車
+- 大都市近郊区間
+
+Version 2.9では、未登録の対象区間をJavaScriptで推測しません。対象マスタまたは外部判定結果を`regulationContext`へ渡した場合だけ適用判定します。
+
+## UI表示
+
+営業実務の計算結果へ次を追加しました。
+
+- 適用された規則
+- 適用されなかった規則
+- 適用・非適用理由
+- 不足している判定入力
+- 有効日数等の計算値
+
+## Version 2.9 Known limitations
+
+- 全国の特定都区市内、経路特定区間、区間外乗車、選択乗車、折返し乗車、大都市近郊区間の対象マスタは未収録です。
+- 遠距離逓減制の実際の運賃額計算はFareEngineの責務であり、BusinessEngineは適用対象だけを判定します。
+- 有効日数判定はJSONに設定した営業キロ基準を使用します。
+- 最終的な取扱いは最新の規程、通達、発売端末表示で確認してください。
+

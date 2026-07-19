@@ -1,0 +1,229 @@
+{
+  "version": "2.9",
+  "evaluation_defaults": {
+    "missing_input_applicable": false,
+    "not_target_applicable": false
+  },
+  "regulations": [
+    {
+      "regulation_id": "LONG_DISTANCE_DISCOUNT",
+      "result_key": "long_distance_discount",
+      "name": "遠距離逓減制",
+      "required_fields": [
+        "fare_calculation_km"
+      ],
+      "conditions": {
+        "all": [
+          {
+            "field": "fare_calculation_km",
+            "operator": "greater_than_or_equal",
+            "value": 601
+          }
+        ]
+      },
+      "applicable_reason": "運賃計算キロが601km以上であるため、遠距離逓減制の対象です。",
+      "not_applicable_reason": "運賃計算キロが601km未満であるため、遠距離逓減制の対象外です。",
+      "missing_input_reason": "遠距離逓減制の判定には運賃計算キロが必要です。"
+    },
+    {
+      "regulation_id": "SPECIFIC_CITY_ZONE",
+      "result_key": "specific_city_zone",
+      "name": "特定都区市内",
+      "required_fields": [
+        "business_km",
+        "specific_city_zone_applicable"
+      ],
+      "conditions": {
+        "all": [
+          {
+            "field": "business_km",
+            "operator": "greater_than_or_equal",
+            "value": 201
+          },
+          {
+            "field": "specific_city_zone_applicable",
+            "operator": "equals",
+            "value": true
+          }
+        ]
+      },
+      "applicable_reason": "営業キロおよび特定都区市内の対象駅条件を満たしています。",
+      "not_applicable_reason": "営業キロまたは特定都区市内の対象駅条件を満たしていません。",
+      "missing_input_reason": "特定都区市内の判定には営業キロと対象駅判定情報が必要です。"
+    },
+    {
+      "regulation_id": "SPECIFIC_ROUTE_SECTION",
+      "result_key": "specific_route_section",
+      "name": "経路特定区間",
+      "required_fields": [
+        "specific_route_section_applicable"
+      ],
+      "conditions": {
+        "all": [
+          {
+            "field": "specific_route_section_applicable",
+            "operator": "equals",
+            "value": true
+          }
+        ]
+      },
+      "applicable_reason": "指定された経路が経路特定区間の対象です。",
+      "not_applicable_reason": "指定された経路は経路特定区間の対象外です。",
+      "missing_input_reason": "経路特定区間の判定には対象区間マスタによる判定結果が必要です。"
+    },
+    {
+      "regulation_id": "OUTSIDE_SECTION_RIDE",
+      "result_key": "outside_section_ride",
+      "name": "区間外乗車",
+      "required_fields": [
+        "outside_section_ride_applicable"
+      ],
+      "conditions": {
+        "all": [
+          {
+            "field": "outside_section_ride_applicable",
+            "operator": "equals",
+            "value": true
+          }
+        ]
+      },
+      "applicable_reason": "指定された乗車経路は区間外乗車の対象です。",
+      "not_applicable_reason": "指定された乗車経路は区間外乗車の対象外です。",
+      "missing_input_reason": "区間外乗車の判定には対象区間マスタによる判定結果が必要です。"
+    },
+    {
+      "regulation_id": "SELECTED_ROUTE",
+      "result_key": "selected_route",
+      "name": "選択乗車",
+      "required_fields": [
+        "selected_route_applicable"
+      ],
+      "conditions": {
+        "all": [
+          {
+            "field": "selected_route_applicable",
+            "operator": "equals",
+            "value": true
+          }
+        ]
+      },
+      "applicable_reason": "指定された経路は選択乗車の対象です。",
+      "not_applicable_reason": "指定された経路は選択乗車の対象外です。",
+      "missing_input_reason": "選択乗車の判定には対象経路マスタによる判定結果が必要です。"
+    },
+    {
+      "regulation_id": "TURNBACK_RIDE",
+      "result_key": "turnback_ride",
+      "name": "折返し乗車",
+      "required_fields": [
+        "turnback_ride_applicable"
+      ],
+      "conditions": {
+        "all": [
+          {
+            "field": "turnback_ride_applicable",
+            "operator": "equals",
+            "value": true
+          }
+        ]
+      },
+      "applicable_reason": "指定された乗車経路は折返し乗車の対象です。",
+      "not_applicable_reason": "指定された乗車経路は折返し乗車の対象外です。",
+      "missing_input_reason": "折返し乗車の判定には対象区間マスタによる判定結果が必要です。"
+    },
+    {
+      "regulation_id": "METROPOLITAN_SUBURBAN_AREA",
+      "result_key": "metropolitan_suburban_area",
+      "name": "大都市近郊区間",
+      "required_fields": [
+        "metropolitan_suburban_area_only"
+      ],
+      "conditions": {
+        "all": [
+          {
+            "field": "metropolitan_suburban_area_only",
+            "operator": "equals",
+            "value": true
+          }
+        ]
+      },
+      "applicable_reason": "乗車区間が大都市近郊区間内で完結しています。",
+      "not_applicable_reason": "乗車区間は大都市近郊区間内だけで完結していません。",
+      "missing_input_reason": "大都市近郊区間の判定には対象駅・経路マスタによる判定結果が必要です。"
+    },
+    {
+      "regulation_id": "STOPOVER_ALLOWED",
+      "result_key": "stopover_allowed",
+      "name": "途中下車可否",
+      "required_fields": [
+        "business_km",
+        "ticket_usage_type",
+        "metropolitan_suburban_area_only",
+        "stopover_restricted"
+      ],
+      "conditions": {
+        "all": [
+          {
+            "field": "business_km",
+            "operator": "greater_than",
+            "value": 100
+          },
+          {
+            "field": "ticket_usage_type",
+            "operator": "equals",
+            "value": "valid_period"
+          },
+          {
+            "field": "metropolitan_suburban_area_only",
+            "operator": "equals",
+            "value": false
+          },
+          {
+            "field": "stopover_restricted",
+            "operator": "equals",
+            "value": false
+          }
+        ]
+      },
+      "applicable_reason": "営業キロ、利用形態および途中下車制限の条件を満たしています。",
+      "not_applicable_reason": "営業キロ、利用形態、大都市近郊区間または途中下車制限の条件により途中下車できません。",
+      "missing_input_reason": "途中下車可否の判定に必要な営業キロまたは制限情報が不足しています。"
+    },
+    {
+      "regulation_id": "VALID_DAYS",
+      "result_key": "valid_days",
+      "name": "有効日数判定",
+      "required_fields": [
+        "business_km",
+        "request_date",
+        "ticket_start_date",
+        "ticket_end_date"
+      ],
+      "calculation": {
+        "type": "valid_days_by_business_km",
+        "same_day_max_km": 100,
+        "base_max_km": 200,
+        "base_days": 2,
+        "additional_km_unit": 200,
+        "additional_days_per_unit": 1
+      },
+      "conditions": {
+        "all": [
+          {
+            "field": "request_date",
+            "operator": "date_on_or_after",
+            "reference_field": "ticket_start_date"
+          },
+          {
+            "field": "request_date",
+            "operator": "date_on_or_before",
+            "reference_field": "ticket_end_date"
+          }
+        ]
+      },
+      "applicable_reason": "申出日はきっぷの有効期間内です。",
+      "not_applicable_reason": "申出日はきっぷの有効期間外です。",
+      "missing_input_reason": "有効日数判定には営業キロ、申出日、有効開始日および有効終了日が必要です。"
+    }
+  ]
+}

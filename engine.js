@@ -58,7 +58,9 @@ export class SalesEngine {
       changeEngine: this.changeEngine,
       refundEngine: this.refundEngine,
       validationEngine: this.validationEngine,
-      rules: this.businessRules
+      rules: this.businessRules,
+      regulations:
+        this.businessRegulations
     });
   }
 
@@ -85,6 +87,7 @@ export class SalesEngine {
       discountRules,
       refundRules,
       businessRules,
+      businessRegulations,
       specialFares
     ] = await Promise.all([
       get('distance/stations.json'),
@@ -97,6 +100,7 @@ export class SalesEngine {
       get('rules/discount_rules.json'),
       get('rules/refund_rules.json'),
       get('rules/business_rules.json'),
+      get('rules/business_regulations.json'),
       get('rules/special_fares.json')
     ]);
 
@@ -111,6 +115,7 @@ export class SalesEngine {
       discountRules,
       refundRules,
       businessRules,
+      businessRegulations,
       specialFares
     });
   }

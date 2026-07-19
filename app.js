@@ -511,8 +511,136 @@ function createBusinessInput(via) {
   return {requestDate,ticketType:$('businessTicketType').value,ticketUsageType:usage,ticketStartDate:usage===TicketUsageType.VALID_PERIOD?$('ticketStartDate').value:requestDate,ticketEndDate:usage===TicketUsageType.VALID_PERIOD?$('ticketEndDate').value:requestDate,departureStatus:departure===DepartureStatus.AFTER_DEPARTURE?DepartureStatus.AFTER_DEPARTURE:DepartureStatus.BEFORE_DEPARTURE,discountType:$('discount').value||null,operation:$('businessOperation').value,start:$('start').value,goal:$('goal').value,actualGoal:$('goal').value,via,passenger:$('passenger').value};
 }
 function renderBusiness(result) {
-  const state=result.business_state||{}, fare=result.fare||{};
-  $('result').innerHTML=`<section class="summary"><p class="eyebrow">営業実務計算</p><p class="total">${result.success?yen(fare.total):'計算不可'}</p><p>${esc(result.operation||'')}</p></section><div class="metrics"><div><span>原券</span><strong>${yen(fare.original||0)}</strong></div><div><span>追加</span><strong>${yen(fare.additional||0)}</strong></div><div><span>払戻</span><strong>${yen(fare.refund||0)}</strong></div></div><section class="reason"><h2>営業状態</h2><p>使用前：${state.before_use?'はい':'いいえ'} / 有効期間中：${state.in_valid_period?'はい':'いいえ'} / 有効期間終了後：${state.expired?'はい':'いいえ'}</p></section><section class="reason"><h2>計算内容</h2>${result.calculation?.length?result.calculation.map(x=>`<p>${esc(JSON.stringify(x))}</p>`).join(''):`<p>${esc(result.message||'計算結果なし')}</p>`}</section>${result.error_code?`<div class="notice">${esc(result.error_code)}：${esc(result.message||'')}</div>`:''}`; showResult();
+  const state = result.business_state || {};
+  const fare = result.fare || {};
+  const regulationDetails =
+    result.regulation_details || [];
+
+  const applied = regulationDetails.filter(
+    item => item.applicable
+  );
+
+  const notApplied =
+    regulationDetails.filter(
+      item => !item.applicable
+    );
+
+  const regulationRows = items =>
+    items.length
+      ? items.map(item => `
+          <li>
+            <strong>${esc(item.name)}</strong>
+            <p>${esc(item.reason)}</p>
+            ${
+              item.missing_fields?.length
+                ? `<small>不足入力：${
+                    item.missing_fields
+                      .map(esc)
+                      .join('、')
+                  }</small>`
+                : ''
+            }
+            ${
+              item.calculated_value != null
+                ? `<pre>${esc(
+                    JSON.stringify(
+                      item.calculated_value,
+                      null,
+                      2
+                    )
+                  )}</pre>`
+                : ''
+            }
+          </li>
+        `).join('')
+      : '<li>該当なし</li>';
+
+  $('result').innerHTML = `
+    <section class="summary">
+      <p class="eyebrow">営業実務計算</p>
+      <p class="total">
+        ${
+          result.success
+            ? yen(fare.total)
+            : '計算不可'
+        }
+      </p>
+      <p>${esc(result.operation || '')}</p>
+    </section>
+
+    <div class="metrics">
+      <div>
+        <span>原券</span>
+        <strong>${yen(fare.original || 0)}</strong>
+      </div>
+      <div>
+        <span>追加</span>
+        <strong>${yen(fare.additional || 0)}</strong>
+      </div>
+      <div>
+        <span>払戻</span>
+        <strong>${yen(fare.refund || 0)}</strong>
+      </div>
+    </div>
+
+    <section class="reason">
+      <h2>営業状態</h2>
+      <p>
+        使用前：
+        ${state.before_use ? 'はい' : 'いいえ'} /
+        有効期間中：
+        ${
+          state.in_valid_period
+            ? 'はい'
+            : 'いいえ'
+        } /
+        有効期間終了後：
+        ${state.expired ? 'はい' : 'いいえ'}
+      </p>
+    </section>
+
+    <section class="reason">
+      <h2>営業規則判定結果</h2>
+
+      <h3>適用された規則</h3>
+      <ul>
+        ${regulationRows(applied)}
+      </ul>
+
+      <h3>適用されなかった規則</h3>
+      <ul>
+        ${regulationRows(notApplied)}
+      </ul>
+    </section>
+
+    <section class="reason">
+      <h2>計算内容</h2>
+      ${
+        result.calculation?.length
+          ? result.calculation.map(item =>
+              `<p>${esc(
+                JSON.stringify(item)
+              )}</p>`
+            ).join('')
+          : `<p>${esc(
+              result.message ||
+              '計算結果なし'
+            )}</p>`
+      }
+    </section>
+
+    ${
+      result.error_code
+        ? `<div class="notice">${
+            esc(result.error_code)
+          }：${esc(
+            result.message || ''
+          )}</div>`
+        : ''
+    }
+  `;
+
+  showResult();
 }
 
 async function calculate() {

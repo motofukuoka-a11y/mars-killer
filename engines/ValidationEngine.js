@@ -25,6 +25,8 @@ export default class ValidationEngine {
         return this.validateRules(input);
       case 'business':
         return this.validateBusiness(input);
+      case 'business_regulations':
+        return this.validateBusinessRegulations(input);
       default:
         return this.invalid(
           ErrorCodes.UNSUPPORTED_OPERATION,
@@ -165,6 +167,50 @@ export default class ValidationEngine {
     if (!input.businessRules?.operations?.[input.operation]) return this.invalid(ErrorCodes.INVALID_OPERATION, `営業実務が不正です: ${input.operation}`);
     if (!input.businessRules?.departure_statuses?.includes(input.departureStatus)) return this.invalid(ErrorCodes.INVALID_DEPARTURE_STATUS, `列車状態が不正です: ${input.departureStatus}`);
     return this.valid({ requestDate, startDate, endDate });
+  }
+
+  validateBusinessRegulations(input) {
+    const regulations =
+      input.businessRegulations?.regulations;
+
+    if (!Array.isArray(regulations)) {
+      return this.invalid(
+        ErrorCodes.JSON_MISSING,
+        '営業規則JSONが不足しています。',
+        {
+          field: 'businessRegulations.regulations'
+        }
+      );
+    }
+
+    if (regulations.length === 0) {
+      return this.invalid(
+        ErrorCodes.RULE_NOT_FOUND,
+        '営業規則が登録されていません。'
+      );
+    }
+
+    const missingByRegulation = {};
+
+    for (const regulation of regulations) {
+      const missing = (
+        regulation.required_fields || []
+      ).filter(field =>
+        input.context?.[field] == null ||
+        input.context?.[field] === ''
+      );
+
+      if (missing.length > 0) {
+        missingByRegulation[
+          regulation.regulation_id
+        ] = missing;
+      }
+    }
+
+    return this.valid({
+      missing_by_regulation:
+        missingByRegulation
+    });
   }
 
   parseDate(value) {
