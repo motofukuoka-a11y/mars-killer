@@ -1,27 +1,708 @@
-import {SalesEngine} from './engine.js';
-const $=id=>document.getElementById(id);let engine;
-const yen=n=>`${Number(n).toLocaleString('ja-JP')}円`;
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const normalize=s=>String(s||'').trim().replace(/[ァ-ヶ]/g,c=>String.fromCharCode(c.charCodeAt(0)-0x60));
-function setStatus(text,kind=''){const el=$('status');el.textContent=text;el.className=`status ${kind}`;}
-function stationMatches(q){const n=normalize(q);if(!n)return[];return engine.stations.filter(s=>normalize(s.station_reading).startsWith(n)||normalize(s.station_name).startsWith(n)).sort((a,b)=>a.station_reading.localeCompare(b.station_reading,'ja')).slice(0,40);}
-function setupAutocomplete(inputId,boxId){const input=$(inputId),box=$(boxId);const show=()=>{const rows=stationMatches(input.value);if(!input.value.trim()||!rows.length){box.hidden=true;box.innerHTML='';return;}box.innerHTML=rows.map(s=>`<button type="button" class="candidate" data-name="${esc(s.station_name)}"><strong>${esc(s.station_name)}</strong><span>${esc(s.station_reading)}</span></button>`).join('');box.hidden=false;};input.addEventListener('input',show);input.addEventListener('focus',show);box.addEventListener('click',e=>{const b=e.target.closest('.candidate');if(!b)return;input.value=b.dataset.name;box.hidden=true;});document.addEventListener('click',e=>{if(e.target!==input&&!box.contains(e.target))box.hidden=true;});}
-function formulaForSale(result){return `${result.components.map(c=>`${c.lookup_km?`（適用距離 ${c.lookup_km}km）`:''}${c.name||c.component} ${yen(c.amount_yen)}`).join(' ＋ ')} ＝ ${yen(result.total_yen)}`;}
-function refundShortNote(id){return ({REFUND_BASIC:'使用開始前・有効期間内か確認',REFUND_RESERVED_EARLY:'出発日の2日前までか確認',REFUND_RESERVED_LATE:'前日から出発時刻までか確認',REFUND_UNASSIGNED:'使用開始前・旅行日までか確認'})[id]||'原券の条件を確認';}
-function render(result,operation,refundRule){
- const route=result.route;const fee=operation==='refund'?engine.refundFee(refundRule,result.total_yen):0;const payable=Math.max(result.total_yen-fee,0);
- const comps=result.components.map(c=>`<tr><td>${esc(c.name||c.component)}</td><td>${c.lookup_km?`${c.lookup_km}km`:''}</td><td>${yen(c.amount_yen)}</td></tr>`).join('');
- const segs=route.segments.map((x,i)=>`<tr><td>${i+1}</td><td>${esc(x.from_station_name)}</td><td>${esc(x.to_station_name)}</td><td>${esc(x.line_name)}</td><td>${x.business_km}</td><td>${x.conversion_km}</td></tr>`).join('');
- const headline=operation==='refund'?'払戻額':'発売額';const total=operation==='refund'?payable:result.total_yen;
- const formula=operation==='refund'?`（営業キロ ${route.business_km}km）${yen(result.total_yen)} − 手数料 ${yen(fee)} ＝ ${yen(payable)}`:formulaForSale(result);
- const guidance=operation==='refund'?`「払戻手数料は${yen(fee)}、払戻額は${yen(payable)}でございます。よろしいでしょうか？」`:`「合計${yen(result.total_yen)}でございます。」`;
- const caution=operation==='refund'?`<section class="caution" role="alert"><h2>必ず確認</h2><p><strong>手数料 ${yen(fee)}</strong>がかかることを御案内し、<strong>お客様の了承後</strong>に払戻操作を行います。</p><small>${refundShortNote(refundRule)}</small></section>`:'';
- $('result').innerHTML=`<section class="summary"><p class="eyebrow">${headline}</p><p class="total">${yen(total)}</p><p>${esc(route.start_station_name)} → ${esc(route.goal_station_name)}</p></section><div class="metrics"><div><span>営業キロ</span><strong>${route.business_km}km</strong></div><div><span>換算キロ</span><strong>${route.conversion_km}km</strong></div><div><span>計算キロ</span><strong>${route.fare_calculation_km}km</strong></div></div><section class="reason"><h2>計算根拠</h2><p class="formula">${formula}</p></section><section class="guidance"><h2>お客様への御案内</h2><p>${guidance}</p></section>${caution}<details><summary>内訳・経路</summary><h2>内訳</h2><div class="table-wrap"><table><thead><tr><th>項目</th><th>適用距離</th><th>金額</th></tr></thead><tbody>${comps}</tbody></table></div><h2>経路（${route.segments.length}区間）</h2><div class="table-wrap"><table><thead><tr><th>No.</th><th>発</th><th>着</th><th>線名</th><th>営業</th><th>換算</th></tr></thead><tbody>${segs}</tbody></table></div></details>${result.warnings.length?`<div class="notice">${result.warnings.map(esc).join('<br>')}</div>`:''}`;$('result').hidden=false;$('result').scrollIntoView({behavior:'smooth',block:'start'});
+import { SalesEngine } from './engine.js';
+import { RefundStatus } from './engines/RefundEngine.js';
+
+const $ = id => document.getElementById(id);
+let engine;
+
+const yen = value =>
+  `${Number(value).toLocaleString('ja-JP')}円`;
+
+const esc = value =>
+  String(value).replace(
+    /[&<>"']/g,
+    char => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    })[char]
+  );
+
+const normalize = value =>
+  String(value || '')
+    .trim()
+    .replace(
+      /[ァ-ヶ]/g,
+      char =>
+        String.fromCharCode(
+          char.charCodeAt(0) - 0x60
+        )
+    );
+
+function setStatus(text, kind = '') {
+  const element = $('status');
+  element.textContent = text;
+  element.className = `status ${kind}`;
 }
-async function calculate(){try{setStatus('計算中…');const via=$('via').value.split(',').map(x=>x.trim()).filter(Boolean);const r=engine.quote({start:$('start').value,goal:$('goal').value,via,passenger:$('passenger').value,travelDate:$('date').value,chargeTableId:$('charge').value||null,productId:$('product').value||null,discountId:$('discount').value||null});render(r,$('operation').value,$('refundRule').value);setStatus(navigator.onLine?'計算完了':'オフラインで計算完了','ok');localStorage.setItem('lastInput',JSON.stringify({operation:$('operation').value,start:$('start').value,goal:$('goal').value,via:$('via').value,passenger:$('passenger').value,date:$('date').value,charge:$('charge').value,product:$('product').value,discount:$('discount').value,refundRule:$('refundRule').value}));}catch(e){setStatus(e.message,'error');}}
-function restore(){try{const v=JSON.parse(localStorage.getItem('lastInput'));if(v)for(const [k,x] of Object.entries(v))if($(k))$(k).value=x;}catch{}}
-function syncOperation(){const refund=$('operation').value==='refund';$('refundOptions').hidden=!refund;$('calc').textContent=refund?'払戻額を計算':'発売額を計算';}
-function applyTheme(value){document.documentElement.dataset.theme=value;localStorage.setItem('theme',value);const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=value==='dark'?'#101820':'#075b91';}
-function setupTheme(){const saved=localStorage.getItem('theme')||'system';$('theme').value=saved;applyTheme(saved);$('theme').addEventListener('change',e=>applyTheme(e.target.value));}
-async function init(){try{setupTheme();setStatus('マスタ読込み中…');engine=await SalesEngine.load('./data');restore();setupAutocomplete('start','startCandidates');setupAutocomplete('goal','goalCandidates');syncOperation();setStatus(`準備完了：${engine.stations.length}駅`,'ok');$('calc').disabled=false;}catch(e){setStatus(`初期化エラー: ${e.message}`,'error');}}
-$('calc').addEventListener('click',calculate);$('operation').addEventListener('change',syncOperation);$('swap').addEventListener('click',()=>{const a=$('start').value;$('start').value=$('goal').value;$('goal').value=a;});window.addEventListener('online',()=>setStatus('オンライン','ok'));window.addEventListener('offline',()=>setStatus('オフライン利用中','ok'));if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js'));init();
+
+function stationMatches(query) {
+  const normalized = normalize(query);
+
+  if (!normalized) {
+    return [];
+  }
+
+  return engine.stations
+    .filter(station =>
+      normalize(station.station_reading)
+        .startsWith(normalized) ||
+      normalize(station.station_name)
+        .startsWith(normalized)
+    )
+    .sort((a, b) =>
+      a.station_reading.localeCompare(
+        b.station_reading,
+        'ja'
+      )
+    )
+    .slice(0, 40);
+}
+
+function setupAutocomplete(inputId, boxId) {
+  const input = $(inputId);
+  const box = $(boxId);
+
+  const show = () => {
+    const rows = stationMatches(input.value);
+
+    if (!input.value.trim() || !rows.length) {
+      box.hidden = true;
+      box.innerHTML = '';
+      return;
+    }
+
+    box.innerHTML = rows.map(station => `
+      <button
+        type="button"
+        class="candidate"
+        data-name="${esc(station.station_name)}"
+      >
+        <strong>${esc(station.station_name)}</strong>
+        <span>${esc(station.station_reading)}</span>
+      </button>
+    `).join('');
+
+    box.hidden = false;
+  };
+
+  input.addEventListener('input', show);
+  input.addEventListener('focus', show);
+
+  box.addEventListener('click', event => {
+    const button = event.target.closest('.candidate');
+
+    if (!button) {
+      return;
+    }
+
+    input.value = button.dataset.name;
+    box.hidden = true;
+  });
+
+  document.addEventListener('click', event => {
+    if (
+      event.target !== input &&
+      !box.contains(event.target)
+    ) {
+      box.hidden = true;
+    }
+  });
+}
+
+function formulaForSale(result) {
+  return `${
+    result.components.map(component => {
+      const distance = component.lookup_km
+        ? `（適用距離 ${component.lookup_km}km）`
+        : '';
+
+      return `${distance}${
+        component.name || component.component
+      } ${yen(component.amount_yen)}`;
+    }).join(' ＋ ')
+  } ＝ ${yen(result.total_yen)}`;
+}
+
+function refundStatusOptions(ticketType) {
+  if (ticketType === 'ordinary') {
+    return [
+      {
+        value: RefundStatus.BEFORE_TRIP,
+        label: '旅行開始前'
+      },
+      {
+        value: RefundStatus.AFTER_TRIP_START,
+        label: '旅行開始後'
+      },
+      {
+        value: RefundStatus.JOURNEY_ABANDONED,
+        label: '前途放棄'
+      }
+    ];
+  }
+
+  return [
+    {
+      value: RefundStatus.BEFORE_TRAIN_DEPARTURE,
+      label: '列車発車前'
+    },
+    {
+      value: RefundStatus.AFTER_TRAIN_DEPARTURE,
+      label: '列車発車後'
+    },
+    {
+      value: RefundStatus.AFTER_USE_START,
+      label: '使用開始後'
+    }
+  ];
+}
+
+function syncRefundStatusOptions() {
+  const ticketType = $('refundTicketType').value;
+  const current = $('refundStatus').value;
+  const options = refundStatusOptions(ticketType);
+
+  $('refundStatus').innerHTML = options
+    .map(option => `
+      <option value="${esc(option.value)}">
+        ${esc(option.label)}
+      </option>
+    `)
+    .join('');
+
+  if (options.some(option => option.value === current)) {
+    $('refundStatus').value = current;
+  }
+
+  syncRefundAdditionalFields();
+}
+
+function syncRefundAdditionalFields() {
+  const isAfterTripStart =
+    $('refundTicketType').value === 'ordinary' &&
+    $('refundStatus').value ===
+      RefundStatus.AFTER_TRIP_START;
+
+  $('refundAfterTripFields').hidden =
+    !isAfterTripStart;
+}
+
+function ordinaryRefundAmount(components) {
+  return components
+    .filter(component =>
+      component.component === 'ordinary_fare' ||
+      component.component === 'special_fare'
+    )
+    .reduce(
+      (total, component) =>
+        total + Number(component.amount_yen),
+      0
+    );
+}
+
+function limitedExpressRefundAmount(components) {
+  const ordinaryAmount =
+    ordinaryRefundAmount(components);
+
+  return components.reduce(
+    (total, component) =>
+      total + Number(component.amount_yen),
+    0
+  ) - ordinaryAmount;
+}
+
+function refundAmountForResult(
+  ticketType,
+  result
+) {
+  return ticketType === 'ordinary'
+    ? ordinaryRefundAmount(result.components)
+    : limitedExpressRefundAmount(
+        result.components
+      );
+}
+
+function createRefundOptions(result) {
+  const ticketType = $('refundTicketType').value;
+  const status = $('refundStatus').value;
+
+  const options = {
+    ticketType,
+    status,
+    amountYen: refundAmountForResult(
+      ticketType,
+      result
+    )
+  };
+
+  if (
+    ticketType === 'ordinary' &&
+    status === RefundStatus.AFTER_TRIP_START
+  ) {
+    options.unusedAmountYen =
+      Number($('unusedAmountYen').value);
+
+    options.remainingBusinessKm =
+      Number($('remainingBusinessKm').value);
+  }
+
+  return options;
+}
+
+function renderSale(result) {
+  const route = result.route;
+
+  const components = result.components
+    .map(component => `
+      <tr>
+        <td>${esc(
+          component.name || component.component
+        )}</td>
+        <td>${
+          component.lookup_km
+            ? `${component.lookup_km}km`
+            : ''
+        }</td>
+        <td>${yen(component.amount_yen)}</td>
+      </tr>
+    `)
+    .join('');
+
+  const segments = route.segments
+    .map((segment, index) => `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${esc(segment.from_station_name)}</td>
+        <td>${esc(segment.to_station_name)}</td>
+        <td>${esc(segment.line_name)}</td>
+        <td>${segment.business_km}</td>
+        <td>${segment.conversion_km}</td>
+      </tr>
+    `)
+    .join('');
+
+  $('result').innerHTML = `
+    <section class="summary">
+      <p class="eyebrow">発売額</p>
+      <p class="total">${yen(result.total_yen)}</p>
+      <p>
+        ${esc(route.start_station_name)}
+        →
+        ${esc(route.goal_station_name)}
+      </p>
+    </section>
+
+    <div class="metrics">
+      <div>
+        <span>営業キロ</span>
+        <strong>${route.business_km}km</strong>
+      </div>
+      <div>
+        <span>換算キロ</span>
+        <strong>${route.conversion_km}km</strong>
+      </div>
+      <div>
+        <span>計算キロ</span>
+        <strong>${route.fare_calculation_km}km</strong>
+      </div>
+    </div>
+
+    <section class="reason">
+      <h2>計算根拠</h2>
+      <p class="formula">
+        ${formulaForSale(result)}
+      </p>
+    </section>
+
+    <section class="guidance">
+      <h2>お客様への御案内</h2>
+      <p>
+        「合計${yen(result.total_yen)}
+        でございます。」
+      </p>
+    </section>
+
+    <details>
+      <summary>内訳・経路</summary>
+
+      <h2>内訳</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>項目</th>
+              <th>適用距離</th>
+              <th>金額</th>
+            </tr>
+          </thead>
+          <tbody>${components}</tbody>
+        </table>
+      </div>
+
+      <h2>経路（${route.segments.length}区間）</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>発</th>
+              <th>着</th>
+              <th>線名</th>
+              <th>営業</th>
+              <th>換算</th>
+            </tr>
+          </thead>
+          <tbody>${segments}</tbody>
+        </table>
+      </div>
+    </details>
+
+    ${
+      result.warnings.length
+        ? `<div class="notice">${
+            result.warnings.map(esc).join('<br>')
+          }</div>`
+        : ''
+    }
+  `;
+
+  showResult();
+}
+
+function renderRefund(result, refund) {
+  const route = result.route;
+
+  const formula = refund.refundable
+    ? `${yen(refund.refund_before_fee_yen)} − 手数料 ${
+        yen(refund.fee_yen)
+      } ＝ ${yen(refund.refund_after_fee_yen)}`
+    : '払戻し不可';
+
+  const guidance = refund.refundable
+    ? `「払戻手数料は${yen(refund.fee_yen)}、払戻額は${
+        yen(refund.refund_after_fee_yen)
+      }でございます。よろしいでしょうか？」`
+    : `「${esc(
+        refund.non_refundable_reason ||
+        '払戻しできません。'
+      )}」`;
+
+  const basis = refund.calculation_basis || {};
+
+  $('result').innerHTML = `
+    <section class="summary">
+      <p class="eyebrow">
+        ${refund.refundable ? '払戻額' : '払戻判定'}
+      </p>
+      <p class="total">
+        ${
+          refund.refundable
+            ? yen(refund.refund_after_fee_yen)
+            : '払戻し不可'
+        }
+      </p>
+      <p>
+        ${esc(route.start_station_name)}
+        →
+        ${esc(route.goal_station_name)}
+      </p>
+    </section>
+
+    <div class="metrics">
+      <div>
+        <span>払戻対象</span>
+        <strong>${esc(refund.refund_target)}</strong>
+      </div>
+      <div>
+        <span>手数料</span>
+        <strong>${yen(refund.fee_yen)}</strong>
+      </div>
+      <div>
+        <span>判定状態</span>
+        <strong>${esc(refund.status)}</strong>
+      </div>
+    </div>
+
+    <section class="reason">
+      <h2>計算根拠</h2>
+      <p class="formula">${formula}</p>
+      <p>${esc(refund.reason)}</p>
+      ${
+        refund.non_refundable_reason
+          ? `<p><strong>${esc(
+              refund.non_refundable_reason
+            )}</strong></p>`
+          : ''
+      }
+      ${
+        basis.formula
+          ? `<p>${esc(basis.formula)}</p>`
+          : ''
+      }
+      ${
+        basis.remaining_business_km != null
+          ? `<p>未使用区間営業キロ：${
+              esc(basis.remaining_business_km)
+            }km</p>`
+          : ''
+      }
+    </section>
+
+    <section class="guidance">
+      <h2>お客様への御案内</h2>
+      <p>${guidance}</p>
+    </section>
+
+    ${
+      refund.refundable
+        ? `
+          <section
+            class="caution"
+            role="alert"
+          >
+            <h2>必ず確認</h2>
+            <p>
+              <strong>
+                手数料 ${yen(refund.fee_yen)}
+              </strong>
+              がかかることを御案内し、
+              <strong>お客様の了承後</strong>
+              に払戻操作を行います。
+            </p>
+          </section>
+        `
+        : ''
+    }
+
+    <details>
+      <summary>見積内訳・経路</summary>
+      <pre>${esc(JSON.stringify({
+        ticket_type: refund.ticket_type,
+        status: refund.status,
+        refund_before_fee_yen:
+          refund.refund_before_fee_yen,
+        fee_yen: refund.fee_yen,
+        refund_after_fee_yen:
+          refund.refund_after_fee_yen,
+        calculation_basis:
+          refund.calculation_basis
+      }, null, 2))}</pre>
+    </details>
+  `;
+
+  showResult();
+}
+
+function showResult() {
+  $('result').hidden = false;
+  $('result').scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
+  });
+}
+
+async function calculate() {
+  try {
+    setStatus('計算中…');
+
+    const via = $('via').value
+      .split(',')
+      .map(value => value.trim())
+      .filter(Boolean);
+
+    const result = engine.quote({
+      start: $('start').value,
+      goal: $('goal').value,
+      via,
+      passenger: $('passenger').value,
+      travelDate: $('date').value,
+      chargeTableId:
+        $('charge').value || null,
+      productId:
+        $('product').value || null,
+      discountId:
+        $('discount').value || null
+    });
+
+    if ($('operation').value === 'refund') {
+      const refund = engine.refund(
+        createRefundOptions(result)
+      );
+
+      renderRefund(result, refund);
+    } else {
+      renderSale(result);
+    }
+
+    setStatus(
+      navigator.onLine
+        ? '計算完了'
+        : 'オフラインで計算完了',
+      'ok'
+    );
+
+    localStorage.setItem(
+      'lastInput',
+      JSON.stringify({
+        operation: $('operation').value,
+        start: $('start').value,
+        goal: $('goal').value,
+        via: $('via').value,
+        passenger: $('passenger').value,
+        date: $('date').value,
+        charge: $('charge').value,
+        product: $('product').value,
+        discount: $('discount').value,
+        refundTicketType:
+          $('refundTicketType').value,
+        refundStatus:
+          $('refundStatus').value,
+        unusedAmountYen:
+          $('unusedAmountYen').value,
+        remainingBusinessKm:
+          $('remainingBusinessKm').value
+      })
+    );
+  } catch (error) {
+    setStatus(error.message, 'error');
+  }
+}
+
+function restore() {
+  try {
+    const values = JSON.parse(
+      localStorage.getItem('lastInput')
+    );
+
+    if (!values) {
+      return;
+    }
+
+    for (const [key, value] of Object.entries(values)) {
+      if ($(key)) {
+        $(key).value = value;
+      }
+    }
+  } catch {
+    // 保存値が壊れている場合は初期値を使用する。
+  }
+}
+
+function syncOperation() {
+  const refund =
+    $('operation').value === 'refund';
+
+  $('refundOptions').hidden = !refund;
+  $('calc').textContent = refund
+    ? '払戻額を計算'
+    : '発売額を計算';
+}
+
+function applyTheme(value) {
+  document.documentElement.dataset.theme = value;
+  localStorage.setItem('theme', value);
+
+  const meta = document.querySelector(
+    'meta[name="theme-color"]'
+  );
+
+  if (meta) {
+    meta.content = value === 'dark'
+      ? '#101820'
+      : '#075b91';
+  }
+}
+
+function setupTheme() {
+  const saved =
+    localStorage.getItem('theme') ||
+    'system';
+
+  $('theme').value = saved;
+  applyTheme(saved);
+
+  $('theme').addEventListener(
+    'change',
+    event => applyTheme(event.target.value)
+  );
+}
+
+async function init() {
+  try {
+    setupTheme();
+    setStatus('マスタ読込み中…');
+
+    engine = await SalesEngine.load('./data');
+
+    restore();
+    setupAutocomplete(
+      'start',
+      'startCandidates'
+    );
+    setupAutocomplete(
+      'goal',
+      'goalCandidates'
+    );
+
+    syncRefundStatusOptions();
+    syncOperation();
+
+    setStatus(
+      `準備完了：${engine.stations.length}駅`,
+      'ok'
+    );
+
+    $('calc').disabled = false;
+  } catch (error) {
+    setStatus(
+      `初期化エラー: ${error.message}`,
+      'error'
+    );
+  }
+}
+
+$('calc').addEventListener('click', calculate);
+
+$('operation').addEventListener(
+  'change',
+  syncOperation
+);
+
+$('refundTicketType').addEventListener(
+  'change',
+  syncRefundStatusOptions
+);
+
+$('refundStatus').addEventListener(
+  'change',
+  syncRefundAdditionalFields
+);
+
+$('swap').addEventListener('click', () => {
+  const start = $('start').value;
+  $('start').value = $('goal').value;
+  $('goal').value = start;
+});
+
+window.addEventListener(
+  'online',
+  () => setStatus('オンライン', 'ok')
+);
+
+window.addEventListener(
+  'offline',
+  () => setStatus('オフライン利用中', 'ok')
+);
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener(
+    'load',
+    () =>
+      navigator.serviceWorker.register(
+        './service-worker.js'
+      )
+  );
+}
+
+init();
