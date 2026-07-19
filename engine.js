@@ -14,6 +14,12 @@ import StationSearchIndex from './services/StationSearchIndex.js';
 import PracticalStorage from './services/PracticalStorage.js';
 import DebugService from './services/DebugService.js';
 import PracticalOperationPlatform from './services/PracticalOperationPlatform.js';
+import PassengerCalculationService from './services/PassengerCalculationService.js';
+import PracticalValidationService from './services/PracticalValidationService.js';
+import PassengerRuleService from './services/PassengerRuleService.js';
+import {normalizeSearchConditions} from './services/SearchConditionAdapter.js';
+import {normalizePassengers, passengerTotals, validatePassengers} from './services/PassengerModel.js';
+import {buildSectionServices, validateSectionServices} from './services/SectionServiceManager.js';
 
 export class SalesEngine {
 
@@ -124,6 +130,12 @@ export class SalesEngine {
       );
     this.storage = new PracticalStorage();
     this.debugService = new DebugService();
+    this.passengerCalculationService =
+      new PassengerCalculationService({salesEngine: this});
+    this.practicalValidationService =
+      new PracticalValidationService();
+    this.passengerRuleService =
+      new PassengerRuleService({salesEngine: this});
     this.practicalPlatform =
       new PracticalOperationPlatform({
         salesEngine: this,
@@ -131,7 +143,11 @@ export class SalesEngine {
           this.stationSearchIndex,
         storage: this.storage,
         debugService:
-          this.debugService
+          this.debugService,
+        validationService:
+          this.practicalValidationService,
+        passengerRuleService:
+          this.passengerRuleService
       });
   }
 
@@ -496,8 +512,49 @@ export class SalesEngine {
     return 0;
   }
 
+
+  calculatePassengerGroups(options = {}) {
+    return this.passengerCalculationService.calculate(options);
+  }
+
+  validatePracticalInput(options = {}) {
+    return this.practicalValidationService.validateInput(options);
+  }
+
+  evaluatePassengerRules(options = {}) {
+    return this.passengerRuleService.evaluate(options);
+  }
+
   searchStations(query, options = {}) {
     return this.stationSearchIndex.search(query, options);
+  }
+
+  stationById(stationId) {
+    return this.stationSearchIndex.getById(stationId);
+  }
+
+  normalizeSearchConditions(options = {}) {
+    return normalizeSearchConditions(options);
+  }
+
+  normalizePassengers(options = {}) {
+    return normalizePassengers(options);
+  }
+
+  passengerTotals(passengers = []) {
+    return passengerTotals(passengers);
+  }
+
+  validatePassengers(passengers = []) {
+    return validatePassengers(passengers);
+  }
+
+  buildSectionServices(sections = [], previous = []) {
+    return buildSectionServices(sections, previous);
+  }
+
+  validateSectionServices(sectionServices = []) {
+    return validateSectionServices(sectionServices);
   }
 
   routeCandidates(options) {

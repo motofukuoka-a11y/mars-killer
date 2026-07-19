@@ -1367,3 +1367,54 @@ Version 5.0では以下のサービスを追加します。
 
 - Version 5.0：実務支援システム完成基盤
 
+
+
+## Version 5.1 段階実装状況
+
+### Stage 1: 入力・状態モデル基盤
+
+- 旅客グループモデル（大人・小児・介助者）
+- 旧 `passenger_count` / `people` 形式の互換変換
+- 旅客数集計と基礎Validation
+- Version 5.1検索条件モデルへの互換変換
+- `distance.sections`から安定した`section_services`を生成
+- 駅検索の1文字検索、正規化、順位固定、駅ID検索基盤
+- 共通駅オートコンプリートコンポーネント基盤
+
+このStageではFareEngine、ChargeEngine、DiscountEngineの旅客グループ別金額計算はまだ有効化していません。既存APIを維持したまま、次StageでEngine計算へ接続します。
+
+
+### Version 5.1 Stage 2
+
+画面へ旅客グループ、手続駅、複数経由駅、区間別サービス設定を接続しました。新規入力状態は `passengers`、`procedure_station_id`、`section_services` として保存されます。運賃・料金の旅客グループ別Engine計算は次段階で実装します。
+
+## Version 5.1 Stage 3
+
+`PassengerCalculationService`が既存FareEngine、ChargeEngine、DiscountEngineを変更せずに呼び出し、旅客グループ単位の単価、人数小計、総合計を統合します。距離は旅客共通値として保持し、人数倍しません。正式な料金表・割引規則が存在しない項目は推測せず、警告を返して0円のまま保持します。
+
+## Version 5.1 Stage 4
+
+旅客グループ別計算へ営業規則・RuleResolver・Validationを接続しました。
+
+- `PracticalValidationService`: 入力、経路、距離、旅客、介助者、区間設定、計算合計を構造化検証
+- `PassengerRuleService`: 旅客グループごとの規則候補、採用、却下、理由を保持
+- Fatal Error発生時は後続処理を停止
+- Debug JSONへBusinessEngine、RuleResolver、ValidationEngineを追加
+- 旅客カードから営業規則とRuleResolverを展開可能
+
+正式な規則マスターに条文番号が存在しない場合、架空の条文番号は生成しません。規則IDと参照元を表示します。
+
+
+## Version 5.1 Stage 5
+
+入力内容は120msの遅延後にValidationされ、対象入力欄へエラー状態を表示します。計算済みの経路は、旅客人数、区間サービス、手続駅、旅行日変更時に再利用されます。経路条件が変わった場合のみRouteEngineを再実行します。結果画面とDebug JSONでは各Engineの実行時間と経路再利用の有無を確認できます。検索履歴の「復元」からVersion 5.1形式の入力条件を戻せます。
+
+## Version 5.1受入試験
+
+Node.jsが利用できる環境では、次のコマンドでVersion 5.1の基礎受入試験を実行できます。
+
+```bash
+node tests/version51-acceptance.mjs
+```
+
+GitHub Pages公開後の確認項目は`RELEASE_CHECKLIST.md`を参照してください。

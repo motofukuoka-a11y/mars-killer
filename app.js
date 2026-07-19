@@ -1,6 +1,7 @@
 import { SalesEngine } from './engine.js';
 import { RefundStatus } from './engines/RefundEngine.js';
 import { TicketUsageType, DepartureStatus } from './shared/Constants.js';
+import Version51StateController from './ui/Version51StateController.js';
 
 window.__MARS_KILLER_APP_STARTED__ = true;
 window.dispatchEvent(
@@ -9,6 +10,11 @@ window.dispatchEvent(
 
 const $ = id => document.getElementById(id);
 let engine;
+let version51State;
+let lastPracticalResult = null;
+let realtimeTimer = null;
+let recalculationTimer = null;
+let calculationInProgress = false;
 
 const yen = value =>
   `${Number(value).toLocaleString('ja-JP')}円`;
@@ -717,7 +723,7 @@ function checkedValue(name) { return document.querySelector(`input[name="${name}
 function syncBusinessPeriodFields() { $('businessPeriodFields').hidden = checkedValue('ticketUsageType') !== TicketUsageType.VALID_PERIOD; }
 function createBusinessInput(via) {
   const requestDate=$('requestDate').value, usage=checkedValue('ticketUsageType'), departure=checkedValue('departureStatus');
-  return {requestDate,ticketType:$('businessTicketType').value,ticketUsageType:usage,ticketStartDate:usage===TicketUsageType.VALID_PERIOD?$('ticketStartDate').value:requestDate,ticketEndDate:usage===TicketUsageType.VALID_PERIOD?$('ticketEndDate').value:requestDate,departureStatus:departure===DepartureStatus.AFTER_DEPARTURE?DepartureStatus.AFTER_DEPARTURE:DepartureStatus.BEFORE_DEPARTURE,discountType:$('discount').value||null,operation:$('businessOperation').value,debugMode:$('businessDebugMode')?.checked||false,start:$('start').value,goal:$('goal').value,actualGoal:$('goal').value,via,passenger:$('passenger').value};
+  return {requestDate,ticketType:$('businessTicketType').value,ticketUsageType:usage,ticketStartDate:usage===TicketUsageType.VALID_PERIOD?$('ticketStartDate').value:requestDate,ticketEndDate:usage===TicketUsageType.VALID_PERIOD?$('ticketEndDate').value:requestDate,departureStatus:departure===DepartureStatus.AFTER_DEPARTURE?DepartureStatus.AFTER_DEPARTURE:DepartureStatus.BEFORE_DEPARTURE,discountType:$('discount').value||null,operation:$('businessOperation').value,debugMode:$('businessDebugMode')?.checked||false,start:$('start').value,goal:$('goal').value,actualGoal:$('goal').value,via,passenger:(version51State?.getOptions().passengers?.[0]?.age_category==='child'?'child':'adult')};
 }
 function renderBusiness(result) {
   const state = result.business_state || {};
@@ -969,24 +975,175 @@ function renderBusiness(result) {
 }
 
 
-function practicalOptions(via) {
+function practicalOptions(via = []) {
+  const v51 = version51State?.getOptions() || {};
   return {
-    start: $('start').value,
-    goal: $('goal').value,
-    via,
-    company_id: $('company')?.value || null,
-    train_type: $('trainType')?.value || null,
-    travelDate: $('date').value,
-    passenger: $('passenger').value,
-    passengers: Number($('passengerCount')?.value || 1),
+    ...v51,
+    start: v51.start || $('start').value,
+    goal: v51.goal || $('goal').value,
+    via: v51.via || via,
+    travelDate: v51.travelDate || $('date').value,
     trip_type: $('tripType')?.value || 'one_way',
-    seat_class: $('seatClass')?.value || 'ordinary',
     transfer: Boolean($('transfer')?.checked),
     sleeper: Boolean($('sleeper')?.checked),
     chargeTableId: $('charge').value || null,
     productId: $('product').value || null,
-    discountId: $('discount').value || null
+    discountId: null
   };
+}
+
+
+function clearValidationMarkers() {
+  document.querySelectorAll('.field-invalid').forEach(element => {
+    element.classList.remove('field-invalid');
+    element.removeAttribute('aria-invalid');
+  });
+}
+
+function validationTarget(field) {
+  const map = {
+    origin: 'start',
+    destination: 'goal',
+    via: 'viaList',
+    passengers: 'passengerGroups',
+    section_services: 'sectionServices'
+  };
+  return $(map[field] || field);
+}
+
+function renderLiveValidation(validation) {
+  const panel = $('liveValidation');
+  if (!panel) return;
+  clearValidationMarkers();
+  const errors = validation?.errors || [];
+  const warnings = validation?.warnings || [];
+  for (const item of errors) {
+    const target = validationTarget(item.field);
+    target?.classList.add('field-invalid');
+    target?.setAttribute('aria-invalid', 'true');
+  }
+  if (!errors.length && !warnings.length) {
+    panel.hidden = true;
+    panel.innerHTML = '';
+    return;
+  }
+  panel.innerHTML = `
+    ${errors.length ? `<strong>入力エラー</strong><ul>${errors.map(item => `<li>${esc(item.message)}</li>`).join('')}</ul>` : ''}
+    ${warnings.length ? `<strong>確認事項</strong><ul>${warnings.map(item => `<li>${esc(item.message)}</li>`).join('')}</ul>` : ''}
+  `;
+  panel.hidden = false;
+}
+
+function runRealtimeValidation() {
+  if (!engine || !version51State) return;
+  try {
+    const validation = engine.validatePracticalInput(practicalOptions());
+    renderLiveValidation(validation);
+  } catch (error) {
+    renderLiveValidation({errors: [{message: error.message, field: null}], warnings: []});
+  }
+}
+
+function scheduleRealtimeValidation() {
+  clearTimeout(realtimeTimer);
+  realtimeTimer = setTimeout(runRealtimeValidation, 120);
+}
+
+function scheduleSmartRecalculation(scope) {
+  scheduleRealtimeValidation();
+  if (!lastPracticalResult || calculationInProgress) return;
+  if (['route-input', 'initial', 'history-restore'].includes(scope)) return;
+  clearTimeout(recalculationTimer);
+  recalculationTimer = setTimeout(() => calculate({scope, silent: true}), 180);
+}
+
+function renderExecutionMetrics(result) {
+  const rows = result.execution_metrics || [];
+  if (!rows.length) return '<p>実行時間情報はありません。</p>';
+  return `<div class="engine-timings">${rows.map(row => `
+    <div class="engine-timing">
+      <span>${esc(row.engine)}${row.cache_hit ? '（経路再利用）' : ''}</span>
+      <strong>${Number(row.duration_ms || 0).toLocaleString('ja-JP')}ms</strong>
+    </div>`).join('')}</div>`;
+}
+
+function passengerLabel(row) {
+  const age = row.age_category === 'child'
+    ? '小児'
+    : row.age_category === 'assistant'
+      ? '介助者'
+      : '大人';
+  const labels = {
+    none: '通常',
+    student: '学割',
+    disability_type1: '障害者1種',
+    disability_type2: '障害者2種',
+    round_trip: '往復割引',
+    group: '団体',
+    other: 'その他割引',
+    assistant_normal: '通常介助者',
+    assistant_type1: '障害者1種介助者',
+    assistant_type2: '障害者2種介助者'
+  };
+  return {age, discount: labels[row.discount_type] || row.discount_type};
+}
+
+function renderPassengerRows(result) {
+  return result.passenger_rows.map(row => {
+    const label = passengerLabel(row);
+    return `
+      <article class="passenger-result-card">
+        <header>
+          <strong>${esc(label.age)}・${esc(label.discount)}</strong>
+          <span>${esc(row.count)}人</span>
+        </header>
+        <dl>
+          <div><dt>1人あたり普通運賃</dt><dd>${yen(row.fare.unit_fare)}</dd></div>
+          <div><dt>1人あたり料金</dt><dd>${yen(row.charges.unit_charge)}</dd></div>
+          <div><dt>1人あたり割引額</dt><dd>−${yen(row.discount.unit_discount)}</dd></div>
+          <div><dt>1人あたり加算額</dt><dd>${yen(row.extra_charge.unit_extra_charge)}</dd></div>
+          <div class="passenger-subtotal"><dt>グループ小計</dt><dd>${yen(row.subtotal)}</dd></div>
+        </dl>
+        <p><strong>営業規則件数：</strong>${esc(row.applied_rule_count || 0)}件</p>
+        <details>
+          <summary>計算式</summary>
+          <ol class="formula-steps">
+            ${row.formula_steps.map(step => `
+              <li>
+                <strong>${esc(step.label)}</strong>
+                <span>${step.expression
+                  ? `${esc(step.expression)} ＝ ${yen(step.value_yen)}`
+                  : step.value_yen != null
+                    ? yen(step.value_yen)
+                    : `${esc(step.value)}${esc(step.unit || '')}`}</span>
+              </li>
+            `).join('')}
+          </ol>
+        </details>
+        <details>
+          <summary>営業規則</summary>
+          ${(row.applied_rules || []).length
+            ? `<ul>${row.applied_rules.map(rule => `
+                <li>
+                  <strong>${esc(rule.rule_title)}</strong>
+                  <span>${esc(rule.result)}</span>
+                  <p>${esc(rule.reason)}</p>
+                  ${rule.rule_no ? `<small>規則ID：${esc(rule.rule_no)}</small>` : ''}
+                </li>`).join('')}</ul>`
+            : '<p>営業規則結果はありません。</p>'}
+        </details>
+        <details>
+          <summary>RuleResolver</summary>
+          <h4>候補</h4>
+          <ul>${(row.rule_resolver?.candidate_rules || []).map(rule => `<li>${esc(rule.rule_title)}：${esc(rule.reason)}</li>`).join('') || '<li>なし</li>'}</ul>
+          <h4>採用</h4>
+          <ul>${(row.rule_resolver?.accepted_rules || []).map(rule => `<li>${esc(rule.rule_title)}：${esc(rule.reason)}</li>`).join('') || '<li>なし</li>'}</ul>
+          <h4>却下</h4>
+          <ul>${(row.rule_resolver?.rejected_rules || []).map(rule => `<li>${esc(rule.rule_title)}：${esc(rule.reason)}</li>`).join('') || '<li>なし</li>'}</ul>
+        </details>
+      </article>
+    `;
+  }).join('');
 }
 
 function renderPracticalSummary(result) {
@@ -994,12 +1151,8 @@ function renderPracticalSummary(result) {
     .map(candidate => `
       <article class="v5-card">
         <strong>${esc(candidate.label)}</strong>
-        <span>運賃計算キロ ${
-          esc(candidate.route.fare_calculation_km)
-        }km</span>
-        <span>会社境界 ${
-          esc(candidate.company_boundary_count)
-        }箇所</span>
+        <span>運賃計算キロ ${esc(candidate.route.fare_calculation_km)}km</span>
+        <span>会社境界 ${esc(candidate.company_boundary_count)}箇所</span>
       </article>
     `).join('');
 
@@ -1007,39 +1160,65 @@ function renderPracticalSummary(result) {
     ? `<details open>
         <summary>デバッグJSON</summary>
         <pre>${esc(JSON.stringify({
-          result,
+          RouteEngine: result.route,
+          FareEngine: result.fare_result,
+          ChargeEngine: result.charge_result,
+          DiscountEngine: result.discount_result,
+          BusinessEngine: result.business_result,
+          RuleResolver: result.rule_resolver_result,
+          ValidationEngine: result.validation,
+          PracticalOperationPlatform: result,
+          execution_metrics: result.execution_metrics,
+          recalculation: result.recalculation,
           engine_logs: engine.getDebugLogs(),
           error_logs: engine.getErrorLogs()
         }, null, 2))}</pre>
       </details>`
     : '';
 
-  $('result').insertAdjacentHTML('beforeend', `
-    <section class="reason">
-      <h2>Version 5.0 実務支援結果</h2>
-      <div class="v5-grid">
-        <article class="v5-card">
-          <strong>普通運賃</strong>
-          <span>${yen(result.fare.ordinary_fare_yen)}</span>
-        </article>
-        <article class="v5-card">
-          <strong>料金</strong>
-          <span>${yen(result.fare.charge_yen)}</span>
-        </article>
-        <article class="v5-card">
-          <strong>割引</strong>
-          <span>${yen(result.fare.discount_yen)}</span>
-        </article>
-        <article class="v5-card v5-total">
-          <strong>合計</strong>
-          <span>${yen(result.fare.total_yen)}</span>
-        </article>
-      </div>
-      <h3>経路候補</h3>
-      <div class="v5-grid">${candidates}</div>
-      ${debug}
+  $('result').innerHTML = `
+    <section class="summary">
+      <p class="eyebrow">全旅客合計</p>
+      <p class="total">${yen(result.totals.total_yen)}</p>
+      <p>${esc(result.route.start_station_name)} → ${esc(result.route.goal_station_name)}</p>
     </section>
-  `);
+    ${renderDistanceSummary(result.distance)}
+    ${renderRouteFlow(result.route)}
+    <section class="reason">
+      <h2>料金結果</h2>
+      <div class="v5-grid">
+        <article class="v5-card"><strong>普通運賃合計</strong><span>${yen(result.totals.ordinary_fare_total_yen)}</span></article>
+        <article class="v5-card"><strong>料金合計</strong><span>${yen(result.totals.charge_total_yen)}</span></article>
+        <article class="v5-card"><strong>割引合計</strong><span>−${yen(result.totals.discount_total_yen)}</span></article>
+        <article class="v5-card"><strong>加算合計</strong><span>${yen(result.totals.extra_charge_total_yen)}</span></article>
+        <article class="v5-card v5-total"><strong>総合計</strong><span>${yen(result.totals.total_yen)}</span></article>
+      </div>
+    </section>
+    <section class="reason">
+      <h2>旅客別内訳</h2>
+      <div class="passenger-result-list">${renderPassengerRows(result)}</div>
+    </section>
+    <section class="reason">
+      <h2>経路候補</h2>
+      <div class="v5-grid">${candidates}</div>
+    </section>
+    <section class="reason">
+      <h2>Engine実行時間</h2>
+      ${renderExecutionMetrics(result)}
+    </section>
+    <section class="reason">
+      <h2>Validation</h2>
+      ${result.validation.errors.length
+        ? `<div class="notice" role="alert">${result.validation.errors.map(item => esc(item.message)).join('<br>')}</div>`
+        : '<p>エラーはありません。</p>'}
+      ${result.validation.warnings.length
+        ? `<div class="notice">${result.validation.warnings.map(item => esc(item.message)).join('<br>')}</div>`
+        : ''}
+    </section>
+    ${result.warnings.length ? `<div class="notice">${result.warnings.map(esc).join('<br>')}</div>` : ''}
+    ${debug}
+  `;
+  showResult();
 }
 
 function refreshHistoryUi() {
@@ -1049,64 +1228,64 @@ function refreshHistoryUi() {
   box.innerHTML = history.length
     ? history.map(entry => `
         <article class="history-row">
-          <strong>${esc(entry.conditions.start)}
-            → ${esc(entry.conditions.goal)}</strong>
+          <div><strong>${esc(entry.conditions.start)}
+            → ${esc(entry.conditions.goal)}</strong><br>
+          <small>${esc(new Date(entry.created_at).toLocaleString('ja-JP'))}</small></div>
           <span>${yen(entry.total_yen)}</span>
-          <small>${esc(new Date(
-            entry.created_at
-          ).toLocaleString('ja-JP'))}</small>
+          <button type="button" class="history-restore" data-history-id="${esc(entry.id || entry.created_at)}">復元</button>
         </article>
       `).join('')
     : '<p>履歴はありません。</p>';
 }
 
-async function calculate() {
+async function calculate(request = {}) {
+  if (request instanceof Event) request = {};
+  const {scope = 'full', silent = false} = request;
+  if (calculationInProgress) return;
+  calculationInProgress = true;
   try {
-    setStatus('計算中…');
+    if (!silent) setStatus('計算中…');
 
-    const via = $('via').value
-      .split(',')
-      .map(value => value.trim())
-      .filter(Boolean);
+    const via = version51State?.getOptions().via || [];
 
     engine.setDebugEnabled(
       Boolean($('debugMode')?.checked)
     );
 
     const practical =
-      await engine.practicalQuote(
-        practicalOptions(via)
-      );
+      await engine.practicalQuote({
+        ...practicalOptions(via),
+        recalculation_scope: scope
+      });
+    lastPracticalResult = practical;
 
-    const result = engine.quote({
-      start: $('start').value,
-      goal: $('goal').value,
-      via,
-      passenger: $('passenger').value,
-      travelDate: $('date').value,
-      chargeTableId:
-        $('charge').value || null,
-      productId:
-        $('product').value || null,
-      discountId:
-        $('discount').value || null
-    });
+    const stateOptions = practicalOptions(via);
+    version51State?.applyRoute(practical.route);
 
     if ($('operation').value === 'business') {
       renderBusiness(engine.business(createBusinessInput(via)));
     } else if ($('operation').value === 'refund') {
-      const refund = engine.refund(
-        createRefundOptions(result)
-      );
-
-      renderRefund(result, refund);
+      const primaryPassenger = stateOptions.passengers?.[0]?.age_category === 'child'
+        ? 'child'
+        : 'adult';
+      const legacyQuote = engine.quote({
+        start: stateOptions.start,
+        goal: stateOptions.goal,
+        via: stateOptions.via,
+        passenger: primaryPassenger,
+        travelDate: stateOptions.travelDate,
+        chargeTableId: $('charge').value || null,
+        productId: $('product').value || null,
+        discountId: $('discount').value || null
+      });
+      const refund = engine.refund(createRefundOptions(legacyQuote));
+      renderRefund(legacyQuote, refund);
     } else {
-      renderSale(result);
+      renderPracticalSummary(practical);
     }
-
-    renderPracticalSummary(practical);
     refreshHistoryUi();
 
+    renderLiveValidation(practical.validation);
     setStatus(
       navigator.onLine
         ? '計算完了'
@@ -1120,8 +1299,8 @@ async function calculate() {
         operation: $('operation').value,
         start: $('start').value,
         goal: $('goal').value,
-        via: $('via').value,
-        passenger: $('passenger').value,
+        via: via.join(','),
+        passengers: stateOptions.passengers,
         date: $('date').value,
         charge: $('charge').value,
         product: $('product').value,
@@ -1137,7 +1316,11 @@ async function calculate() {
       })
     );
   } catch (error) {
-    setStatus(error.message, 'error');
+    const validation = error.details?.validation;
+    if (validation) renderLiveValidation(validation);
+    setStatus(`${error.engine ? `${error.engine}: ` : ''}${error.message}`, 'error');
+  } finally {
+    calculationInProgress = false;
   }
 }
 
@@ -1419,17 +1602,15 @@ async function init() {
 
     restore();
     const today = new Date().toISOString().slice(0, 10);
+    if (!$('date').value) $('date').value = today;
     if (!$('requestDate').value) $('requestDate').value = today;
     if (!$('ticketStartDate').value) $('ticketStartDate').value = today;
     if (!$('ticketEndDate').value) $('ticketEndDate').value = today;
-    setupAutocomplete(
-      'start',
-      'startCandidates'
-    );
-    setupAutocomplete(
-      'goal',
-      'goalCandidates'
-    );
+    version51State = new Version51StateController({engine}).init();
+    document.addEventListener('mars-killer-v5.1-state-change', event => {
+      scheduleSmartRecalculation(event.detail?.scope || 'calculation');
+    });
+    scheduleRealtimeValidation();
 
     syncRefundStatusOptions();
     syncBusinessPeriodFields();
@@ -1480,6 +1661,10 @@ $('swap').addEventListener('click', () => {
   const start = $('start').value;
   $('start').value = $('goal').value;
   $('goal').value = start;
+  $('start').dataset.stationId = '';
+  $('goal').dataset.stationId = '';
+  $('start').dispatchEvent(new Event('input', {bubbles: true}));
+  $('goal').dispatchEvent(new Event('input', {bubbles: true}));
 });
 
 window.addEventListener(
@@ -1524,6 +1709,18 @@ if ('serviceWorker' in navigator) {
     registerServiceWorker
   );
 }
+
+$('historyList')?.addEventListener('click', event => {
+  const button = event.target.closest('[data-history-id]');
+  if (!button) return;
+  const entry = engine.getSearchHistory().find(item =>
+    String(item.id || item.created_at) === button.dataset.historyId
+  );
+  if (!entry) return;
+  version51State?.restoreSnapshot(entry);
+  setStatus('履歴の入力条件を復元しました。', 'ok');
+  scheduleRealtimeValidation();
+});
 
 $('clearHistory')?.addEventListener(
   'click',

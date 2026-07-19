@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mars-killer-v5.0';
+const CACHE_NAME = 'mars-killer-v5.1-final';
 
 const PRECACHE_ASSETS = [
   "./",
@@ -19,6 +19,18 @@ const PRECACHE_ASSETS = [
   "./shared/Constants.js",
   "./shared/Utils.js",
   "./shared/RuleResolver.js",
+  "./services/StationSearchIndex.js",
+  "./services/PracticalStorage.js",
+  "./services/DebugService.js",
+  "./services/PracticalOperationPlatform.js",
+  "./services/PassengerCalculationService.js",
+  "./services/PracticalValidationService.js",
+  "./services/PassengerRuleService.js",
+  "./services/PassengerModel.js",
+  "./services/SearchConditionAdapter.js",
+  "./services/SectionServiceManager.js",
+  "./ui/StationAutocomplete.js",
+  "./ui/Version51StateController.js",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./data/distance/junctions.json",
