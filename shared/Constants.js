@@ -66,3 +66,23 @@ export const DistanceComparison = Object.freeze({
     'less_than_or_equal',
   EQUAL: 'equal'
 });
+
+
+export const BusinessOperation = Object.freeze({
+  OVERRUN: 'overrun',
+  STOP_CALCULATION: 'stop_calculation',
+  SEPARATE_CALCULATION: 'separate_calculation',
+  SECTION_CHANGE: 'section_change',
+  ROUTE_CHANGE: 'route_change',
+  ABANDONMENT: 'abandonment'
+});
+
+export const TicketUsageType = Object.freeze({
+  SAME_DAY: 'same_day',
+  VALID_PERIOD: 'valid_period'
+});
+
+export const DepartureStatus = Object.freeze({
+  BEFORE_DEPARTURE: 'before_departure',
+  AFTER_DEPARTURE: 'after_departure'
+});

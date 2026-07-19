@@ -5,6 +5,7 @@ import ChangeEngine from './engines/ChangeEngine.js';
 import RefundEngine from './engines/RefundEngine.js';
 import DiscountEngine from './engines/DiscountEngine.js';
 import ValidationEngine from './engines/ValidationEngine.js';
+import BusinessEngine from './engines/BusinessEngine.js';
 import {
   DiscountType
 } from './shared/Constants.js';
@@ -48,6 +49,17 @@ export class SalesEngine {
         this.discountRules,
         this.validationEngine
       );
+
+    this.businessEngine = new BusinessEngine({
+      routeEngine: this.routeEngine,
+      fareEngine: this.fareEngine,
+      chargeEngine: this.chargeEngine,
+      discountEngine: this.discountEngine,
+      changeEngine: this.changeEngine,
+      refundEngine: this.refundEngine,
+      validationEngine: this.validationEngine,
+      rules: this.businessRules
+    });
   }
 
   static async load(base = './data') {
@@ -72,6 +84,7 @@ export class SalesEngine {
       changeRules,
       discountRules,
       refundRules,
+      businessRules,
       specialFares
     ] = await Promise.all([
       get('distance/stations.json'),
@@ -83,6 +96,7 @@ export class SalesEngine {
       get('rules/change_rules.json'),
       get('rules/discount_rules.json'),
       get('rules/refund_rules.json'),
+      get('rules/business_rules.json'),
       get('rules/special_fares.json')
     ]);
 
@@ -96,6 +110,7 @@ export class SalesEngine {
       changeRules,
       discountRules,
       refundRules,
+      businessRules,
       specialFares
     });
   }
@@ -182,6 +197,10 @@ export class SalesEngine {
    */
   validate(options) {
     return this.validationEngine.validate(options);
+  }
+
+  business(options) {
+    return this.businessEngine.calculate(options);
   }
 
   discounted(amount, rate, rounding) {

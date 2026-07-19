@@ -23,6 +23,8 @@ export default class ValidationEngine {
         return this.validateRefund(input);
       case 'rules':
         return this.validateRules(input);
+      case 'business':
+        return this.validateBusiness(input);
       default:
         return this.invalid(
           ErrorCodes.UNSUPPORTED_OPERATION,
@@ -135,6 +137,40 @@ export default class ValidationEngine {
     }
 
     return this.valid();
+  }
+
+  validateBusiness(input) {
+    const required = this.requiredFields(input, [
+      'requestDate', 'ticketType', 'ticketUsageType',
+      'departureStatus', 'operation'
+    ]);
+    if (!required.valid) {
+      const codes = {
+        requestDate: ErrorCodes.INVALID_DATE,
+        operation: ErrorCodes.INVALID_OPERATION,
+        departureStatus: ErrorCodes.INVALID_DEPARTURE_STATUS
+      };
+      return this.invalid(codes[required.details.field] || required.error_code, required.message, required.details);
+    }
+    const requestDate = this.parseDate(input.requestDate);
+    if (!requestDate) return this.invalid(ErrorCodes.INVALID_DATE, '申出日が不正です。');
+    const usageRule = input.businessRules?.ticket_usage_types?.[input.ticketUsageType];
+    if (!usageRule) return this.invalid(ErrorCodes.INVALID_TICKET_TYPE, `きっぷ利用形態が不正です: ${input.ticketUsageType}`);
+    if (usageRule.requires_start_date && !input.ticketStartDate) return this.invalid(ErrorCodes.INVALID_PERIOD, '有効開始日が必要です。');
+    if (usageRule.requires_end_date && !input.ticketEndDate) return this.invalid(ErrorCodes.INVALID_PERIOD, '有効終了日が必要です。');
+    const startDate = input.ticketStartDate ? this.parseDate(input.ticketStartDate) : requestDate;
+    const endDate = input.ticketEndDate ? this.parseDate(input.ticketEndDate) : startDate;
+    if (!startDate || !endDate) return this.invalid(ErrorCodes.INVALID_DATE, '有効期間の日付が不正です。');
+    if (startDate > endDate) return this.invalid(ErrorCodes.INVALID_PERIOD, '有効開始日が有効終了日より後です。');
+    if (!input.businessRules?.operations?.[input.operation]) return this.invalid(ErrorCodes.INVALID_OPERATION, `営業実務が不正です: ${input.operation}`);
+    if (!input.businessRules?.departure_statuses?.includes(input.departureStatus)) return this.invalid(ErrorCodes.INVALID_DEPARTURE_STATUS, `列車状態が不正です: ${input.departureStatus}`);
+    return this.valid({ requestDate, startDate, endDate });
+  }
+
+  parseDate(value) {
+    if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return null;
+    const date = new Date(`${value}T00:00:00`);
+    return Number.isNaN(date.getTime()) ? null : date;
   }
 
   validateRules(input) {

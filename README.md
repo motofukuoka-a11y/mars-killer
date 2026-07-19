@@ -416,3 +416,66 @@ shared/Utils.js
 - ValidationEngineは入力形式を検証しますが、発売可否を最終決定するものではありません。
 - 既存エンジン固有のエラーコードは、今後段階的に共通エラーコードへ移行します。
 
+
+
+## Version 2.8変更内容
+
+- `BusinessEngine`を追加
+- 申出日・有効期間から営業状態を自動判定
+- 乗り越し、打切計算、別途計算、区間変更、経路変更、前途放棄に対応
+- `BusinessOperation`、`TicketUsageType`、`DepartureStatus`を追加
+- ValidationEngineへ営業実務入力検証を追加
+- UIへ営業実務入力欄を追加
+- 操作振分けを`business_rules.json`で管理
+
+## BusinessEngine
+
+保存先：`engines/BusinessEngine.js`
+
+BusinessEngineは営業実務の入口であり、運賃計算を持たず、RouteEngine、FareEngine、ChargeEngine、DiscountEngine、ChangeEngine、RefundEngine、ValidationEngineを呼び出します。
+
+公開API：
+
+```javascript
+engine.business(options)
+```
+
+## 営業実務入力
+
+`requestDate`、`ticketType`、`ticketUsageType`、`ticketStartDate`、`ticketEndDate`、`departureStatus`、`discountType`、`operation`を指定します。
+
+## BusinessOperation
+
+```javascript
+BusinessOperation.OVERRUN
+BusinessOperation.STOP_CALCULATION
+BusinessOperation.SEPARATE_CALCULATION
+BusinessOperation.SECTION_CHANGE
+BusinessOperation.ROUTE_CHANGE
+BusinessOperation.ABANDONMENT
+```
+
+## 営業状態判定
+
+申出日、有効開始日、有効終了日から`before_use`、`after_use_start`、`in_valid_period`、`expired`を自動判定します。
+
+## 利用例
+
+```javascript
+const result = engine.business({
+  requestDate: '2026-07-19',
+  ticketType: 'ordinary',
+  ticketUsageType: 'valid_period',
+  ticketStartDate: '2026-07-18',
+  ticketEndDate: '2026-07-20',
+  departureStatus: 'after_departure',
+  operation: 'overrun',
+  start: '札幌',
+  goal: '小樽',
+  actualGoal: '余市'
+});
+```
+
+追加エラーコード：`ERR_INVALID_OPERATION`、`ERR_INVALID_DATE`、`ERR_INVALID_PERIOD`、`ERR_INVALID_DEPARTURE_STATUS`。
+
+`data/rules/business_rules.json`は利用形態、列車状態、営業実務ごとの呼出先を管理します。

@@ -1,0 +1,47 @@
+{
+  "version": "2.8",
+  "ticket_usage_types": {
+    "same_day": {
+      "requires_start_date": false,
+      "requires_end_date": false
+    },
+    "valid_period": {
+      "requires_start_date": true,
+      "requires_end_date": true
+    }
+  },
+  "departure_statuses": [
+    "before_departure",
+    "after_departure"
+  ],
+  "operations": {
+    "overrun": {
+      "handler": "change",
+      "change_type": "overtravel",
+      "calculation_type": "additional"
+    },
+    "stop_calculation": {
+      "handler": "fare",
+      "calculation_type": "cutoff"
+    },
+    "separate_calculation": {
+      "handler": "fare",
+      "calculation_type": "separate"
+    },
+    "section_change": {
+      "handler": "change",
+      "change_type": "journey_change",
+      "calculation_type": "difference"
+    },
+    "route_change": {
+      "handler": "change",
+      "change_type": "route_change",
+      "calculation_type": "difference"
+    },
+    "abandonment": {
+      "handler": "refund",
+      "refund_status": "journey_abandoned",
+      "calculation_type": "refund"
+    }
+  }
+}

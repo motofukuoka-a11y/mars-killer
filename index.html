@@ -66,6 +66,7 @@
       <select id="operation">
         <option value="sale">発売額</option>
         <option value="refund">払戻額</option>
+        <option value="business">営業実務</option>
       </select>
     </label>
 
@@ -263,6 +264,15 @@
       </div>
     </div>
 
+
+    <div id="businessOptions" hidden>
+      <label>申出日<input id="requestDate" type="date"></label>
+      <label>券種<select id="businessTicketType"><option value="ordinary">普通乗車券</option><option value="limited_express">特急券</option><option value="reserved_seat">指定席券</option><option value="green">グリーン券</option></select></label>
+      <fieldset><legend>きっぷ利用形態</legend><label><input type="radio" name="ticketUsageType" value="same_day" checked>当日のみ</label><label><input type="radio" name="ticketUsageType" value="valid_period">有効期間あり</label></fieldset>
+      <div id="businessPeriodFields" hidden><label>開始日<input id="ticketStartDate" type="date"></label><label>終了日<input id="ticketEndDate" type="date"></label></div>
+      <fieldset><legend>列車状態</legend><label><input type="radio" name="departureStatus" value="before_departure" checked>出発前</label><label><input type="radio" name="departureStatus" value="after_departure">出発後</label></fieldset>
+      <label>営業実務<select id="businessOperation"><option value="overrun">乗り越し</option><option value="stop_calculation">打切計算</option><option value="separate_calculation">別途計算</option><option value="section_change">区間変更</option><option value="route_change">経路変更</option><option value="abandonment">前途放棄</option></select></label>
+    </div>
     <button
       id="calc"
       class="primary"

@@ -1,5 +1,6 @@
 import { SalesEngine } from './engine.js';
 import { RefundStatus } from './engines/RefundEngine.js';
+import { TicketUsageType, DepartureStatus } from './shared/Constants.js';
 
 const $ = id => document.getElementById(id);
 let engine;
@@ -502,6 +503,18 @@ function showResult() {
   });
 }
 
+
+function checkedValue(name) { return document.querySelector(`input[name="${name}"]:checked`)?.value || ''; }
+function syncBusinessPeriodFields() { $('businessPeriodFields').hidden = checkedValue('ticketUsageType') !== TicketUsageType.VALID_PERIOD; }
+function createBusinessInput(via) {
+  const requestDate=$('requestDate').value, usage=checkedValue('ticketUsageType'), departure=checkedValue('departureStatus');
+  return {requestDate,ticketType:$('businessTicketType').value,ticketUsageType:usage,ticketStartDate:usage===TicketUsageType.VALID_PERIOD?$('ticketStartDate').value:requestDate,ticketEndDate:usage===TicketUsageType.VALID_PERIOD?$('ticketEndDate').value:requestDate,departureStatus:departure===DepartureStatus.AFTER_DEPARTURE?DepartureStatus.AFTER_DEPARTURE:DepartureStatus.BEFORE_DEPARTURE,discountType:$('discount').value||null,operation:$('businessOperation').value,start:$('start').value,goal:$('goal').value,actualGoal:$('goal').value,via,passenger:$('passenger').value};
+}
+function renderBusiness(result) {
+  const state=result.business_state||{}, fare=result.fare||{};
+  $('result').innerHTML=`<section class="summary"><p class="eyebrow">営業実務計算</p><p class="total">${result.success?yen(fare.total):'計算不可'}</p><p>${esc(result.operation||'')}</p></section><div class="metrics"><div><span>原券</span><strong>${yen(fare.original||0)}</strong></div><div><span>追加</span><strong>${yen(fare.additional||0)}</strong></div><div><span>払戻</span><strong>${yen(fare.refund||0)}</strong></div></div><section class="reason"><h2>営業状態</h2><p>使用前：${state.before_use?'はい':'いいえ'} / 有効期間中：${state.in_valid_period?'はい':'いいえ'} / 有効期間終了後：${state.expired?'はい':'いいえ'}</p></section><section class="reason"><h2>計算内容</h2>${result.calculation?.length?result.calculation.map(x=>`<p>${esc(JSON.stringify(x))}</p>`).join(''):`<p>${esc(result.message||'計算結果なし')}</p>`}</section>${result.error_code?`<div class="notice">${esc(result.error_code)}：${esc(result.message||'')}</div>`:''}`; showResult();
+}
+
 async function calculate() {
   try {
     setStatus('計算中…');
@@ -525,7 +538,9 @@ async function calculate() {
         $('discount').value || null
     });
 
-    if ($('operation').value === 'refund') {
+    if ($('operation').value === 'business') {
+      renderBusiness(engine.business(createBusinessInput(via)));
+    } else if ($('operation').value === 'refund') {
       const refund = engine.refund(
         createRefundOptions(result)
       );
@@ -590,13 +605,12 @@ function restore() {
 }
 
 function syncOperation() {
-  const refund =
-    $('operation').value === 'refund';
-
+  const operation = $('operation').value;
+  const refund = operation === 'refund';
+  const business = operation === 'business';
   $('refundOptions').hidden = !refund;
-  $('calc').textContent = refund
-    ? '払戻額を計算'
-    : '発売額を計算';
+  $('businessOptions').hidden = !business;
+  $('calc').textContent = business ? '営業実務を計算' : refund ? '払戻額を計算' : '発売額を計算';
 }
 
 function applyTheme(value) {
@@ -636,6 +650,10 @@ async function init() {
     engine = await SalesEngine.load('./data');
 
     restore();
+    const today = new Date().toISOString().slice(0, 10);
+    if (!$('requestDate').value) $('requestDate').value = today;
+    if (!$('ticketStartDate').value) $('ticketStartDate').value = today;
+    if (!$('ticketEndDate').value) $('ticketEndDate').value = today;
     setupAutocomplete(
       'start',
       'startCandidates'
@@ -646,6 +664,7 @@ async function init() {
     );
 
     syncRefundStatusOptions();
+    syncBusinessPeriodFields();
     syncOperation();
 
     setStatus(
@@ -678,6 +697,8 @@ $('refundStatus').addEventListener(
   'change',
   syncRefundAdditionalFields
 );
+
+document.querySelectorAll('input[name="ticketUsageType"]').forEach(input => input.addEventListener('change', syncBusinessPeriodFields));
 
 $('swap').addEventListener('click', () => {
   const start = $('start').value;
