@@ -51,6 +51,17 @@
       color: #9c1c1c;
     }
   </style>
+  <style>
+    .v5-options { margin:1rem 0; padding:1rem; border:1px solid currentColor; border-radius:1rem; }
+    .v5-options summary { cursor:pointer; font-weight:700; }
+    .v5-three,.v5-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; }
+    .v5-checks { display:flex; flex-wrap:wrap; gap:1rem; margin-top:1rem; }
+    .v5-card { display:flex; flex-direction:column; gap:.4rem; padding:1rem; border:1px solid currentColor; border-radius:1rem; }
+    .v5-total { grid-column:span 2; }
+    .history-row { display:grid; grid-template-columns:2fr 1fr 1fr; gap:1rem; padding:.75rem 0; border-bottom:1px solid currentColor; }
+    details pre { max-height:32rem; overflow:auto; white-space:pre-wrap; word-break:break-word; }
+    @media(max-width:760px){.v5-three,.v5-grid,.history-row{grid-template-columns:1fr}.v5-total{grid-column:auto}}
+  </style>
   <title>MARS KILLER｜運賃・料金・払戻計算支援</title>
 </head>
 
@@ -151,6 +162,52 @@
       経由駅（任意）
       <input id="via" placeholder="複数はカンマ区切り">
     </label>
+
+    <details class="v5-options" open>
+      <summary>Version 5.0 実務検索条件</summary>
+      <div class="two">
+        <label>会社指定
+          <select id="company">
+            <option value="">自動判定</option>
+            <option value="JRH">JR北海道</option>
+          </select>
+        </label>
+        <label>列車種別
+          <select id="trainType">
+            <option value="">指定なし</option>
+            <option value="local">普通・快速</option>
+            <option value="liner">ライナー</option>
+            <option value="express">急行</option>
+            <option value="limited_express">特急</option>
+            <option value="shinkansen">新幹線</option>
+          </select>
+        </label>
+      </div>
+      <div class="v5-three">
+        <label>利用人数
+          <input id="passengerCount" type="number" min="1" max="99" value="1">
+        </label>
+        <label>片道・往復
+          <select id="tripType">
+            <option value="one_way">片道</option>
+            <option value="round_trip">往復</option>
+          </select>
+        </label>
+        <label>設備
+          <select id="seatClass">
+            <option value="ordinary">普通車</option>
+            <option value="unreserved">自由席</option>
+            <option value="reserved">指定席</option>
+            <option value="green">グリーン</option>
+          </select>
+        </label>
+      </div>
+      <div class="v5-checks">
+        <label><input id="transfer" type="checkbox">乗継</label>
+        <label><input id="sleeper" type="checkbox">寝台</label>
+        <label><input id="debugMode" type="checkbox">デバッグモード</label>
+      </div>
+    </details>
 
     <div class="two">
       <label>
@@ -276,6 +333,16 @@
   </section>
 
   <section id="result" class="card" hidden></section>
+
+  <section class="card">
+    <div class="brand-row">
+      <h2>検索履歴</h2>
+      <button id="clearHistory" type="button">履歴を消去</button>
+    </div>
+    <div id="historyList" aria-live="polite">
+      <p>履歴はありません。</p>
+    </div>
+  </section>
 
   <p class="foot">
     非公式の計算支援ツールです。最終取扱いは規程・端末で確認してください。

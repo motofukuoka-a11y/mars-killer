@@ -1317,3 +1317,53 @@ window.__MARS_KILLER_APP_READY__ = true;
 - Version 4.1.1：モジュール読込み不具合修正（コミット`9ce677e`）
 - Version 4.1.2：PWA更新・キャッシュ制御改善
 
+## Version 5.0 実務支援システム完成基盤
+
+Version 5.0は、Version 4.1.2のPWA、`distance.sections`、既存Engine APIを維持し、駅業務向け検索・履歴・候補経路・検証・デバッグをサービス層で統合します。
+
+### 設計思想
+
+- 駅・路線・距離・運賃・料金・規則はJSONで管理する
+- 既存Engineの責務を変更しない
+- 実務検索は`PracticalOperationPlatform`で統合する
+- 会社は`company_id`で分離し、JR各社・第三セクターへ拡張する
+- Version 6以降はマスター追加とルール追加を中心に全国対応する
+- 未収録の金額・規則を推測して計算しない
+
+### Version 5.0追加機能
+
+- station_masterベースの検索インデックス
+- 前方一致、部分一致、かな、漢字、駅コード検索
+- 会社指定
+- 複数経由駅
+- 列車種別、利用日、人数、片道・往復、設備条件
+- 検索履歴20件
+- お気に入り駅API
+- 最近使用した駅API
+- 複数経路候補API
+- 経由順比較
+- 会社境界数
+- 入力・結果の循環検出
+- エラーログ
+- Engine別実行時間付きデバッグログ
+- JSONデバッグ表示
+- 実務結果カードUI
+- Version 5.0 PWAキャッシュ
+
+### Engine構成
+
+既存のRouteEngine、FareEngine、ChargeEngine、DiscountEngine、RefundEngine、ChangeEngine、BusinessEngine、ValidationEngine、RuleResolverを維持します。
+
+Version 5.0では以下のサービスを追加します。
+
+- `StationSearchIndex`
+- `PracticalStorage`
+- `DebugService`
+- `PracticalOperationPlatform`
+
+遠距離逓減、往復割引、団体、特殊企画券、新幹線、寝台、会社跨ぎ、北海道独自規則は、正式なJSONマスターが存在する場合に既存EngineおよびRuleResolverが適用します。
+
+### 変更履歴
+
+- Version 5.0：実務支援システム完成基盤
+

@@ -10,6 +10,10 @@ import RuleResolver from './shared/RuleResolver.js';
 import {
   DiscountType
 } from './shared/Constants.js';
+import StationSearchIndex from './services/StationSearchIndex.js';
+import PracticalStorage from './services/PracticalStorage.js';
+import DebugService from './services/DebugService.js';
+import PracticalOperationPlatform from './services/PracticalOperationPlatform.js';
 
 export class SalesEngine {
 
@@ -111,6 +115,24 @@ export class SalesEngine {
       rules: this.businessRules,
       ruleResolver: this.ruleResolver
     });
+
+    this.stationSearchIndex =
+      new StationSearchIndex(
+        this.stationMaster?.records?.length
+          ? this.stationMaster.records
+          : this.stations
+      );
+    this.storage = new PracticalStorage();
+    this.debugService = new DebugService();
+    this.practicalPlatform =
+      new PracticalOperationPlatform({
+        salesEngine: this,
+        stationSearchIndex:
+          this.stationSearchIndex,
+        storage: this.storage,
+        debugService:
+          this.debugService
+      });
   }
 
   static async load(base = './data') {
@@ -473,4 +495,49 @@ export class SalesEngine {
 
     return 0;
   }
+
+  searchStations(query, options = {}) {
+    return this.stationSearchIndex.search(query, options);
+  }
+
+  routeCandidates(options) {
+    return this.practicalPlatform.routeCandidates(options);
+  }
+
+  practicalQuote(options) {
+    return this.practicalPlatform.calculate(options);
+  }
+
+  getSearchHistory() {
+    return this.storage.history();
+  }
+
+  clearSearchHistory() {
+    return this.storage.clearHistory();
+  }
+
+  getFavoriteStations() {
+    return this.storage.favorites();
+  }
+
+  toggleFavoriteStation(station) {
+    return this.storage.toggleFavorite(station);
+  }
+
+  getRecentStations() {
+    return this.storage.recentStations();
+  }
+
+  getErrorLogs() {
+    return this.storage.errorLogs();
+  }
+
+  getDebugLogs() {
+    return this.debugService.entries();
+  }
+
+  setDebugEnabled(enabled) {
+    this.debugService.setEnabled(enabled);
+  }
+
 }

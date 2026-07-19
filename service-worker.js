@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mars-killer-v4.1.2';
+const CACHE_NAME = 'mars-killer-v5.0';
 
 const PRECACHE_ASSETS = [
   "./",

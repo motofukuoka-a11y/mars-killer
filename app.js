@@ -43,26 +43,14 @@ function setStatus(text, kind = '') {
 }
 
 function stationMatches(query) {
-  const normalized = normalize(query);
-
-  if (!normalized) {
+  if (!query?.trim() || !engine) {
     return [];
   }
 
-  return engine.stations
-    .filter(station =>
-      normalize(station.station_reading)
-        .startsWith(normalized) ||
-      normalize(station.station_name)
-        .startsWith(normalized)
-    )
-    .sort((a, b) =>
-      a.station_reading.localeCompare(
-        b.station_reading,
-        'ja'
-      )
-    )
-    .slice(0, 40);
+  return engine.searchStations(query, {
+    limit: 40,
+    companyId: $('company')?.value || null
+  });
 }
 
 function setupAutocomplete(inputId, boxId) {
@@ -980,6 +968,98 @@ function renderBusiness(result) {
   showResult();
 }
 
+
+function practicalOptions(via) {
+  return {
+    start: $('start').value,
+    goal: $('goal').value,
+    via,
+    company_id: $('company')?.value || null,
+    train_type: $('trainType')?.value || null,
+    travelDate: $('date').value,
+    passenger: $('passenger').value,
+    passengers: Number($('passengerCount')?.value || 1),
+    trip_type: $('tripType')?.value || 'one_way',
+    seat_class: $('seatClass')?.value || 'ordinary',
+    transfer: Boolean($('transfer')?.checked),
+    sleeper: Boolean($('sleeper')?.checked),
+    chargeTableId: $('charge').value || null,
+    productId: $('product').value || null,
+    discountId: $('discount').value || null
+  };
+}
+
+function renderPracticalSummary(result) {
+  const candidates = result.route_candidates
+    .map(candidate => `
+      <article class="v5-card">
+        <strong>${esc(candidate.label)}</strong>
+        <span>運賃計算キロ ${
+          esc(candidate.route.fare_calculation_km)
+        }km</span>
+        <span>会社境界 ${
+          esc(candidate.company_boundary_count)
+        }箇所</span>
+      </article>
+    `).join('');
+
+  const debug = $('debugMode')?.checked
+    ? `<details open>
+        <summary>デバッグJSON</summary>
+        <pre>${esc(JSON.stringify({
+          result,
+          engine_logs: engine.getDebugLogs(),
+          error_logs: engine.getErrorLogs()
+        }, null, 2))}</pre>
+      </details>`
+    : '';
+
+  $('result').insertAdjacentHTML('beforeend', `
+    <section class="reason">
+      <h2>Version 5.0 実務支援結果</h2>
+      <div class="v5-grid">
+        <article class="v5-card">
+          <strong>普通運賃</strong>
+          <span>${yen(result.fare.ordinary_fare_yen)}</span>
+        </article>
+        <article class="v5-card">
+          <strong>料金</strong>
+          <span>${yen(result.fare.charge_yen)}</span>
+        </article>
+        <article class="v5-card">
+          <strong>割引</strong>
+          <span>${yen(result.fare.discount_yen)}</span>
+        </article>
+        <article class="v5-card v5-total">
+          <strong>合計</strong>
+          <span>${yen(result.fare.total_yen)}</span>
+        </article>
+      </div>
+      <h3>経路候補</h3>
+      <div class="v5-grid">${candidates}</div>
+      ${debug}
+    </section>
+  `);
+}
+
+function refreshHistoryUi() {
+  const box = $('historyList');
+  if (!box || !engine) return;
+  const history = engine.getSearchHistory();
+  box.innerHTML = history.length
+    ? history.map(entry => `
+        <article class="history-row">
+          <strong>${esc(entry.conditions.start)}
+            → ${esc(entry.conditions.goal)}</strong>
+          <span>${yen(entry.total_yen)}</span>
+          <small>${esc(new Date(
+            entry.created_at
+          ).toLocaleString('ja-JP'))}</small>
+        </article>
+      `).join('')
+    : '<p>履歴はありません。</p>';
+}
+
 async function calculate() {
   try {
     setStatus('計算中…');
@@ -988,6 +1068,15 @@ async function calculate() {
       .split(',')
       .map(value => value.trim())
       .filter(Boolean);
+
+    engine.setDebugEnabled(
+      Boolean($('debugMode')?.checked)
+    );
+
+    const practical =
+      await engine.practicalQuote(
+        practicalOptions(via)
+      );
 
     const result = engine.quote({
       start: $('start').value,
@@ -1014,6 +1103,9 @@ async function calculate() {
     } else {
       renderSale(result);
     }
+
+    renderPracticalSummary(practical);
+    refreshHistoryUi();
 
     setStatus(
       navigator.onLine
@@ -1342,6 +1434,7 @@ async function init() {
     syncRefundStatusOptions();
     syncBusinessPeriodFields();
     syncOperation();
+    refreshHistoryUi();
 
     setStatus(
       `準備完了：${engine.stations.length}駅`,
@@ -1431,5 +1524,21 @@ if ('serviceWorker' in navigator) {
     registerServiceWorker
   );
 }
+
+$('clearHistory')?.addEventListener(
+  'click',
+  () => {
+    engine.clearSearchHistory();
+    refreshHistoryUi();
+  }
+);
+
+$('debugMode')?.addEventListener(
+  'change',
+  event =>
+    engine?.setDebugEnabled(
+      event.target.checked
+    )
+);
 
 init();
