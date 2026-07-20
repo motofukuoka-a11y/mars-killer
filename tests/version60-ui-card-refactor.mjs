@@ -57,4 +57,47 @@ for (const token of ['setupPassengerCards()', 'setupSectionCards()', 'routeStati
 
 assert.ok(!controller.includes('buildSectionServices(sections, [])'), 'route search must not expand all route sections into UI cards');
 
+
+// 指定区画のselectは再描画後に直接changeイベントを登録する。
+const eventSectionCards = Object.create(SectionCardList.prototype);
+eventSectionCards.stations = sectionCards.stations;
+eventSectionCards.items = [initialSection, addedSection];
+let changedCount = 0;
+eventSectionCards.changed = render => {
+  assert.equal(render, false);
+  changedCount += 1;
+};
+eventSectionCards.handleSelectChange = SectionCardList.prototype.handleSelectChange.bind(eventSectionCards);
+
+const listeners = [];
+const fakeSelects = [
+  {field: 'train_type', value: 'limited_express', index: 0},
+  {field: 'seat_type', value: 'reserved', index: 0},
+  {field: 'train_type', value: 'rapid', index: 1},
+  {field: 'seat_type', value: 'non_reserved', index: 1}
+].map(definition => ({
+  dataset: {cardField: definition.field},
+  value: definition.value,
+  closest: selector => selector === '[data-card-index]'
+    ? {dataset: {cardIndex: String(definition.index)}}
+    : null,
+  addEventListener: (type, listener) => listeners.push({type, listener, definition})
+}));
+eventSectionCards.container = {
+  querySelectorAll: selector => selector === 'select[data-card-field]' ? fakeSelects : []
+};
+SectionCardList.prototype.afterRender.call(eventSectionCards);
+assert.equal(listeners.length, 4, 'existing and dynamically added cards must receive select change events');
+for (const {type, listener, definition} of listeners) {
+  assert.equal(type, 'change');
+  listener({currentTarget: fakeSelects.find(select => select.dataset.cardField === definition.field && select.value === definition.value && select.closest('[data-card-index]').dataset.cardIndex === String(definition.index))});
+}
+assert.equal(eventSectionCards.items[0].train_type, 'limited_express');
+assert.equal(eventSectionCards.items[0].seat_type, 'reserved');
+assert.equal(eventSectionCards.items[1].train_type, 'rapid');
+assert.equal(eventSectionCards.items[1].seat_type, 'non_reserved');
+assert.equal(changedCount, 4);
+assert.equal(eventSectionCards.items[0].charge_applicable, true);
+assert.equal(eventSectionCards.items[1].charge_applicable, true);
+
 console.log('Version 6.0 UI card refactor acceptance: PASS');

@@ -33,6 +33,7 @@ export default class Version51StateController {
         company_preference: root.getElementById('company')?.value || null
       },
       passengers: createPassengerState(),
+      calculation: {ticket_type: 'ordinary'},
       route: {distance: null, section_services: []}
     };
   }
@@ -47,6 +48,7 @@ export default class Version51StateController {
     this.renderViaStations();
     this.renderSectionServices();
     this.bindGeneralInputs();
+    this.setupTicketTypeTransitions();
     this.emitChange('initial');
     return this;
   }
@@ -272,6 +274,60 @@ export default class Version51StateController {
     }));
   }
 
+  setupTicketTypeTransitions() {
+    const normalizeTicketType = value =>
+      ['charge', 'limited_express', 'reserved_seat', 'green'].includes(value)
+        ? 'limited_express'
+        : 'ordinary';
+
+    const apply = (value, source = null) => {
+      const ticketType = normalizeTicketType(value);
+      this.state.calculation.ticket_type = ticketType;
+
+      this.root.querySelectorAll('[data-ticket-type]').forEach(tab => {
+        const selected = normalizeTicketType(tab.dataset.ticketType) === ticketType;
+        tab.classList.toggle('active', selected);
+        tab.setAttribute('aria-selected', String(selected));
+        if ('checked' in tab) tab.checked = selected;
+      });
+
+      this.root.querySelectorAll('input[name="ticketType"], select[name="ticketType"], #ticketType').forEach(control => {
+        if (control === source) return;
+        if (control.type === 'radio') {
+          control.checked = normalizeTicketType(control.value) === ticketType;
+        } else {
+          control.value = ticketType;
+        }
+      });
+
+      this.save();
+      this.emitChange('ticket-type');
+    };
+
+    // ルート要素でイベント委譲することで、後から生成・差替えされたタブにも対応する。
+    this.root.addEventListener('click', event => {
+      const tab = event.target.closest?.('[data-ticket-type]');
+      if (!tab) return;
+      event.preventDefault();
+      apply(tab.dataset.ticketType, tab);
+    });
+
+    this.root.addEventListener('change', event => {
+      const control = event.target;
+      if (!control?.matches?.('input[name="ticketType"], select[name="ticketType"], #ticketType')) return;
+      apply(control.value, control);
+    });
+
+    const selected = this.root.querySelector(
+      '[data-ticket-type][aria-selected="true"], [data-ticket-type].active, input[name="ticketType"]:checked, select[name="ticketType"], #ticketType'
+    );
+    if (selected) {
+      this.state.calculation.ticket_type = normalizeTicketType(
+        selected.dataset?.ticketType || selected.value
+      );
+    }
+  }
+
   bindGeneralInputs() {
     this.root.getElementById('date')?.addEventListener('change', event => {
       this.state.search.travel_date = event.target.value || null;
@@ -311,6 +367,11 @@ export default class Version51StateController {
     this.state.search.travel_date = search.travel_date || conditions.travelDate || null;
     this.state.search.company_preference = search.company_preference || conditions.company_id || null;
     this.state.passengers = createPassengerState(passengers);
+    this.state.calculation = {
+      ...this.state.calculation,
+      ...(snapshot.calculation || {}),
+      ticket_type: snapshot.ticket_type || snapshot.calculation?.ticket_type || this.state.calculation.ticket_type
+    };
     this.state.route.section_services = Array.isArray(sectionServices) ? sectionServices : [];
 
     const fixed = [
@@ -353,7 +414,9 @@ export default class Version51StateController {
       company_id: this.state.search.company_preference,
       passengers: activePassengers,
       passenger_totals: passengerTotals(activePassengers),
-      section_services: this.state.route.section_services
+      section_services: this.state.route.section_services,
+      ticketType: this.state.calculation.ticket_type,
+      ticket_type: this.state.calculation.ticket_type
     };
   }
 
@@ -364,6 +427,7 @@ export default class Version51StateController {
       if (!saved) return;
       this.state.search = {...this.state.search, ...saved.search};
       this.state.passengers = createPassengerState(saved.passengers);
+      this.state.calculation = {...this.state.calculation, ...(saved.calculation || {})};
       this.state.route = {...this.state.route, ...saved.route};
     } catch { /* 壊れた保存値は無視する。 */ }
   }

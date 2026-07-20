@@ -21,6 +21,27 @@ export default class SectionCardList extends DynamicCardList {
   constructor(options) {
     super(options);
     this.stations = [];
+    this.handleSelectChange = this.handleSelectChange.bind(this);
+  }
+
+  handleInput(event) {
+    if (event.target?.matches?.('select[data-card-field]')) return;
+    super.handleInput(event);
+  }
+
+  handleSelectChange(event) {
+    const select = event.currentTarget;
+    const field = select?.dataset?.cardField;
+    const card = select?.closest?.('[data-card-index]');
+    const index = Number(card?.dataset?.cardIndex);
+    if (!field || !Number.isInteger(index)) return;
+    this.update(index, field, select.value);
+  }
+
+  afterRender() {
+    this.container?.querySelectorAll('select[data-card-field]').forEach(select => {
+      select.addEventListener('change', this.handleSelectChange);
+    });
   }
 
   setStations(stations = []) {

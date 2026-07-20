@@ -1,20 +1,20 @@
 {
-  "overlay_version": "6.0-ui-card-refactor",
+  "overlay_version": "6.0-ticket-tab-charge-fix-v2",
   "base_version": "5.1",
   "files": [
     {
       "path": "app.js",
-      "sha256": "e2d67674e968e5d30c97a6570c0eb07547f6dd39df99e8ffd3f9d822658e16da",
+      "sha256": "49aa130582a7b2afc2187c3a3fec709254f293802d079cdfc9f01c2971496ba6",
       "operation": "replace_or_add"
     },
     {
       "path": "index.html",
-      "sha256": "c0e9d60a34c956f75c9e14b738f4329ee6367ae723f8861bf361e7586f4d43b2",
+      "sha256": "a81e090f29a888865384c2ceeb838cdaaa976b23750c922ecc012ac698765344",
       "operation": "replace_or_add"
     },
     {
       "path": "service-worker.js",
-      "sha256": "ea1bddc62e674f77afc20c057b98ea10aba7c87c55bdf3ddce3d2797cbb3b619",
+      "sha256": "15e4a4679910f483ac8815f64babf8330c882e799567e19dba54c0a49c730b32",
       "operation": "replace_or_add"
     },
     {
@@ -120,12 +120,12 @@
     {
       "path": "ui/SectionCardList.js",
       "operation": "replace_or_add",
-      "sha256": "3116d576960e58b6c719a0b5e9cf9b3d5ea046392164b9f994b23efc481fc311"
+      "sha256": "0b44abb71cb1e477ae490ff848556935f84e96550870cca07a6c6043a5357147"
     },
     {
       "path": "ui/Version51StateController.js",
       "operation": "replace_or_add",
-      "sha256": "4374b5bb42bdb0b781154f38def88a800c64db8af04fd427f1a3d97027889d37"
+      "sha256": "c25beffa901d99e2123c51807269d91968c66408b1af56d28973a44e82c903a1"
     },
     {
       "path": "services/PassengerModel.js",
@@ -136,6 +136,51 @@
       "path": "services/SectionServiceManager.js",
       "operation": "replace_or_add",
       "sha256": "46a2b1ea1380a8ff2e2be5e467c3c7421b3862c2466bf980b18c652e66e9a6b5"
+    },
+    {
+      "path": "engine.js",
+      "sha256": "1b5a65b1bf9a5da68554b389fdf8ae11e755336a78854d7a3d4d6981bf9ccef7",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "services/ChargeAmountResolver.js",
+      "sha256": "88aef95acdf08abb1ca2602fee53d114392dedfc2167fadf982597167c32d9dd",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "services/PassengerCalculationService.js",
+      "sha256": "8bfc7a81b75956bbb945c1fa4a6cb2ebea4f066155fcaee180c1328e8066db88",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "services/PracticalOperationPlatform.js",
+      "sha256": "348720cb30b2763fb554f851edd17443804af217ee7e531de30a0fa2f8ce2516",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "data/rules/charge_amount_overrides.json",
+      "sha256": "9f1cafcf2c3246adfc12198783bb5d47e6917459245a9bceaddca40d5b8c647c",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "tests/version60-ticket-tab-and-charge-fix.mjs",
+      "sha256": "5cce25202cf31bc35f41d86fe0a72a132d88eaa5a1ffa4becf143385021f44c4",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "package.json",
+      "sha256": "ddbcc2eb768f65d0bfbc1c9ff64dc0149c35b46d9c332da0540221cb90302cb1",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "mk_v51/ui/Version51StateController.js",
+      "sha256": "c25beffa901d99e2123c51807269d91968c66408b1af56d28973a44e82c903a1",
+      "operation": "replace_or_add"
+    },
+    {
+      "path": "mk_v51/services/ChargeAmountResolver.js",
+      "sha256": "88aef95acdf08abb1ca2602fee53d114392dedfc2167fadf982597167c32d9dd",
+      "operation": "replace_or_add"
     }
   ],
   "required_repository_dependencies": [
@@ -165,8 +210,9 @@
     "ui/StationAutocomplete.js"
   ],
   "notes": [
-    "旅客入力と指定区画入力をスマートフォン優先の動的カードUIへ変更する。",
-    "BusinessEngine・RuleResolver・運賃距離計算ロジックは変更しない。",
-    "Commit・Push・GitHub Pages公開は行わない。"
+    "発売額モードの乗車券・料金券切替をルート要素のイベント委譲へ変更する。",
+    "ticketTypeをVersion51StateControllerからBusinessEngine評価コンテキストへ維持して渡す。",
+    "limitedExpressChargeのbreakdown内料金表IDを参照し、札幌―苫小牧A特急指定席1680円を料金取得段階で適用する。",
+    "営業キロ・換算キロ・経路解析・RuleResolver・UIデザインは変更しない。"
   ]
 }
