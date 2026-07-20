@@ -5,7 +5,6 @@ import {
   normalizePassengers,
   passengerTotals
 } from '../services/PassengerModel.js';
-import {buildSectionServices} from '../services/SectionServiceManager.js';
 import PassengerCardList from './PassengerCardList.js';
 import SectionCardList from './SectionCardList.js';
 
@@ -232,12 +231,12 @@ export default class Version51StateController {
   }
 
   applyRoute(route) {
-    const sections = route?.distance?.sections || [];
-    const hadServices = this.state.route.section_services.length > 0;
     this.state.route.distance = route?.distance || null;
-    if (!hadServices) {
-      this.state.route.section_services = buildSectionServices(sections, []);
-    }
+    const stations = this.routeStations();
+    this.sectionCardList?.setStations(stations);
+    this.state.route.section_services = stations.length
+      ? [this.sectionCardList.createInitialItem()]
+      : [];
     this.renderSectionServices();
     this.save();
   }
@@ -258,14 +257,11 @@ export default class Version51StateController {
     if (addButton) addButton.disabled = false;
     const services = this.state.route.section_services.length
       ? this.state.route.section_services
-      : [this.sectionCardList.createDefaultItem()];
+      : [this.sectionCardList.createInitialItem()];
     this.sectionCardList.setItems(services.map(service => {
-      const from = stations.find(station => station.station_id != null && station.station_id === service.from_station_id)
-        || stations.find(station => station.station_name === service.from_station_name)
+      const from = this.sectionCardList.findStation(service.from_station_id, service.from_station_name)
         || stations[0];
-      const to = stations.find(station => station.station_id != null && station.station_id === service.to_station_id)
-        || stations.find(station => station.station_name === service.to_station_name)
-        || stations[stations.length - 1];
+      const to = this.sectionCardList.findStation(service.to_station_id, service.to_station_name);
       return {
         ...service,
         from_station_id: from?.station_id ?? null,

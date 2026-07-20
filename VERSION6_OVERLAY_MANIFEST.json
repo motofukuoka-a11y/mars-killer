@@ -120,12 +120,12 @@
     {
       "path": "ui/SectionCardList.js",
       "operation": "replace_or_add",
-      "sha256": "16ab23ead94d5afd712ef5b33b560ca63c347ed83d3a537cdddfe94076df08d0"
+      "sha256": "3116d576960e58b6c719a0b5e9cf9b3d5ea046392164b9f994b23efc481fc311"
     },
     {
       "path": "ui/Version51StateController.js",
       "operation": "replace_or_add",
-      "sha256": "2af517b40ccd2145414714bc2dc405c2fba31fadd9923ea2c3c4ce8cd3796c26"
+      "sha256": "4374b5bb42bdb0b781154f38def88a800c64db8af04fd427f1a3d97027889d37"
     },
     {
       "path": "services/PassengerModel.js",

@@ -28,21 +28,37 @@ export default class SectionCardList extends DynamicCardList {
     this.render();
   }
 
-  createDefaultItem() {
+  createInitialItem() {
     const first = this.stations[0] || {};
     const last = this.stations[this.stations.length - 1] || first;
+    return this.createItem(first, last);
+  }
+
+  createDefaultItem() {
+    const previous = this.items[this.items.length - 1];
+    const from = this.findStation(previous?.to_station_id, previous?.to_station_name) || {};
+    return this.createItem(from, null);
+  }
+
+  createItem(fromStation = {}, toStation = null) {
     return {
       section_id: `designated-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-      from_station_id: first.station_id ?? null,
-      from_station_name: first.station_name ?? '',
-      to_station_id: last.station_id ?? null,
-      to_station_name: last.station_name ?? '',
+      from_station_id: fromStation?.station_id ?? null,
+      from_station_name: fromStation?.station_name ?? '',
+      to_station_id: toStation?.station_id ?? null,
+      to_station_name: toStation?.station_name ?? '',
       train_type: 'local',
       seat_type: 'none',
       service_name: null,
       service_group_id: null,
       charge_applicable: false
     };
+  }
+
+  findStation(stationId, stationName) {
+    return this.stations.find(station => stationId != null && station.station_id === stationId)
+      || this.stations.find(station => stationName && station.station_name === stationName)
+      || null;
   }
 
   update(index, field, value) {
@@ -73,12 +89,12 @@ export default class SectionCardList extends DynamicCardList {
         <div class="entry-card__fields">
           <label>乗車駅
             <select data-card-field="from_station">
-              ${this.stationOptions(fromValue)}
+              ${this.stationOptions(fromValue, false)}
             </select>
           </label>
           <label>降車駅
             <select data-card-field="to_station">
-              ${this.stationOptions(toValue)}
+              ${this.stationOptions(toValue, true)}
             </select>
           </label>
           <label>列車種別
@@ -107,8 +123,11 @@ export default class SectionCardList extends DynamicCardList {
     return station.station_id != null ? `id:${station.station_id}` : `name:${station.station_name || ''}`;
   }
 
-  stationOptions(selected) {
-    return this.stations.map(station => {
+  stationOptions(selected, allowEmpty = false) {
+    const emptyOption = allowEmpty
+      ? `<option value=""${selected === 'name:' ? ' selected' : ''}>未選択</option>`
+      : '';
+    return emptyOption + this.stations.map(station => {
       const value = this.stationValue(station);
       return `<option value="${this.escape(value)}"${value === selected ? ' selected' : ''}>${this.escape(station.station_name)}</option>`;
     }).join('');

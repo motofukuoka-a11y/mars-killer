@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-19T16:34:49.070Z",
+  "generated_at": "2026-07-19T18:12:34.497Z",
   "scope": "Version 5.1 changed-files overlay plus Version 6 cumulative implementation",
   "checks": {
     "required_files": [
@@ -93,7 +93,7 @@
       {
         "from": "app.js",
         "target": "ui/Version51StateController.js",
-        "exists": false
+        "exists": true
       },
       {
         "from": "engine.js",
@@ -188,12 +188,12 @@
       {
         "from": "engine.js",
         "target": "services/PassengerModel.js",
-        "exists": false
+        "exists": true
       },
       {
         "from": "engine.js",
         "target": "services/SectionServiceManager.js",
-        "exists": false
+        "exists": true
       },
       {
         "from": "engines/v6/BusinessEngineV6.js",
@@ -521,6 +521,36 @@
         "exists": true
       },
       {
+        "from": "mk_v51/tests/version60-ui-card-refactor.mjs",
+        "target": "mk_v51/services/PassengerModel.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/tests/version60-ui-card-refactor.mjs",
+        "target": "mk_v51/services/SectionServiceManager.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/tests/version60-ui-card-refactor.mjs",
+        "target": "mk_v51/ui/PassengerCardList.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/tests/version60-ui-card-refactor.mjs",
+        "target": "mk_v51/ui/SectionCardList.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/ui/PassengerCardList.js",
+        "target": "mk_v51/ui/DynamicCardList.js",
+        "exists": true
+      },
+      {
+        "from": "mk_v51/ui/SectionCardList.js",
+        "target": "mk_v51/ui/DynamicCardList.js",
+        "exists": true
+      },
+      {
         "from": "mk_v51/ui/Version51StateController.js",
         "target": "mk_v51/ui/StationAutocomplete.js",
         "exists": true
@@ -532,8 +562,508 @@
       },
       {
         "from": "mk_v51/ui/Version51StateController.js",
-        "target": "mk_v51/services/SectionServiceManager.js",
+        "target": "mk_v51/ui/PassengerCardList.js",
         "exists": true
+      },
+      {
+        "from": "mk_v51/ui/Version51StateController.js",
+        "target": "mk_v51/ui/SectionCardList.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/@eslint/config-array/dist/esm/index.js",
+        "target": "node_modules/@eslint/config-array/dist/esm/std__path/posix.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/@eslint/config-array/dist/esm/index.js",
+        "target": "node_modules/@eslint/config-array/dist/esm/std__path/windows.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/@eslint/config-array/dist/esm/index.js",
+        "target": "node_modules/@eslint/config-array/dist/esm/types.ts",
+        "exists": true
+      },
+      {
+        "from": "node_modules/@eslint/config-helpers/dist/esm/index.js",
+        "target": "node_modules/@eslint/config-helpers/dist/esm/types.ts",
+        "exists": true
+      },
+      {
+        "from": "node_modules/@eslint/object-schema/dist/esm/index.js",
+        "target": "node_modules/@eslint/object-schema/dist/esm/types.ts",
+        "exists": true
+      },
+      {
+        "from": "node_modules/@eslint/plugin-kit/dist/esm/index.js",
+        "target": "node_modules/@eslint/plugin-kit/dist/esm/types.ts",
+        "exists": true
+      },
+      {
+        "from": "node_modules/@eslint-community/eslint-utils/node_modules/eslint-visitor-keys/lib/index.js",
+        "target": "node_modules/@eslint-community/eslint-utils/node_modules/eslint-visitor-keys/lib/visitor-keys.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/@humanfs/core/src/index.js",
+        "target": "node_modules/@humanfs/core/src/hfs.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/@humanfs/core/src/index.js",
+        "target": "node_modules/@humanfs/core/src/path.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/@humanfs/core/src/index.js",
+        "target": "node_modules/@humanfs/core/src/errors.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/@humanfs/node/src/index.js",
+        "target": "node_modules/@humanfs/node/src/node-hfs.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/acorn/dist/acorn.js",
+        "target": "node_modules/acorn/dist/...",
+        "exists": false
+      },
+      {
+        "from": "node_modules/acorn/dist/acorn.js",
+        "target": "node_modules/acorn/dist/...",
+        "exists": false
+      },
+      {
+        "from": "node_modules/acorn/dist/acorn.js",
+        "target": "node_modules/acorn/dist/...",
+        "exists": false
+      },
+      {
+        "from": "node_modules/acorn/dist/acorn.js",
+        "target": "node_modules/acorn/dist/...",
+        "exists": false
+      },
+      {
+        "from": "node_modules/acorn/dist/acorn.js",
+        "target": "node_modules/acorn/dist/...",
+        "exists": false
+      },
+      {
+        "from": "node_modules/acorn/dist/acorn.mjs",
+        "target": "node_modules/acorn/dist/...",
+        "exists": false
+      },
+      {
+        "from": "node_modules/acorn/dist/acorn.mjs",
+        "target": "node_modules/acorn/dist/...",
+        "exists": false
+      },
+      {
+        "from": "node_modules/acorn/dist/acorn.mjs",
+        "target": "node_modules/acorn/dist/...",
+        "exists": false
+      },
+      {
+        "from": "node_modules/acorn/dist/acorn.mjs",
+        "target": "node_modules/acorn/dist/...",
+        "exists": false
+      },
+      {
+        "from": "node_modules/acorn/dist/acorn.mjs",
+        "target": "node_modules/acorn/dist/...",
+        "exists": false
+      },
+      {
+        "from": "node_modules/eslint/lib/eslint/eslint-helpers.js",
+        "target": "node_modules/eslint/lib/eslint/eslint.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint/lib/eslint/eslint-helpers.js",
+        "target": "node_modules/eslint/lib/config/config.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint/lib/eslint/eslint-helpers.js",
+        "target": "node_modules/eslint/lib/config/flat-config-array.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint/lib/eslint/eslint-helpers.js",
+        "target": "node_modules/eslint/lib/services/warning-service.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint/lib/eslint/eslint.js",
+        "target": "node_modules/eslint/lib/config/config.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint/lib/eslint/eslint.js",
+        "target": "node_modules/eslint/lib/config/flat-config-array.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint/lib/eslint/eslint.js",
+        "target": "node_modules/eslint/lib/eslint/worker.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint/lib/linter/source-code-traverser.js",
+        "target": "node_modules/eslint/lib/linter/esquery.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint/lib/linter/source-code-traverser.js",
+        "target": "node_modules/eslint/lib/linter/source-code-visitor.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint/lib/rules/keyword-spacing.js",
+        "target": "node_modules/eslint/lib/rules/a",
+        "exists": false
+      },
+      {
+        "from": "node_modules/eslint/lib/rules/keyword-spacing.js",
+        "target": "node_modules/eslint/lib/rules/.\n\t\t *                               error Expected space(s) before ",
+        "exists": false
+      },
+      {
+        "from": "node_modules/eslint/lib/rules/preserve-caught-error.js",
+        "target": "node_modules/eslint/lib/rules/my-custom-error.js",
+        "exists": false
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/definition.js",
+        "target": "node_modules/eslint-scope/lib/variable.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/index.js",
+        "target": "node_modules/eslint-scope/lib/assert.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/index.js",
+        "target": "node_modules/eslint-scope/lib/scope-manager.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/index.js",
+        "target": "node_modules/eslint-scope/lib/referencer.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/index.js",
+        "target": "node_modules/eslint-scope/lib/reference.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/index.js",
+        "target": "node_modules/eslint-scope/lib/variable.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/index.js",
+        "target": "node_modules/eslint-scope/lib/definition.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/index.js",
+        "target": "node_modules/eslint-scope/lib/pattern-visitor.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/index.js",
+        "target": "node_modules/eslint-scope/lib/scope.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/referencer.js",
+        "target": "node_modules/eslint-scope/lib/reference.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/referencer.js",
+        "target": "node_modules/eslint-scope/lib/variable.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/referencer.js",
+        "target": "node_modules/eslint-scope/lib/pattern-visitor.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/referencer.js",
+        "target": "node_modules/eslint-scope/lib/definition.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/referencer.js",
+        "target": "node_modules/eslint-scope/lib/assert.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/scope-manager.js",
+        "target": "node_modules/eslint-scope/lib/scope.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/scope-manager.js",
+        "target": "node_modules/eslint-scope/lib/assert.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/scope-manager.js",
+        "target": "node_modules/eslint-scope/lib/scope.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/scope-manager.js",
+        "target": "node_modules/eslint-scope/lib/variable.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/scope.js",
+        "target": "node_modules/eslint-scope/lib/reference.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/scope.js",
+        "target": "node_modules/eslint-scope/lib/variable.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/scope.js",
+        "target": "node_modules/eslint-scope/lib/definition.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/scope.js",
+        "target": "node_modules/eslint-scope/lib/assert.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/scope.js",
+        "target": "node_modules/eslint-scope/lib/scope-manager.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-scope/lib/variable.js",
+        "target": "node_modules/eslint-scope/lib/reference.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/eslint-visitor-keys/lib/index.js",
+        "target": "node_modules/eslint-visitor-keys/lib/visitor-keys.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/espree/espree.js",
+        "target": "node_modules/espree/lib/espree.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/espree/espree.js",
+        "target": "node_modules/espree/lib/options.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/espree/espree.js",
+        "target": "node_modules/espree/lib/types.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/espree/lib/espree.js",
+        "target": "node_modules/espree/lib/token-translator.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/espree/lib/espree.js",
+        "target": "node_modules/espree/lib/options.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/espree/lib/espree.js",
+        "target": "node_modules/espree/lib/types.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/espree/lib/espree.js",
+        "target": "node_modules/espree/espree.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/espree/lib/espree.js",
+        "target": "node_modules/espree/lib/options.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/espree/lib/options.js",
+        "target": "node_modules/espree/espree.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/espree/lib/token-translator.js",
+        "target": "node_modules/espree/lib/espree.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/espree/lib/token-translator.js",
+        "target": "node_modules/espree/lib/options.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/espree/lib/token-translator.js",
+        "target": "node_modules/espree/espree.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/espree/lib/types.js",
+        "target": "node_modules/espree/espree.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/minimatch/dist/esm/ast.js",
+        "target": "node_modules/minimatch/dist/esm/brace-expressions.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/minimatch/dist/esm/ast.js",
+        "target": "node_modules/minimatch/dist/esm/unescape.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/minimatch/dist/esm/index.js",
+        "target": "node_modules/minimatch/dist/esm/assert-valid-pattern.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/minimatch/dist/esm/index.js",
+        "target": "node_modules/minimatch/dist/esm/ast.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/minimatch/dist/esm/index.js",
+        "target": "node_modules/minimatch/dist/esm/escape.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/minimatch/dist/esm/index.js",
+        "target": "node_modules/minimatch/dist/esm/unescape.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/minimatch/dist/esm/index.js",
+        "target": "node_modules/minimatch/dist/esm/ast.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/minimatch/dist/esm/index.js",
+        "target": "node_modules/minimatch/dist/esm/escape.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/minimatch/dist/esm/index.js",
+        "target": "node_modules/minimatch/dist/esm/unescape.js",
+        "exists": true
+      },
+      {
+        "from": "node_modules/uri-js/dist/esnext/index.js",
+        "target": "node_modules/uri-js/dist/esnext/uri",
+        "exists": false
+      },
+      {
+        "from": "node_modules/uri-js/dist/esnext/index.js",
+        "target": "node_modules/uri-js/dist/esnext/schemes/http",
+        "exists": false
+      },
+      {
+        "from": "node_modules/uri-js/dist/esnext/index.js",
+        "target": "node_modules/uri-js/dist/esnext/schemes/https",
+        "exists": false
+      },
+      {
+        "from": "node_modules/uri-js/dist/esnext/index.js",
+        "target": "node_modules/uri-js/dist/esnext/schemes/ws",
+        "exists": false
+      },
+      {
+        "from": "node_modules/uri-js/dist/esnext/index.js",
+        "target": "node_modules/uri-js/dist/esnext/schemes/wss",
+        "exists": false
+      },
+      {
+        "from": "node_modules/uri-js/dist/esnext/index.js",
+        "target": "node_modules/uri-js/dist/esnext/schemes/mailto",
+        "exists": false
+      },
+      {
+        "from": "node_modules/uri-js/dist/esnext/index.js",
+        "target": "node_modules/uri-js/dist/esnext/schemes/urn",
+        "exists": false
+      },
+      {
+        "from": "node_modules/uri-js/dist/esnext/index.js",
+        "target": "node_modules/uri-js/dist/esnext/schemes/urn-uuid",
+        "exists": false
+      },
+      {
+        "from": "node_modules/uri-js/dist/esnext/index.js",
+        "target": "node_modules/uri-js/dist/esnext/uri",
+        "exists": false
+      },
+      {
+        "from": "node_modules/uri-js/dist/esnext/regexps-iri.js",
+        "target": "node_modules/uri-js/dist/esnext/regexps-uri",
+        "exists": false
+      },
+      {
+        "from": "node_modules/uri-js/dist/esnext/regexps-uri.js",
+        "target": "node_modules/uri-js/dist/esnext/util",
+        "exists": false
+      },
+      {
+        "from": "node_modules/uri-js/dist/esnext/schemes/https.js",
+        "target": "node_modules/uri-js/dist/esnext/schemes/http",
+        "exists": false
+      },
+      {
+        "from": "node_modules/uri-js/dist/esnext/schemes/mailto.js",
+        "target": "node_modules/uri-js/dist/esnext/uri",
+        "exists": false
+      },
+      {
+        "from": "node_modules/uri-js/dist/esnext/schemes/mailto.js",
+        "target": "node_modules/uri-js/dist/esnext/util",
+        "exists": false
+      },
+      {
+        "from": "node_modules/uri-js/dist/esnext/schemes/urn.js",
+        "target": "node_modules/uri-js/dist/esnext/uri",
+        "exists": false
+      },
+      {
+        "from": "node_modules/uri-js/dist/esnext/schemes/wss.js",
+        "target": "node_modules/uri-js/dist/esnext/schemes/ws",
+        "exists": false
+      },
+      {
+        "from": "node_modules/uri-js/dist/esnext/uri.js",
+        "target": "node_modules/uri-js/dist/esnext/regexps-uri",
+        "exists": false
+      },
+      {
+        "from": "node_modules/uri-js/dist/esnext/uri.js",
+        "target": "node_modules/uri-js/dist/esnext/regexps-iri",
+        "exists": false
+      },
+      {
+        "from": "node_modules/uri-js/dist/esnext/uri.js",
+        "target": "node_modules/uri-js/dist/esnext/util",
+        "exists": false
       },
       {
         "from": "services/v6/AccidentHandlingServicesV6.js",
@@ -656,6 +1186,56 @@
         "exists": true
       },
       {
+        "from": "tests/version60-ui-card-refactor.mjs",
+        "target": "services/PassengerModel.js",
+        "exists": true
+      },
+      {
+        "from": "tests/version60-ui-card-refactor.mjs",
+        "target": "services/SectionServiceManager.js",
+        "exists": true
+      },
+      {
+        "from": "tests/version60-ui-card-refactor.mjs",
+        "target": "ui/PassengerCardList.js",
+        "exists": true
+      },
+      {
+        "from": "tests/version60-ui-card-refactor.mjs",
+        "target": "ui/SectionCardList.js",
+        "exists": true
+      },
+      {
+        "from": "ui/PassengerCardList.js",
+        "target": "ui/DynamicCardList.js",
+        "exists": true
+      },
+      {
+        "from": "ui/SectionCardList.js",
+        "target": "ui/DynamicCardList.js",
+        "exists": true
+      },
+      {
+        "from": "ui/Version51StateController.js",
+        "target": "ui/StationAutocomplete.js",
+        "exists": false
+      },
+      {
+        "from": "ui/Version51StateController.js",
+        "target": "services/PassengerModel.js",
+        "exists": true
+      },
+      {
+        "from": "ui/Version51StateController.js",
+        "target": "ui/PassengerCardList.js",
+        "exists": true
+      },
+      {
+        "from": "ui/Version51StateController.js",
+        "target": "ui/SectionCardList.js",
+        "exists": true
+      },
+      {
         "from": "ui/Version6RefundController.js",
         "target": "services/v6/Version6Platform.js",
         "exists": true
@@ -689,6 +1269,30 @@
       },
       {
         "file": "ui/Version6RefundController.js",
+        "exists": true
+      },
+      {
+        "file": "ui/Version51StateController.js",
+        "exists": true
+      },
+      {
+        "file": "ui/DynamicCardList.js",
+        "exists": true
+      },
+      {
+        "file": "ui/PassengerCardList.js",
+        "exists": true
+      },
+      {
+        "file": "ui/SectionCardList.js",
+        "exists": true
+      },
+      {
+        "file": "services/PassengerModel.js",
+        "exists": true
+      },
+      {
+        "file": "services/SectionServiceManager.js",
         "exists": true
       },
       {
@@ -834,23 +1438,11 @@
         "exists": false
       },
       {
-        "file": "services/PassengerModel.js",
-        "exists": false
-      },
-      {
         "file": "services/SearchConditionAdapter.js",
         "exists": false
       },
       {
-        "file": "services/SectionServiceManager.js",
-        "exists": false
-      },
-      {
         "file": "ui/StationAutocomplete.js",
-        "exists": false
-      },
-      {
-        "file": "ui/Version51StateController.js",
         "exists": false
       }
     ],
@@ -878,11 +1470,11 @@
   },
   "summary": {
     "required_missing": 0,
-    "module_imports_missing": 38,
+    "module_imports_missing": 68,
     "critical_assets_missing": 0,
     "html_references_missing": 2,
     "manifest_icons_missing": 2,
-    "optional_assets_missing": 27,
+    "optional_assets_missing": 24,
     "overlay_internal_gate_passed": true,
     "full_application_release_ready": false,
     "release_blockers": [
